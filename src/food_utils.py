@@ -10,9 +10,29 @@ import sqlite3
 
 class Food:
     def __init__(self, name, macros, serving, micros=None):
+        """
+        The food class contains all information of a specific food
+        that will be input into the database. Contains a few static
+        helper functions related to accessing the database.
+
+        @param name:  Name of the food
+        @type  name:  text
+
+        @param macros:  Object containing the macronutrients of the food
+        @type  macros:  Object of class Macronutrients
+
+        @param serving:  Object containing the serving size and unit of food
+        @type  serving:  Object of class Serving
+
+        @param micros:  Object containing the micronutrients
+        @type  serving:  Object of class Micronutrients. Default is None.
+        """
 
         self.name = name
-        # implicitly known that serving size will be passed in as cals/100g
+
+        # Everything will be stored in cals/100g in database
+        # So we will convert and scale the serving size
+        # based off of that
 
         if serving.unit == "g":
             scale = 100/serving.size
@@ -33,7 +53,10 @@ class Food:
     def _calories_make_sense(self):
         """
         Check if calories passed in make sense by checking if they
-        are within a 10% error of the computed calories from the macros
+        are within a 10% error of the computed calories from the macros.
+
+        Occasionally calorie info is inaccurate, so it is not useful
+        off of the nutritonal package.
         """
         calculated_calories = 4 * (self.protein + self.carb - self.fiber)
         calculated_calories += 9 * self.fat
@@ -48,6 +71,9 @@ class Food:
 
     @staticmethod
     def create_food_table():
+        """
+        Creates the food database if it exists.
+        """
         conn = sqlite3.connect('food.db')
         cursor = conn.cursor()
         cursor.execute("""CREATE TABLE IF NOT EXISTS food (
@@ -64,17 +90,28 @@ class Food:
 
     @staticmethod
     def get_food(name):
-        """ returns all results with that name """
+        """ 
+        Returns all results with that name
+
+        @param name: Name of the food
+        @param type: text
+        """
         conn = sqlite3.connect('food.db')
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM food WHERE name=:name", {'name': name})
         foods = cursor.fetchall()
         conn.close()
+
         return foods
 
     @staticmethod
     def insert_food(food):
-        """ inserts food into the database """
+        """ 
+        Inserts food into the database
+
+        @param food: A Food object containing all food info
+        @param type: Object of class Food
+        """
         conn = sqlite3.connect('food.db')
         cursor = conn.cursor()
         data = {'name': food.name,
@@ -95,7 +132,12 @@ class Food:
 
     @staticmethod
     def update_food(food):
-        """ updates food from database """
+        """ 
+        Updates food from database
+
+        @param food: A Food object containing all food info
+        @param type: Object of class Food
+        """
         conn = sqlite3.connect('food.db')
         cursor = conn.cursor()
         data = {'name': food.name,
@@ -115,6 +157,12 @@ class Food:
 
     @staticmethod
     def remove_food(name):
+        """
+        Removes food from database
+
+        @param name:  Name of the food
+        @type  name:  text
+        """
         conn = sqlite3.connect('food.db')
         cursor = conn.cursor()
         cursor.execute("DELETE from food WHERE name=:name", {'name': name})
@@ -124,6 +172,26 @@ class Food:
 
 class Macronutrients:
     def __init__(self, calories, fat, carb, fiber, protein):
+        """
+        The macronutrients of the food in ascending order as if being read
+        from a nutritional label. The value that is being passed in is the
+        grams of fat, carb, etc for its serving size.
+
+        @param calories: The calories for the serving (kcals)
+        @type calories: real
+
+        @param fat: The fat for the serving (g)
+        @type fat: real
+
+        @param carb: The carbohydrates for the serving (g)
+        @type fat: real
+
+        @param fiber: The fiber for the serving (g)
+        @type fiber: real
+
+        @param protein: The protein for the serving (g)
+        @type protein: real
+        """
         self.calories = calories
         self.fat = fat
         self.carb = carb
@@ -134,6 +202,8 @@ class Macronutrients:
 class Serving:
     def __init__(self, unit, size, second_size=0):
         """
+        The serving for the food being input to the database. 
+
         @param unit:  The unit type of the serving (e.g. g, oz)
         @type  unit:  text
 
