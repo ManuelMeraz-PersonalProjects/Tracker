@@ -63,7 +63,7 @@ class food_utils:
         Inserts food into the database
 
         @param food: A Food object containing all food info
-        @param type: Object of class Food
+        @type food: Object of class Food
         """
         conn = sqlite3.connect('food.db')
         cursor = conn.cursor()
@@ -89,7 +89,7 @@ class food_utils:
         Updates food from database
 
         @param food: A Food object containing all food info
-        @param type: Object of class Food
+        @type food: Object of class Food
         """
         conn = sqlite3.connect('food.db')
         cursor = conn.cursor()
@@ -140,7 +140,7 @@ class Food:
         @type  serving:  Object of class Serving
 
         @param micros:  Object containing the micronutrients
-        @type  serving:  Object of class Micronutrients. Default is None.
+        @type  micros:  Object of class Micronutrients. Default is None.
         """
 
         self.name = name
@@ -225,7 +225,7 @@ class Macronutrients:
         @type fat: real
 
         @param carb: The carbohydrates for the serving (g)
-        @type fat: real
+        @type carb: real
 
         @param fiber: The fiber for the serving (g)
         @type fiber: real
