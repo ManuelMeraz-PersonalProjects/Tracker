@@ -4,6 +4,7 @@ if __name__ == '__main__':
     serving = Serving('g', 100)
     macros = Macronutrients(17, 1, 1, 0, 1)
     food = Food("hot pocket", macros, serving)
+    print(food)
 
     food_utils.create_food_table()
 

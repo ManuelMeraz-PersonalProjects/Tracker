@@ -34,13 +34,26 @@ class food_utils:
         Returns all results with that name
 
         @param name: Name of the food
-        @param type: text
+        @type name: text
+
+        @return foods: All foods matching the food name passed in
+        @rtype foods: A list of Food objects
         """
         conn = sqlite3.connect('food.db')
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM food WHERE name=:name", {'name': name})
-        foods = cursor.fetchall()
+        food_data = cursor.fetchall()
         conn.close()
+
+        foods = []
+
+        for data in food_data:
+            # Data in databse is in macros/100g
+            serving = Serving('g', 100)
+            macros = Macronutrients(data[1], data[2], data[3],
+                                    data[4], data[5])
+            food = Food(name, macros, serving)
+            foods.append(food)
 
         return foods
 
@@ -170,6 +183,32 @@ class Food:
             return False
 
         return True
+
+    def __str__(self):
+        """
+        Print out of object
+        """
+        name = '\n' + self.name + '\n'
+        cals = "Calories: {}\n".format(self.calories)
+        fat = "Fat: {}\n".format(self.fat)
+        carbs = "Carbs: {}\n".format(self.carb)
+        fiber = "Fiber: {}\n".format(self.fiber)
+        protein = "Protein: {}\n".format(self.protein)
+        str = name + cals + fat + carbs + fiber + protein
+        return str
+
+    def __repr__(self):
+        """
+        Print out of object
+        """
+        name = '\n' + self.name + '\n'
+        cals = "Calories: {}\n".format(self.calories)
+        fat = "Fat: {}\n".format(self.fat)
+        carbs = "Carbs: {}\n".format(self.carb)
+        fiber = "Fiber: {}\n".format(self.fiber)
+        protein = "Protein: {}\n".format(self.protein)
+        str = name + cals + fat + carbs + fiber + protein
+        return str
 
 
 class Macronutrients:
