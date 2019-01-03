@@ -1,9 +1,8 @@
 """
-File: food_utils.py
-Author: Manuel Meraz
-Email: meraz.manuel@gmail.com
-Github: https://github.com/manuelmeraz
-Description: Classes to handle food database information
+@author: Manuel Meraz
+@contact: meraz.manuel@gmail.com
+@contact: https://github.com/manuelmeraz
+@summary: Classes to handle food database information
 """
 import sqlite3
 
