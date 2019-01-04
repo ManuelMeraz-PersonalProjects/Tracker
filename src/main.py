@@ -1,4 +1,5 @@
-from food_utils import Food, Macronutrients, Serving, food_utils
+import food_utils
+from food_utils import Food, Macronutrients, Serving
 
 if __name__ == '__main__':
     serving = Serving('g', 100)
