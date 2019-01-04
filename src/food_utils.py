@@ -7,7 +7,7 @@
 import sqlite3
 
 
-def create_food_table():
+def create_food_db():
     """
     Creates the food database if it exists.
     """
@@ -24,6 +24,18 @@ def create_food_table():
                     )""")
     conn.commit()
     conn.close()
+
+
+def delete_food_db():
+    """
+    Creates the food database if it exists.
+    """
+    conn = sqlite3.connect('food.db')
+    cursor = conn.cursor()
+    cursor.execute("DROP TABLE food")
+    conn.commit()
+    conn.close()
+
 
 def get_food(name):
     """
@@ -47,11 +59,13 @@ def get_food(name):
         # Data in databse is in macros/100g
         serving = Serving('g', 100)
         macros = Macronutrients(data[1], data[2], data[3],
-                data[4], data[5])
+                                data[4], data[5])
+
         food = Food(name, macros, serving)
         foods.append(food)
 
     return foods
+
 
 def insert_food(food):
     """
@@ -78,6 +92,7 @@ def insert_food(food):
 
     conn.close()
 
+
 def update_food(food):
     """
     Updates food from database
@@ -101,6 +116,7 @@ def update_food(food):
 
     conn.commit()
     conn.close()
+
 
 def remove_food(name):
     """

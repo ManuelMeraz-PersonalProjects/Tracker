@@ -7,7 +7,7 @@ if __name__ == '__main__':
     food = Food("hot pocket", macros, serving)
     print(food)
 
-    food_utils.create_food_table()
+    food_utils.create_food_db()
 
     food_utils.insert_food(food)
     d_food = food_utils.get_food("hot pocket")
