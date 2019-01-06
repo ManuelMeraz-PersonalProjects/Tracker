@@ -5,6 +5,7 @@
 @summary: Classes to handle food database information
 """
 import sqlite3
+import os
 
 
 def create_food_db():
@@ -28,13 +29,9 @@ def create_food_db():
 
 def delete_food_db():
     """
-    Creates the food database if it exists.
+    delete the food database if it exists.
     """
-    conn = sqlite3.connect('food.db')
-    cursor = conn.cursor()
-    cursor.execute("DROP TABLE food")
-    conn.commit()
-    conn.close()
+    os.remove('food.db')
 
 
 def get_food(name):
@@ -204,6 +201,7 @@ class Food:
         fiber = "Fiber: {}\n".format(self.fiber)
         protein = "Protein: {}\n".format(self.protein)
         str = name + cals + fat + carbs + fiber + protein
+
         return str
 
     def __repr__(self):
@@ -217,6 +215,7 @@ class Food:
         fiber = "Fiber: {}\n".format(self.fiber)
         protein = "Protein: {}\n".format(self.protein)
         str = name + cals + fat + carbs + fiber + protein
+
         return str
 
 
@@ -250,6 +249,9 @@ class Macronutrients:
 
 
 class Serving:
+    unit_types = ['G', 'OZ', 'LBS']
+    """ The unit types we can handle """
+
     def __init__(self, unit, size, second_size=0):
         """
         The serving for the food being input to the database.
@@ -264,6 +266,17 @@ class Serving:
         @type: real
 
         """
+
+        if unit.upper() not in Serving.unit_types:
+            raise TypeError("""First argument must be a string of unit
+                             in this list""" + str(Serving.unit_types))
+
+        try:
+            # Make sure they're numbers
+            size + second_size + 1
+        except TypeError:
+            raise TypeError("Values must be numbers")
+
         self.size = size
         self.unit = unit
         self.second_size = second_size
