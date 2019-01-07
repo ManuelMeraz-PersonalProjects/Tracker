@@ -25,7 +25,7 @@ test:
 	@py.test --verbose --color=yes ./tests
 
 run:
-	@python ./src/main.py
+	@python tracker.py
 
 docs:
-	@epydoc --html src/food_utils.py -o docs/
+	@epydoc --html food/ -o docs/
