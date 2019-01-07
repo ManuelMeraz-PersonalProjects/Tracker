@@ -1,0 +1,6 @@
+# Requirements for this project to be installed by pip like so
+# pip install -r requirements.txt
+pytest
+pyside2
+epydoc
+flake8
