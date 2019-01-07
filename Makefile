@@ -22,7 +22,7 @@ lint:
 	@flake8 
 
 test: 
-	@py.test --verbose --color=yes ./tests
+	@pytest --verbose --color=yes 
 
 run:
 	@python tracker.py
