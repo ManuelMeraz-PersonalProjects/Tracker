@@ -1,3 +1,5 @@
+#!/usr/binenv python3
+
 
 class Food:
     def __init__(self, name, macros, serving, micros=None):
@@ -87,3 +89,71 @@ class Food:
         str = name + cals + fat + carbs + fiber + protein
 
         return str
+
+
+class Macronutrients:
+    def __init__(self, calories, fat, carb, fiber, protein):
+        """
+        The macronutrients of the food in ascending order as if being read
+        from a nutritional label. The value that is being passed in is the
+        grams of fat, carb, etc for its serving size.
+
+        @param calories: The calories for the serving (kcals)
+        @type calories: real
+
+        @param fat: The fat for the serving (g)
+        @type fat: real
+
+        @param carb: The carbohydrates for the serving (g)
+        @type carb: real
+
+        @param fiber: The fiber for the serving (g)
+        @type fiber: real
+
+        @param protein: The protein for the serving (g)
+        @type protein: real
+        """
+        self.calories = calories
+        self.fat = fat
+        self.carb = carb
+        self.fiber = fiber
+        self.protein = protein
+
+
+class Micronutrients:
+    # TODO(manny): add in micros
+    pass
+
+
+class Serving:
+    unit_types = ['G', 'OZ', 'LBS']
+    """ The unit types we can handle """
+
+    def __init__(self, unit, size, second_size=0):
+        """
+        The serving for the food being input to the database.
+
+        @param unit:  The unit type of the serving (e.g. g, oz)
+        @type  unit:  text
+
+        @param size:  The quantity of the serving
+        @type  size:  real
+
+        @param second_size: The secondary quantity of the serving (e.g. lbs oz)
+        @type: real
+
+        """
+
+        if unit.upper() not in Serving.unit_types:
+            raise TypeError("""First argument must be a string of unit
+                             in this list""" + str(Serving.unit_types))
+
+        try:
+            # Make sure they're numbers
+            size + second_size + 1
+        except TypeError:
+            raise TypeError("Values must be numbers")
+
+        self.size = size
+        self.unit = unit
+        self.second_size = second_size

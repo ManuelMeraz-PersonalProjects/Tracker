@@ -15,8 +15,8 @@ clean:
 	@find . -name '*.pyc' -exec rm --force {} +
 	@find . -name '*.pyo' -exec rm --force {} +
 	@find . -name '*~' -exec rm --force  {} +
-	@find . -name '__pyache__' -type d -exec rm -rf {} +
-	@rm -rf ./docs
+	@find . -name '*.db' -exec rm --force  {} +
+	@find . -name '__pycache__' -type d -exec rm -rf {} +
 
 lint:
 	@flake8 
@@ -25,7 +25,4 @@ test:
 	@pytest --verbose --color=yes 
 
 run:
-	@python tracker.py
-
-docs:
-	@epydoc --html food/ -o docs/
+	@python3 tracker/main.py

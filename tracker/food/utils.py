@@ -1,3 +1,5 @@
+#!/usr/binenv python3
+
 """
 @author: Manuel Meraz
 @contact: meraz.manuel@gmail.com
@@ -6,7 +8,7 @@
 """
 import sqlite3
 import os
-import food
+from tracker import food
 
 
 def create_food_db():

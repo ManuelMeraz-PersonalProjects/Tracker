@@ -1,9 +1,8 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import unittest
 import os
-from context import food
-from food import Food, Macronutrients, Serving, utils
+from tracker.food import Food, Macronutrients, Serving, utils
 
 
 class TestFoodUtils(unittest.TestCase):

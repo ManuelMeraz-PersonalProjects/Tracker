@@ -1,5 +1,40 @@
 *mypy_cache/
-*.swp
-*.db
-*.pyc
-docs/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[codi]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+eggs/
+.eggs/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environments
+.env
+.venv
+tracker_venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Backups
+*~
+
+# Coverage Files
+.coverage
+
+# Generated Document Sources
+docs/source/configs/*
+docs/source/modules/*

@@ -1,9 +1,9 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 import food
-# import sys
-# import random
-# from PySide2 import QtCore, QtWidgets, QtGui
+import sys
+import random
+from PySide2 import QtCore, QtWidgets, QtGui
 
 if __name__ == '__main__':
     serving = food.Serving('g', 100)
