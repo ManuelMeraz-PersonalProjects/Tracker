@@ -8,5 +8,5 @@ TODO:
 
 
 Developers:
-source activate_venv
-source install_deps
+* source activate_venv
+* source install_deps
