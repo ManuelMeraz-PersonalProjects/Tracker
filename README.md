@@ -1,12 +1,14 @@
 # Tracker
 Track my macronutrients, weight, and compute appropriate TDEE
 
-TODO:
-* make basic gui
-* github pages + sphinx
-* auto test on github
+First time contributors:
+
+`source activate_venv`
+
+`source install_deps`
+
+Always `source activate_venv` before developing
 
 
-Developers:
-* source activate_venv
-* source install_deps
+To leave virtual-env:
+ `deaactivate
