@@ -18,5 +18,5 @@ setuptools.setup(
     license="MIT",
     packages=setuptools.find_packages(),
     install_requires=reqs.strip().split("\n"),
-    entry_points={"console_scripts": ["pytext = pytext.main:main"]},
+    entry_points={"console_scripts": ["tracker = tracker.main:main"]},
 )
