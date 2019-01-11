@@ -1,10 +1,10 @@
 #!/usr/binenv python3
 
 """
-@author: Manuel Meraz
-@contact: meraz.manuel@gmail.com
-@contact: https://github.com/manuelmeraz
-@summary: Classes to handle food database information
+:author: Manuel Meraz
+:contact: meraz.manuel:gmail.com
+:contact: https://github.com/manuelmeraz
+:summary: Classes to handle food database information
 """
 import sqlite3
 import os
@@ -18,7 +18,7 @@ def create_food_db():
     conn = sqlite3.connect('food.db')
     cursor = conn.cursor()
     cursor.execute("""CREATE TABLE IF NOT EXISTS food (
-                    name text,
+                    name string,
                     calories real,
                     fat real,
                     carb real,
@@ -41,11 +41,11 @@ def get_food(name):
     """
     Returns all results with that name
 
-    @param name: Name of the food
-    @type name: text
+    :param name: Name of the food
+    :type name: string
 
-    @return foods: All foods matching the food name passed in
-    @rtype foods: A list of Food objects
+    :return foods: All foods matching the food name passed in
+    :rtype foods: A list of Food objects
     """
     conn = sqlite3.connect('food.db')
     cursor = conn.cursor()
@@ -78,8 +78,8 @@ def insert_food(food):
     """
     Inserts food into the database
 
-    @param food: A Food object containing all food info
-    @type food: Object of class Food
+    :param food: A Food object containing all food info
+    :type food: Food
     """
     conn = sqlite3.connect('food.db')
     cursor = conn.cursor()
@@ -104,8 +104,8 @@ def update_food(food):
     """
     Updates food from database
 
-    @param food: A Food object containing all food info
-    @type food: Object of class Food
+    :param food: A Food object containing all food info
+    :type food: Food
     """
     conn = sqlite3.connect('food.db')
     cursor = conn.cursor()
@@ -129,8 +129,8 @@ def remove_food(name):
     """
     Removes food from database
 
-    @param name:  Name of the food
-    @type  name:  text
+    :param name:  Name of the food
+    :type  name:  string
     """
     conn = sqlite3.connect('food.db')
     cursor = conn.cursor()

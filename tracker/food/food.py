@@ -1,5 +1,11 @@
 #!/usr/binenv python3
 
+"""
+:author: Manuel Meraz
+:contact: meraz.manuel:gmail.com
+:contact: https://github.com/manuelmeraz
+:summary: Classes to handle food database information
+"""
 
 class Food:
     def __init__(self, name, macros, serving, micros=None):
@@ -8,17 +14,17 @@ class Food:
         that will be input into the database. Contains a few static
         helper functions related to accessing the database.
 
-        @param name:  Name of the food
-        @type  name:  text
+        :param name:  Name of the food
+        :type  name:  string
 
-        @param macros:  Object containing the macronutrients of the food
-        @type  macros:  Object of class Macronutrients
+        :param macros:  Object containing the macronutrients of the food
+        :type  macros:  Macronutrients
 
-        @param serving:  Object containing the serving size and unit of food
-        @type  serving:  Object of class Serving
+        :param serving:  Object containing the serving size and unit of food
+        :type  serving:  Serving
 
-        @param micros:  Object containing the micronutrients
-        @type  micros:  Object of class Micronutrients. Default is None.
+        :param micros:  Object containing the micronutrients
+        :type  micros:  Micronutrients. Default is None.
         """
 
         self.name = name
@@ -98,20 +104,20 @@ class Macronutrients:
         from a nutritional label. The value that is being passed in is the
         grams of fat, carb, etc for its serving size.
 
-        @param calories: The calories for the serving (kcals)
-        @type calories: real
+        :param calories: The calories for the serving (kcals)
+        :type calories: real
 
-        @param fat: The fat for the serving (g)
-        @type fat: real
+        :param fat: The fat for the serving (g)
+        :type fat: real
 
-        @param carb: The carbohydrates for the serving (g)
-        @type carb: real
+        :param carb: The carbohydrates for the serving (g)
+        :type carb: real
 
-        @param fiber: The fiber for the serving (g)
-        @type fiber: real
+        :param fiber: The fiber for the serving (g)
+        :type fiber: real
 
-        @param protein: The protein for the serving (g)
-        @type protein: real
+        :param protein: The protein for the serving (g)
+        :type protein: real
         """
         self.calories = calories
         self.fat = fat
@@ -133,14 +139,14 @@ class Serving:
         """
         The serving for the food being input to the database.
 
-        @param unit:  The unit type of the serving (e.g. g, oz)
-        @type  unit:  text
+        :param unit:  The unit type of the serving (e.g. g, oz)
+        :type  unit:  string
 
-        @param size:  The quantity of the serving
-        @type  size:  real
+        :param size:  The quantity of the serving
+        :type  size:  real
 
-        @param second_size: The secondary quantity of the serving (e.g. lbs oz)
-        @type: real
+        :param second_size: The secondary quantity of the serving (e.g. lbs oz)
+        :type: real
 
         """
 
