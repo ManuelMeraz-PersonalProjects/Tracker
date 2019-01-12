@@ -1,0 +1,10 @@
+language: python
+python: "3.6"
+
+#safelist
+branches:
+ only:
+   - master
+
+install: source install_deps
+before_script: make test
