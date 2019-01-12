@@ -7,4 +7,4 @@ branches:
    - master
 
 install: source install_deps
-before_script: make test
+script: make test
