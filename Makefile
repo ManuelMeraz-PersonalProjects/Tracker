@@ -7,8 +7,6 @@ help:
 	@echo "        Run py.test"
 	@echo '    run'
 	@echo '        Run main'
-	@echo '    docs'
-	@echo '        Create html documentations in docs/'
 
 .PHONY: clean
 clean:
