@@ -1,37 +1,34 @@
-#!/usr/binenv python3
-# coding=utf-8
+#!/usr/bin/env python3
 
 import sys
-import random
-from PySide2 import QtCore, QtWidgets, QtGui
+from PySide2.QtWidgets import (QLineEdit, QPushButton, QApplication,
+    QVBoxLayout, QDialog)
 
+class Form(QDialog):
 
-class MyWidget(QtWidgets.QWidget):
-    def __init__(self):
-        super(MyWidget, self).__init__()
+    def __init__(self, parent=None):
+        super(Form, self).__init__(parent)
+        # Create widgets
+        self.edit = QLineEdit("Write my name here")
+        self.button = QPushButton("Show Greetings")
+        # Create layout and add widgets
+        layout = QVBoxLayout()
+        layout.addWidget(self.edit)
+        layout.addWidget(self.button)
+        # Set dialog layout
+        self.setLayout(layout)
+        # Add button signal to greetings slot
+        self.button.clicked.connect(self.greetings)
 
-        self.hello = ["Hallo Welt", "Hei maailma", "Hola Mundo", "Привет мир"]
+    # Greets the user
+    def greetings(self):
+        print ("Hello %s" % self.edit.text())
 
-        self.button = QtWidgets.QPushButton("Click me!")
-        self.text = QtWidgets.QLabel("Hello World")
-        self.text.setAlignment(QtCore.Qt.AlignCenter)
-
-        self.layout = QtWidgets.QVBoxLayout()
-        self.layout.addWidget(self.text)
-        self.layout.addWidget(self.button)
-        self.setLayout(self.layout)
-
-        self.button.clicked.connect(self.magic)
-
-    def magic(self):
-        self.text.setText(random.choice(self.hello))
-
-
-if __name__ == "__main__":
-    app = QtWidgets.QApplication([])
-
-    widget = MyWidget()
-    widget.resize(800, 600)
-    widget.show()
-
+if __name__ == '__main__':
+    # Create the Qt Application
+    app = QApplication(sys.argv)
+    # Create and show the form
+    form = Form()
+    form.show()
+    # Run the main Qt loop
     sys.exit(app.exec_())
