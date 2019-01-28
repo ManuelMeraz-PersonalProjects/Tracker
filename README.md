@@ -18,4 +18,4 @@ Always `source activate_venv` before developing
 
 
 To leave virtual-env:
- `deaactivate
+ `deactivate
