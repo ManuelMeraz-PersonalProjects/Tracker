@@ -17,5 +17,4 @@ First time contributors:
 Always `source activate_venv` before developing
 
 
-To leave virtual-env:
- `deactivate
+To leave virtual-env: `deactivate`
