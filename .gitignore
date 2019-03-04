@@ -38,3 +38,10 @@ venv.bak/
 # Generated Document Sources
 docs/source/configs/*
 docs/source/modules/*
+
+# vim files
+*.swp
+*.swo
+
+# ignore db files
+*.db
