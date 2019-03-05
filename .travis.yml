@@ -1,10 +1,19 @@
-language: python
-python: "3.6"
+language: cpp
+compiler: gcc
+dist: xenial
 
-#safelist
-branches:
- only:
-   - master
+before_install:
+  # C++17
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt-get update -qq
 
-install: source install_deps
-script: make test
+install: 
+  # C++17
+  - sudo apt-get install -qq g++-6
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
+
+script: 
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
