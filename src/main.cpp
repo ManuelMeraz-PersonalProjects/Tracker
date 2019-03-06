@@ -1,6 +1,6 @@
-#include "lib.hpp"
+#include <compute/compute.hpp>
 #include <iostream>
 
 int main() {
-	hello_world();
+	std::cout << compute::sum(5, 5) << std::endl;
 }
