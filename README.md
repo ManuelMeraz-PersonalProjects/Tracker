@@ -6,3 +6,7 @@
 
 Track my macronutrients, weight, and compute appropriate TDEE
 
+TODO:
+clang tidy and clang format 
+docs
+tests
