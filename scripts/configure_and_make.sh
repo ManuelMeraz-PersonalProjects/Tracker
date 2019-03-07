@@ -19,8 +19,10 @@ fi
 cd ${TRACKER_PROJECT}/build
 # Set CMAKE settings here
 cmake \
-	-DCMAKE_BUILD_TYPE=Debug \
-	.. 
+-DCMAKE_BUILD_TYPE=Debug \
+-DENABLE_DOCUMENTATION=OFF \
+-DENABLE_TESTS=ON \
+.. 
 
 # Useful flag for make -j<# threads> for parallel build
 make

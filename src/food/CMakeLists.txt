@@ -7,4 +7,6 @@ add_library(food
 	${FOOD_SOURCE_FILES}
 )
 
-target_include_directories(food PUBLIC ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(food 
+	PUBLIC ${PROJECT_SOURCE_DIR}/include
+)

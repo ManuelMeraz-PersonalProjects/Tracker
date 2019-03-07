@@ -4,6 +4,12 @@ else()
 	cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 endif()
 
+if(NOT CMAKE_BUILD_TYPE)
+	set(CMAKE_BUILD_TYPE "Release" CACHE STRING
+		"Choose the type of build: [Debug, Release, RelWithDebInfo]"
+		FORCE)
+endif()
+
 # creates compile_commands.json database for linters
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
