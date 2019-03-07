@@ -17,8 +17,8 @@ elif [ -e ${TRACKER_PROJECT}/build/CMakeCache.txt ]; then
 fi
 
 cd ${TRACKER_PROJECT}/build
+# Set CMAKE settings here
 cmake \
-	# Set CMAKE settings here
 	-DCMAKE_BUILD_TYPE=Debug \
 	.. 
 

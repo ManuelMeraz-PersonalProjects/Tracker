@@ -4,15 +4,13 @@ else()
 	cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 endif()
 
+# creates compile_commands.json database for linters
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-#SET (CMAKE_C_FLAGS_INIT                "-Wall -std=c99")
-#SET (CMAKE_C_FLAGS_DEBUG_INIT          "-g")
-#SET (CMAKE_C_FLAGS_MINSIZEREL_INIT     "-Os -DNDEBUG")
-#SET (CMAKE_C_FLAGS_RELEASE_INIT        "-O4 -DNDEBUG")
-#SET (CMAKE_C_FLAGS_RELWITHDEBINFO_INIT "-O2 -g")
 
-#SET (CMAKE_CXX_FLAGS_INIT                "-Wall")
-#SET (CMAKE_CXX_FLAGS_DEBUG_INIT          "-g")
-#SET (CMAKE_CXX_FLAGS_MINSIZEREL_INIT     "-Os -DNDEBUG")
-#SET (CMAKE_CXX_FLAGS_RELEASE_INIT        "-O4 -DNDEBUG")
-#SET (CMAKE_CXX_FLAGS_RELWITHDEBINFO_INIT "-O2 -g")
+# forces C++ 17 to be one
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# will avoid extensions being added
+# without it you'd get things like -std=g++11 replacing -std=c++1
+set(CMAKE_CXX_EXTENSIONS OFF)
