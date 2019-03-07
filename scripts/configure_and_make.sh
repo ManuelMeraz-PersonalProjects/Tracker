@@ -16,7 +16,7 @@ elif [ -e ${TRACKER_PROJECT}/build/CMakeCache.txt ]; then
 	rm ${TRACKER_PROJECT}/build/CMakeCache.txt 
 fi
 
-cd ${TRACKER_PROJECT}/build
+cd ${TRACKER_PROJECT}/build || exit
 # Set CMAKE settings here
 cmake \
 -DCMAKE_BUILD_TYPE=Debug \
@@ -26,4 +26,4 @@ cmake \
 
 # Useful flag for make -j<# threads> for parallel build
 make
-cd -
+cd - || exit
