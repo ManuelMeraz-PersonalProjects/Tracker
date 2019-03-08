@@ -1,6 +1,6 @@
-#include <food/food_utils.hpp>
+#include <food/food_utils.h>
 #include <iostream>
 
 int main() {
-	std::cout << compute::sum(5, 5) << std::endl;
+	std::cout << food_utils::sum(5, 5) << std::endl;
 }
