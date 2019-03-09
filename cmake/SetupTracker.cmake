@@ -20,3 +20,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # will avoid extensions being added
 # without it you'd get things like -std=g++11 replacing -std=c++1
 set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Set up third party libraries
+include(${CMAKE_MODULE_PATH}/thirdparty/SociConfig.cmake)
+include(${CMAKE_MODULE_PATH}/thirdparty/FindSoci.cmake)

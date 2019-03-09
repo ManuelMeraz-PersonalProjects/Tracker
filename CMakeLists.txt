@@ -8,8 +8,10 @@ project(tracker VERSION 0.0.1)
 option(ENABLE_DOCUMENTATION "Build tracker documentation" OFF)
 option(ENABLE_TESTS "Build tests" OFF)
 
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+
 # Sets compiler standards(e.g. C++ 17) and checks cmake version
-include(cmake/SetupTracker.cmake)
+include(${CMAKE_MODULE_PATH}/SetupTracker.cmake)
 
 # Creates libraries and creates main executable
 add_subdirectory(src)
