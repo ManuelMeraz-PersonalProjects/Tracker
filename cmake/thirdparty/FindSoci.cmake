@@ -33,7 +33,8 @@ SET(_SOCI_REQUIRED_VARS  SOCI_INCLUDE_DIR SOCI_LIBRARY)
 ### FIRST STEP: Find the soci headers.
 #
 FIND_PATH(
-    SOCI_INCLUDE_DIR soci.h
+    SOCI_INCLUDE_DIR 
+		NAMES soci.h 
     PATH "/usr/local/"
     PATH_SUFFIXES "" "soci"
     DOC "Soci (http://soci.sourceforge.net) include directory")
@@ -72,6 +73,7 @@ IF(SOCI_INCLUDE_DIR AND SOCI_LIBRARY)
         IF(SOCI_${plugin}_PLUGIN)
             MESSAGE(STATUS "    * Plugin ${plugin} found ${SOCI_${plugin}_PLUGIN}.")
             SET(SOCI_${plugin}_FOUND True)
+						SET(SOCI_INCLUDE_DIRS ${SOCI_INCLUDE_DIRS} ${SOCI_INCLUDE_DIR}/${plugin})
         ELSE()
             MESSAGE(STATUS "    * Plugin ${plugin} not found.")
             SET(SOCI_${plugin}_FOUND False)
