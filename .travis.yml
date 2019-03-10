@@ -5,7 +5,13 @@ dist: xenial
 before_install:
   # C++17
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-  - sudo apt-get update -qq
+  - sudo apt update -qq
+  # soci lib depends on boost
+  - sudo apt install libboost-all-dev
+  # Will be using sqlite3 with soci
+  - sudo apt install libsqlite3-dev
+  # Using soci database access library to interface with db
+  - sudo apt install libsoci-dev
 
 install:
   # C++17
