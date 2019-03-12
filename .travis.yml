@@ -12,11 +12,13 @@ before_install:
   - sudo apt install -qq libsqlite3-dev
   # Using soci database access library to interface with db
   - sudo apt install -qq libsoci-dev
+  # Doxygen is used for documentation
+  - sudo apt install -qq doxygen
 
 install:
   # C++17
-  - sudo apt install -qq g++-6
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
+  - sudo apt install -qq g++-7
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
 
 script:
   - source ./scripts/set_env.bash
