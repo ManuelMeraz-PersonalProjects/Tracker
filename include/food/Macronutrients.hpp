@@ -10,10 +10,6 @@
 #define FOOD_MACRONUTRIENTS_HPP
 
 /**
- * Organizes food related classes, functions and more
- */
-namespace food {
-/**
  * The food class stores all macronutrient and micronutrient data for any
  * food
  */
@@ -55,7 +51,5 @@ struct Protein {
    */
   const double protein;
 };
-
-} // namespace food
 
 #endif /* FOOD_MACRONUTRIENTS_HPP */

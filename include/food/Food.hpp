@@ -9,17 +9,13 @@
 #ifndef FOOD_FOOD_HPP
 #define FOOD_FOOD_HPP
 
-#include "food/macronutrients.hpp"
+#include "food/Macronutrients.hpp"
 //#include "database/storable.hpp"
 #include <stack>
 #include <string>
 #include <utility>
 #include <variant>
 
-/**
- * Organizes food related classes, functions and more
- */
-namespace food {
 /**
  * The food class stores all macronutrient and micronutrient data for any
  * food
@@ -88,7 +84,5 @@ private:
    */
   const Protein protein;
 };
-
-} // namespace food
 
 #endif /* FOOD_FOOD_HPP */

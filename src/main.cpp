@@ -3,8 +3,8 @@
 #include <soci-sqlite3.h>
 #include <soci.h>
 #include <vector>
-#include "food/food.hpp" // Food
-#include "food/macronutrients.hpp" // Fat, Carbohydrate, Protein
+#include "food/Food.hpp" // Food
+#include "food/Macronutrients.hpp" // Fat, Carbohydrate, Protein
 
 int main() {
   soci::session sql("sqlite3", "db=test.db timeout=2 shared_cache=true");
@@ -23,6 +23,6 @@ int main() {
 
   //std::for_each(std::begin(artists), std::end(artists), printArtist);
 	//
-	food::Food food(food::Fat(10), food::Carbohydrate(10), food::Protein(10));
+	Food hotdog(Fat(10), Carbohydrate(10), Protein(10));
 
 }
