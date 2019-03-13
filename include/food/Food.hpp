@@ -18,8 +18,8 @@
 #include <variant>
 
 /**
- * The food class stores all macronutrient and micronutrient data for any
- * food
+ * @brief The food class stores all macronutrient and micronutrient data for any
+ *				food
  */
 //class Food : public Storable {
 class Food {
@@ -32,31 +32,31 @@ public:
       : macronutrients{macros}, name{food_name}{}
 
   /**
-   * Copy constructor for lvalues reference
+   * @brief Copy constructor for lvalues reference
    * @param f The food to be copied
    */
   Food(const Food &f) = default;
 
   /**
-   * Move constructor for rvalue reference
+   * @brief Move constructor for rvalue reference
    * @param f The food to be moved
    */
   Food(Food &&f) = default;
 
   /**
-   * Copy assignment operator
+   * @brief Copy assignment operator
    * @param f The food to be copied
    */
   Food &operator=(const Food &f) = delete;
 
   /**
-   * Move assignment operator
+   * @brief Move assignment operator
    * @param f The food to be moved
    */
   Food &operator=(Food &&f) = delete;
 
   /**
-   * All data will be retrieved from a storable object using this function.
+   * @brief All data will be retrieved from a storable object using this function.
    * @return This A pair containing the column where the data will be store
    *				 and the data itself.
    */
@@ -67,12 +67,12 @@ public:
  
 private:
   /**
-   *  The macronutrients of the food
+   *  @brief The macronutrients of the food
    */
   const Macronutrients macronutrients;
 
   /**
-   *  The name of the food
+   *  @brief The name of the food
    */
   const std::string name;
 };
