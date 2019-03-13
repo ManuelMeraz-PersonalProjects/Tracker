@@ -1,7 +1,8 @@
 /**
- * \file food.hpp
- * \author Manuel G. Meraz
- * \brief The food class stores all macronutrient and micronutrient data for any
+ * @file food.hpp
+ * @author Manuel G. Meraz
+ * @date 03/11/2019
+ * @brief The food class stores all macronutrient and micronutrient data for any
  * food
  *
  */
@@ -24,15 +25,11 @@
 class Food {
 public:
   /**
-   * These classes passed in to this class are stringly typed classes
-   * to help illustrate the data being passed in.
-   *
-   * @param f The fat content of the good
-   * @param c The carbohydrate content of the food
-   * @param p The protein content of the food
+   * @param macros The macronutrients the food contains
+   * @param name The name of the food
    */
-  Food(const Fat &f, const Carbohydrate &c, const Protein &p)
-      : fat(f), carb(c), protein(p) {}
+  Food(const Macronutrients& macros, const std::string& food_name)
+      : macronutrients{macros}, name{food_name}{}
 
   /**
    * Copy constructor for lvalues reference
@@ -70,19 +67,14 @@ public:
  
 private:
   /**
-   *  The fat content of the food
+   *  The macronutrients of the food
    */
-  const Fat fat;
+  const Macronutrients macronutrients;
 
   /**
-   *  The carbohydrate content of the food
+   *  The name of the food
    */
-  const Carbohydrate carb;
-
-  /**
-   *  The protein content of the food
-   */
-  const Protein protein;
+  const std::string name;
 };
 
 #endif /* FOOD_FOOD_HPP */

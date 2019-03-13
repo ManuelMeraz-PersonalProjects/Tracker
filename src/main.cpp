@@ -23,6 +23,7 @@ int main() {
 
   //std::for_each(std::begin(artists), std::end(artists), printArtist);
 	//
-	Food hotdog(Fat(10), Carbohydrate(10), Protein(10));
+	Macronutrients macros(Fat(10), Carbohydrate(10), Protein(10));
+	Food food(macros, "food name");
 
 }
