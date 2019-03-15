@@ -1,14 +1,11 @@
 #include <algorithm>
 #include <iostream>
-#include <soci-sqlite3.h>
-#include <soci.h>
 #include <vector>
 #include "food/Food.hpp" // Food
 #include "food/Macronutrients.hpp" // Fat, Carbohydrate, Protein
 #include <sstream>
 
 int main() {
-  soci::session sql("sqlite3", "db=test.db timeout=2 shared_cache=true");
   //int count;
   //sql << "SELECT count(name) "
       //<< "FROM tracks;",
@@ -24,18 +21,19 @@ int main() {
 
   //std::for_each(std::begin(artists), std::end(artists), printArtist);
 	//
-	Macronutrients macros(Fat(10), Carbohydrate(10, Fiber(10)), Protein(10));
+	//Macronutrients macros(Fat(10), Carbohydrate(10, Fiber(10)), Protein(10));
 	//Food food(macros, "food name");
-	Food food(macros, "tacos");
-	auto data = food.get_data();
+	//Food food(macros, "tacos");
+	//auto data = food.get_data();
 
-	std::stringstream ss;
-	ss << "INSERT into " << data["table"] 
-		<< " (name, fat, carbohydrate, fiber, protein) "
-		<< " VALUES "
-		<< " ('" << data["name"] << "', " << data["fat"] << ", " << data["carbohydrate"] << ", " << data["fiber"] << ", " << data["protein"] << ")"
-		<< ";";
+	//std::stringstream ss;
+	//ss << "INSERT into " << data["table"] << ", "
+		//<< " (name, fat, carbohydrate, fiber, protein) "
+		//<< " VALUES "
+		//<< " ('" << data["name"] << "', " << data["fat"] << ", " << data["carbohydrate"] << ", " << data["fiber"] << ", " << data["protein"] << ")"
+		//<< ";";
 
-	std::cout << ss.str() << std::endl;
-	sql << ss.str();
+	//std::cout << ss.str() << std::endl;
+	//sql << ss.str();
+	return 0;
 }

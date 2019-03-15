@@ -48,13 +48,13 @@ public:
    * @brief Copy assignment operator
    * @param f The food to be copied
    */
-  Food &operator=(const Food &f) = delete;
+  Food &operator=(const Food &f) = default;
 
   /**
    * @brief Move assignment operator
    * @param f The food to be moved
    */
-  Food &operator=(Food &&f) = delete;
+  Food &operator=(Food &&f) = default;
 
   /**
    * @brief All data will be retrieved from a storable object using this
