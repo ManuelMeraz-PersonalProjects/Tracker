@@ -5,6 +5,7 @@
 #include <vector>
 #include "food/Food.hpp" // Food
 #include "food/Macronutrients.hpp" // Fat, Carbohydrate, Protein
+#include <sstream>
 
 int main() {
   soci::session sql("sqlite3", "db=test.db timeout=2 shared_cache=true");
@@ -23,7 +24,18 @@ int main() {
 
   //std::for_each(std::begin(artists), std::end(artists), printArtist);
 	//
-	Macronutrients macros(Fat(10), Carbohydrate(10), Protein(10));
-	Food food(macros, "food name");
+	Macronutrients macros(Fat(10), Carbohydrate(10, Fiber(10)), Protein(10));
+	//Food food(macros, "food name");
+	Food food(macros, "tacos");
+	auto data = food.get_data();
 
+	std::stringstream ss;
+	ss << "INSERT into " << data["table"] 
+		<< " (name, fat, carbohydrate, fiber, protein) "
+		<< " VALUES "
+		<< " ('" << data["name"] << "', " << data["fat"] << ", " << data["carbohydrate"] << ", " << data["fiber"] << ", " << data["protein"] << ")"
+		<< ";";
+
+	std::cout << ss.str() << std::endl;
+	sql << ss.str();
 }

@@ -1,5 +1,5 @@
 set(FOOD_SOURCE_FILES
-	food_utils.cpp
+	Food.cpp
 )
 
 add_library(food
