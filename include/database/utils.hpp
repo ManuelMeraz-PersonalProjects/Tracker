@@ -55,7 +55,7 @@ template <typename Storable> void store(const Storable &storable) {
   column_values << last_value << ")\n";
 
   sql_command << column_names.str() << column_values.str() << ";";
-  std::cout << sql_command.str() << std::endl;
+	Database::execute(sql_command.str());
 }
 
 // template <typename Storable, typename Property>

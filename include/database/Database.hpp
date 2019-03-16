@@ -29,7 +29,7 @@ public:
    *
    * Called by Database::utils
    */
-  void execute(std::string sql_command);
+  static void execute(const std::string& sql_command);
 
   //! Deleted functions
   Database(const Database &) = delete;

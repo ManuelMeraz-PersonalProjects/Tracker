@@ -8,6 +8,7 @@
  */
 
 #include "food/Food.hpp"
+#include <sstream>
 
 //! @copydoc Food::get_data()
 std::queue<std::pair<std::string, std::string>> Food::get_data() const {
@@ -15,7 +16,9 @@ std::queue<std::pair<std::string, std::string>> Food::get_data() const {
   auto table_name = std::pair{"table", "food"};
   data.push(table_name);
 
-  auto food_name = std::pair{"name", this->name()};
+	std::stringstream quoted_name;
+	quoted_name << "'" << this->name() << "'";
+  auto food_name = std::pair{"name", quoted_name.str()};
   data.push(food_name);
 
   auto fat = std::pair{"fat", std::to_string(this->macronutrients().fat())};
