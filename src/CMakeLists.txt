@@ -1,6 +1,3 @@
-# Creates food library
-#add_subdirectory(food)
-
 add_subdirectory(food)
 add_subdirectory(database)
 

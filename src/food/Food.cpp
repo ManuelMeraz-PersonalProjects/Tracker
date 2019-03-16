@@ -10,13 +10,28 @@
 #include "food/Food.hpp"
 
 //! @copydoc Food::get_data()
-std::map<std::string, std::string> Food::get_data() const {
-	std::map<std::string, std::string> data;
-	data["table"] = "food";
-	data["name"] = this->name();
-	data["fat"] = std::to_string(this->macronutrients().fat());
-	data["carbohydrate"] = std::to_string(this->macronutrients().carb());
-	data["fiber"] = std::to_string(this->macronutrients().fiber());
-	data["protein"] = std::to_string(this->macronutrients().protein());
-	return data;
+std::queue<std::pair<std::string, std::string>> Food::get_data() const {
+  std::queue<std::pair<std::string, std::string>> data;
+  auto table_name = std::pair{"table", "food"};
+  data.push(table_name);
+
+  auto food_name = std::pair{"name", this->name()};
+  data.push(food_name);
+
+  auto fat = std::pair{"fat", std::to_string(this->macronutrients().fat())};
+  data.push(fat);
+
+  auto carbohydrate = std::pair{
+      "carbohydrate", std::to_string(this->macronutrients().carbohydrate())};
+  data.push(carbohydrate);
+
+  auto fiber =
+      std::pair{"fiber", std::to_string(this->macronutrients().fiber())};
+  data.push(fiber);
+
+  auto protein =
+      std::pair{"protein", std::to_string(this->macronutrients().protein())};
+  data.push(protein);
+
+  return data;
 }

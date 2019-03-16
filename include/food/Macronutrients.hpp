@@ -90,7 +90,7 @@ struct Protein {
  */
 class Macronutrients {
 public:
-  Macronutrients() : fat_{0}, carb_{0}, fiber_{0}, protein_{0} {}
+  Macronutrients() : fat_{0}, carbohydrate_{0}, fiber_{0}, protein_{0} {}
 
   /**
    * @brief The classes passed in to this class are strongly typed classes
@@ -108,7 +108,7 @@ public:
    */
   Macronutrients(const Fat &fat, const Carbohydrate carb,
                  const Protein protein)
-      : fat_{fat.quantity}, carb_{carb.quantity_carb},
+      : fat_{fat.quantity}, carbohydrate_{carb.quantity_carb},
         fiber_{carb.quantity_fiber}, protein_{protein.quantity} {}
 
   /**
@@ -143,7 +143,7 @@ public:
   /**
    * @return The quantity of carbohydrate
    */
-  double carb() const { return carb_; }
+  double carbohydrate() const { return carbohydrate_; }
 
   /**
    * @return The quantity of fiber 
@@ -166,7 +166,7 @@ private:
   /**
    *  @brief The carbohydrate in grams per 100g of food
    */
-  const double carb_;
+  const double carbohydrate_;
 
   /**
    *  @brief The fiber in grams per 100g of food

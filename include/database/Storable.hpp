@@ -8,7 +8,7 @@
 
 #ifndef DATABASE_STORABLE_HPP
 #define DATABASE_STORABLE_HPP
-#include <map>
+#include <queue>
 #include <string>
 
 /**
@@ -25,7 +25,7 @@ public:
    * @return This A pair containing the column where the data will be store
    *				 and the data itself.
    */
-  virtual std::map<std::string, std::string> get_data() const = 0;
+  virtual std::queue<std::pair<std::string, std::string>> get_data() const = 0;
   virtual ~Storable() = default;
 };
 

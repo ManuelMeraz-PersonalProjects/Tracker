@@ -11,4 +11,5 @@ target_include_directories(database
 	PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
 
-target_link_libraries(database PRIVATE Soci)
+target_link_libraries(database PUBLIC Soci)
+
