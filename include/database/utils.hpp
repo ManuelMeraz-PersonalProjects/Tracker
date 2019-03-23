@@ -15,11 +15,11 @@
 
 namespace database {
 /**
- *  Utility functions to store, retrieve, and manipulate objects in database.
+ *  Utility functions to insert, retrieve, and manipulate objects in database.
  */
 namespace utils {
 
-template <typename Storable> void store(const Storable &storable) {
+template <typename Storable> void insert(const Storable &storable) {
   auto data = storable.get_data();
 
   std::stringstream sql_command;
