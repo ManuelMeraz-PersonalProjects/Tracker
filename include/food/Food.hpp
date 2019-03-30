@@ -62,7 +62,7 @@ public:
    * @return A pair containing the column where the data will be stored
    *				 and the data itself.
    */
-  std::queue<std::pair<std::string, std::string>> get_data() const override;
+  const database::Data get_data() const override;
 
   /**
    * @return Returns the macronutrients of the food

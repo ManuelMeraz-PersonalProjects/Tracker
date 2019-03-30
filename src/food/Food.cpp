@@ -1,7 +1,7 @@
 /**
  * @file food.cpp
  * @author Manuel G. Meraz
- * @date 03/11/2019
+ * @date 03/29/2019
  * @brief The food class stores all macronutrient and micronutrient data for any
  *				food
  *
@@ -11,30 +11,39 @@
 #include <sstream>
 
 //! @copydoc Food::get_data()
-std::queue<std::pair<std::string, std::string>> Food::get_data() const {
-  std::queue<std::pair<std::string, std::string>> data;
-  auto table_name = std::pair{"table", "food"};
-  data.push(table_name);
+const database::Data Food::get_data() const {
+	database::Data data;
+
+  data.table_name = "food";
 
 	std::stringstream quoted_name;
 	quoted_name << "'" << this->name() << "'";
-  auto food_name = std::pair{"name", quoted_name.str()};
-  data.push(food_name);
 
-  auto fat = std::pair{"fat", std::to_string(this->macronutrients().fat())};
-  data.push(fat);
+	database::ColumnInfo column_info;
+	column_info.value	= quoted_name.str();
+	column_info.database_type = "TEXT";
 
-  auto carbohydrate = std::pair{
-      "carbohydrate", std::to_string(this->macronutrients().carbohydrate())};
-  data.push(carbohydrate);
+  data.columns.emplace_back("name", column_info);
 
-  auto fiber =
-      std::pair{"fiber", std::to_string(this->macronutrients().fiber())};
-  data.push(fiber);
+	column_info.value	= std::to_string(this->macronutrients().fat());
+	column_info.database_type = "REAL";
 
-  auto protein =
-      std::pair{"protein", std::to_string(this->macronutrients().protein())};
-  data.push(protein);
+  data.columns.emplace_back("fat", column_info);
+
+	column_info.value = std::to_string(this->macronutrients().carbohydrate());
+	column_info.database_type = "REAL";
+
+  data.columns.emplace_back("carbohydrate", column_info);
+
+	column_info.value = std::to_string(this->macronutrients().fiber());
+	column_info.database_type = "REAL";
+
+  data.columns.emplace_back("fiber", column_info);
+
+	column_info.value = std::to_string(this->macronutrients().protein());
+	column_info.database_type = "REAL";
+
+  data.columns.emplace_back("protein", column_info);
 
   return data;
 }

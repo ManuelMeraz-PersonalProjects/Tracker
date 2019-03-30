@@ -8,6 +8,8 @@
 
 #ifndef DATABASE_STORABLE_HPP
 #define DATABASE_STORABLE_HPP
+
+#include "database/Data.hpp"
 #include <queue>
 #include <string>
 
@@ -17,7 +19,7 @@
  */
 class Storable {
 public:
-	Storable() = default;
+  Storable() = default;
   /**
    * @brief All data will be retrieved from a storable object using this
    *				function.
@@ -25,7 +27,7 @@ public:
    * @return This A pair containing the column where the data will be store
    *				 and the data itself.
    */
-  virtual std::queue<std::pair<std::string, std::string>> get_data() const = 0;
+  virtual const database::Data get_data() const = 0;
   virtual ~Storable() = default;
 };
 
