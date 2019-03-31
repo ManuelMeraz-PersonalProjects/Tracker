@@ -9,6 +9,7 @@
  */
 
 #include "database/Database.hpp"
+#include <iostream>
 #include <string>
 
 static std::unique_ptr<soci::session> _instance = nullptr;
@@ -19,5 +20,10 @@ void Database::execute(const std::string &sql_command) {
     _instance = std::make_unique<soci::session>(
         "sqlite3", "db=tracker.db timeout=2 shared_cache=true");
   }
-  *_instance << sql_command;
+  try {
+    *_instance << sql_command;
+  } catch (const soci::sqlite3_soci_error &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command << std::endl;
+  }
 }
