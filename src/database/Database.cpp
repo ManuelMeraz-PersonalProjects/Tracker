@@ -1,7 +1,7 @@
 /**
  * @file Database.cpp
  * @author Manuel G. Meraz
- * @date 03/13/2019
+ * @date 03/30/2019
  * @brief The database singleton class is in charge all database queries
  *
  *  Due to the way SQLite works, we want a single connection to the database
@@ -9,7 +9,6 @@
  */
 
 #include "database/Database.hpp"
-#include <iostream>
 #include <string>
 
 static std::unique_ptr<soci::session> _instance = nullptr;
@@ -20,6 +19,5 @@ void Database::execute(const std::string &sql_command) {
     _instance = std::make_unique<soci::session>(
         "sqlite3", "db=tracker.db timeout=2 shared_cache=true");
   }
-	std::cout << sql_command << std::endl;
-  //*_instance << sql_command;
+  *_instance << sql_command;
 }

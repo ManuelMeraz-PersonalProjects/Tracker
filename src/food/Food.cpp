@@ -12,38 +12,51 @@
 
 //! @copydoc Food::get_data()
 const database::Data Food::get_data() const {
-	database::Data data;
+  database::Data data;
 
   data.table_name = "food";
 
-	std::stringstream quoted_name;
-	quoted_name << "'" << this->name() << "'";
+  database::Column column;
 
-	database::ColumnInfo column_info;
-	column_info.value	= quoted_name.str();
-	column_info.database_type = "TEXT";
+	// This column info is only used for creating a new table
+	// The database will generate a primary key value for the entries
+	column.name = "food_id";
+	column.value = "";
+	column.data_type = database::DataType::INTEGER;
+	column.constraint = database::Constraint::PRIMARY_KEY;
+  data.columns.emplace_back(column);
 
-  data.columns.emplace_back("name", column_info);
+  // The name of the table needs to be in single quotes for the SQL command
+  std::stringstream quoted_name;
+  quoted_name << "'" << this->name() << "'";
 
-	column_info.value	= std::to_string(this->macronutrients().fat());
-	column_info.database_type = "REAL";
+	column.name = "name"; // name column for food
+  column.value = quoted_name.str();
+  column.data_type = database::DataType::TEXT;
 
-  data.columns.emplace_back("fat", column_info);
+	// The rest of the columns from hereon will be NOT NULL constraint
+  column.constraint = database::Constraint::NOT_NULL;
 
-	column_info.value = std::to_string(this->macronutrients().carbohydrate());
-	column_info.database_type = "REAL";
+  data.columns.emplace_back(column);
 
-  data.columns.emplace_back("carbohydrate", column_info);
+  // The next 4 columns will all be REAL 
+  column.data_type = database::DataType::REAL;
 
-	column_info.value = std::to_string(this->macronutrients().fiber());
-	column_info.database_type = "REAL";
+	column.name = "fat";
+  column.value = std::to_string(this->macronutrients().fat());
+  data.columns.emplace_back(column);
 
-  data.columns.emplace_back("fiber", column_info);
+	column.name = "carbohydrate";
+  column.value = std::to_string(this->macronutrients().carbohydrate());
+  data.columns.emplace_back(column);
 
-	column_info.value = std::to_string(this->macronutrients().protein());
-	column_info.database_type = "REAL";
+	column.name = "fiber";
+  column.value = std::to_string(this->macronutrients().fiber());
+  data.columns.emplace_back(column);
 
-  data.columns.emplace_back("protein", column_info);
+	column.name = "protein";
+  column.value = std::to_string(this->macronutrients().protein());
+  data.columns.emplace_back(column);
 
   return data;
 }
