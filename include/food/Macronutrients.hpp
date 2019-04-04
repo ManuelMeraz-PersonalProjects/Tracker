@@ -121,28 +121,23 @@ public:
    * @param carb The carbohydrate content of the food. Pass by value.
    * @param protein The protein content of the food
    */
-	template <typename Fat, typename Carbohydrate, typename Fiber,
-						typename Protein,
-						typename std::enable_if_t<
-								std::is_class_v<Fat> && std::is_class_v<Carbohydrate> &&
-										std::is_class_v<Fiber> && std::is_class_v<Protein>,
-								int> = 0>
+  template <typename Fat, typename Carbohydrate, typename Fiber,
+            typename Protein,
+            typename std::enable_if_t<
+                std::is_class_v<Fat> && std::is_class_v<Carbohydrate> &&
+                    std::is_class_v<Fiber> && std::is_class_v<Protein>,
+                int> = 0>
   Macronutrients(const Fat &fat, const Carbohydrate carb,
                  const Protein &protein)
       : fat_{fat.quantity}, carbohydrate_{carb.quantity_carb},
         fiber_{carb.quantity_fiber}, protein_{protein.quantity} {}
 
   /**
-   * @brief The classes passed in to this class are strongly typed classes
-   *				to help illustrate the data being passed in.
+   * @brief This constructor is used automatically and not meant
+	 *				to be used by humans, due to reduced readability.
    *
-   * The classes passed in to this class are strongly typed classes
-   * to help illustrate the data being passed in. All data passed in
-   * is in gramss per 100g of the food
-   *
-   * In particular this constructor will mainly be used to pass in data
+   * This constructor will mainly be used to pass in data
    * from the food database to construct a food object.
-   *
    *
    * @param fat The fat content of the food
    * @param carb The carbohydrate content of the food. Pass by value.

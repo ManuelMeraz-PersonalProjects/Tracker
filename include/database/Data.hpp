@@ -32,7 +32,7 @@ enum class DataType { REAL, INTEGER, TEXT, NULL_, BLOB };
 enum class Constraint { PRIMARY_KEY, UNIQUE, NOT_NULL, CHECK };
 
 /**
- * @The column info for inserting data into a database
+ * @brief The column info for inserting data into a database
  */
 struct Column {
 
