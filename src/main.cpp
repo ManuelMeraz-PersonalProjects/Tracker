@@ -2,9 +2,14 @@
 #include "food/Food.hpp"           // Food
 #include "food/Macronutrients.hpp" // Fat, Carbohydrate, Protein
 
+using food::Carbohydrate;
+using food::Fat;
+using food::Fiber;
+using food::Protein;
+
 int main() {
-	Macronutrients<int> macros(Fat(10), Carbohydrate(10, Fiber(10)), Protein(10));
-	Food food(macros, "tacos");
-	database::utils::insert(food);
+	food::Macronutrients<int> macros(Fat(10), Carbohydrate(10, Fiber(10)), Protein(10));
+	food::Food taco(macros, "tacos");
+  database::utils::insert(taco);
   return 0;
 }

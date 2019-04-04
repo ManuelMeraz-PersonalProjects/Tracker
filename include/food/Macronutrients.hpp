@@ -13,6 +13,10 @@
 #include <type_traits>
 
 /**
+ * @brief Organizes all food related classes and utilities
+ */
+namespace food {
+/**
  * @brief Stores the fat content of a food
  */
 template <typename Number = unsigned int,
@@ -220,5 +224,6 @@ private:
    */
   const Number protein_;
 };
+} // namespace food
 
 #endif /* FOOD_MACRONUTRIENTS_HPP */

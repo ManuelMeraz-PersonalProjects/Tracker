@@ -17,6 +17,8 @@
 #include <string>
 #include <utility>
 
+namespace food {
+
 /**
  * @brief The food class stores all macronutrient and micronutrient data for any
  *				food
@@ -161,5 +163,6 @@ private:
    */
   const std::string name_;
 };
+} // namespace food
 
 #endif /* FOOD_FOOD_HPP */
