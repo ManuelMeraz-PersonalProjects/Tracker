@@ -89,7 +89,7 @@ void create_table(const Data &data) {
 
   sql_command << ");\n";
 
-  Database::execute(sql_command.str());
+	Database::execute(sql_command.str());
 }
 
 /**
@@ -148,8 +148,8 @@ void insert(const S &storable) {
   Database::execute(sql_command.str());
 }
 
-// template <typename Storable, typename Property>
-// auto retrieve(Type type, Property property) = delete;
+ //template <typename Storable, typename Property>
+ //auto retrieve(Property property) = delete;
 
 } // namespace utils
 

@@ -10,6 +10,7 @@
 #define DATABASE_STORABLE_HPP
 
 #include "database/Data.hpp"
+#include <memory>
 #include <queue>
 #include <string>
 
@@ -19,7 +20,6 @@
  */
 class Storable {
 public:
-  Storable() = default;
   /**
    * @brief All data will be retrieved from a storable object using this
    *				function.

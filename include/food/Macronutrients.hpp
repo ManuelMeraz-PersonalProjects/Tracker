@@ -10,84 +10,99 @@
 #ifndef FOOD_MACRONUTRIENTS_HPP
 #define FOOD_MACRONUTRIENTS_HPP
 #include <iostream>
+#include <type_traits>
 
 /**
  * @brief Stores the fat content of a food
  */
+template <typename Number = unsigned int,
+          typename std::enable_if_t<std::is_arithmetic_v<Number>, int> = 0>
 struct Fat {
   /**
    * @param quantity The quantiy of fat in grams per 100g of food
    */
-  explicit Fat(double quantity) : quantity{quantity} {};
+  explicit Fat(const Number quantity) : quantity{quantity} {};
 
   /**
    *  @brief The quantiy of fat in grams per 100g of food
    */
-  const double quantity;
+  const Number quantity;
 };
 
 /**
  * @brief Stores the fiber content of a food
  */
+template <typename Number = unsigned int,
+          typename std::enable_if_t<std::is_arithmetic_v<Number>, int> = 0>
 struct Fiber {
   /**
    * @param quantity The quantity of fiber in grams per 100g of food
    */
-  explicit Fiber(double quantity) : quantity{quantity} {}
+  explicit Fiber(const Number quantity) : quantity{quantity} {}
 
   /**
    * @brief quantity The quantity of fiber in grams per 100g of food
    */
-  const double quantity;
+  const Number quantity;
 };
 
 /**
  * @brief Stores the carbohydrate content of a food
  */
+template <typename Number = unsigned int,
+          typename std::enable_if_t<std::is_arithmetic_v<Number>, int> = 0>
 struct Carbohydrate {
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    */
-  explicit Carbohydrate(double total_carb)
-      : quantity_carb(total_carb), quantity_fiber{0} {};
+  template <typename Fiber,
+            typename std::enable_if_t<std::is_class_v<Fiber>, int> = 0>
+  explicit Carbohydrate(const Number total_carb)
+      : quantity_carb(total_carb), quantity_fiber{0} {}
 
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    * @param fiber The total fiber in grams per 100g of food
    */
-  explicit Carbohydrate(double total_carb, const Fiber &fiber)
+  template <typename Fiber,
+            typename std::enable_if_t<std::is_class_v<Fiber>, int> = 0>
+  explicit Carbohydrate(const Number total_carb, const Fiber &fiber)
       : quantity_carb{total_carb}, quantity_fiber(fiber.quantity) {}
 
   /**
    * @brief The total carbohydrate in grams per 100g of food
    */
-  const double quantity_carb;
+  const Number quantity_carb;
 
   /**
    *  @brief The total fiber in grams per 100g of food
    */
-  const double quantity_fiber;
+  const Number quantity_fiber;
 };
 
 /**
  * @brief Stores the protein content of a food
  */
+template <typename Number = unsigned int,
+          typename std::enable_if_t<std::is_arithmetic_v<Number>, int> = 0>
 struct Protein {
   /**
    * @param protein The protein in grams per 100g of food
    */
-  explicit Protein(double quantity) : quantity{quantity} {};
+  explicit Protein(const Number quantity) : quantity{quantity} {};
 
   /**
    *  @brief The protein content of the food
    */
-  const double quantity;
+  const Number quantity;
 };
 
 /**
  * @brief The macronutrients class stores all macronutrient data to be stored in
  *a Food object
  */
+template <typename Number = unsigned int,
+          typename std::enable_if_t<std::is_arithmetic_v<Number>, int> = 0>
 class Macronutrients {
 public:
   Macronutrients() : fat_{0}, carbohydrate_{0}, fiber_{0}, protein_{0} {}
@@ -106,10 +121,37 @@ public:
    * @param carb The carbohydrate content of the food. Pass by value.
    * @param protein The protein content of the food
    */
+	template <typename Fat, typename Carbohydrate, typename Fiber,
+						typename Protein,
+						typename std::enable_if_t<
+								std::is_class_v<Fat> && std::is_class_v<Carbohydrate> &&
+										std::is_class_v<Fiber> && std::is_class_v<Protein>,
+								int> = 0>
   Macronutrients(const Fat &fat, const Carbohydrate carb,
-                 const Protein protein)
+                 const Protein &protein)
       : fat_{fat.quantity}, carbohydrate_{carb.quantity_carb},
         fiber_{carb.quantity_fiber}, protein_{protein.quantity} {}
+
+  /**
+   * @brief The classes passed in to this class are strongly typed classes
+   *				to help illustrate the data being passed in.
+   *
+   * The classes passed in to this class are strongly typed classes
+   * to help illustrate the data being passed in. All data passed in
+   * is in gramss per 100g of the food
+   *
+   * In particular this constructor will mainly be used to pass in data
+   * from the food database to construct a food object.
+   *
+   *
+   * @param fat The fat content of the food
+   * @param carb The carbohydrate content of the food. Pass by value.
+   * @param protein The protein content of the food
+   */
+  Macronutrients(const Number fat, const Number carbohydrate,
+                 const Number fiber, const Number protein)
+      : fat_{fat}, carbohydrate_{carbohydrate}, fiber_{fiber}, protein_{
+                                                                   protein} {}
 
   /**
    * @brief Copy constructor for lvalues reference
@@ -121,39 +163,39 @@ public:
    * @brief Move constructor for rvalue reference
    * @param macros The macros to be moved
    */
-  Macronutrients(Macronutrients &&macros) = default;
+  Macronutrients(Macronutrients &&macros) noexcept = default;
 
   /**
    * Copy assignment operator
    * @param macros The macros to be copied
    */
-  Macronutrients &operator=(const Macronutrients &macros) = delete;
+  Macronutrients &operator=(const Macronutrients &macros) = default;
 
   /**
    * @brief Move assignment operator
    * @param macros The macros to be moved
    */
-  Macronutrients &operator=(Macronutrients &&macros) = delete;
+  Macronutrients &operator=(Macronutrients &&macros) noexcept = default;
 
   /**
    * @return The quantity of fat
    */
-  double fat() const { return fat_; }
+  Number fat() const { return fat_; }
 
   /**
    * @return The quantity of carbohydrate
    */
-  double carbohydrate() const { return carbohydrate_; }
+  Number carbohydrate() const { return carbohydrate_; }
 
   /**
-   * @return The quantity of fiber 
+   * @return The quantity of fiber
    */
-  double fiber() const { return fiber_; }
+  Number fiber() const { return fiber_; }
 
   /**
-   * @return The quantity of protein 
+   * @return The quantity of protein
    */
-  double protein() const { return protein_; }
+  Number protein() const { return protein_; }
 
   ~Macronutrients() = default;
 
@@ -161,22 +203,22 @@ private:
   /**
    *  @brief The fat in grams per 100g of food
    */
-  const double fat_;
+  const Number fat_;
 
   /**
    *  @brief The carbohydrate in grams per 100g of food
    */
-  const double carbohydrate_;
+  const Number carbohydrate_;
 
   /**
    *  @brief The fiber in grams per 100g of food
    */
-  const double fiber_;
+  const Number fiber_;
 
   /**
    *  @brief The protein in grams per 100g of food
    */
-  const double protein_;
+  const Number protein_;
 };
 
 #endif /* FOOD_MACRONUTRIENTS_HPP */
