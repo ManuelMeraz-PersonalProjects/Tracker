@@ -101,3 +101,13 @@ ENDIF()
 include(FindPackageHandleStandardArgs)
 FIND_PACKAGE_HANDLE_STANDARD_ARGS(Soci DEFAULT_MSG ${_SOCI_REQUIRED_VARS})
 
+if(SOCI_FOUND) 
+	# Make library visible in source directory by setting global
+	add_library(Soci SHARED IMPORTED GLOBAL)
+	set_target_properties(Soci 
+		PROPERTIES 
+		IMPORTED_LOCATION ${SOCI_LIBRARY})
+	target_include_directories(Soci INTERFACE ${SOCI_INCLUDE_DIRS})
+else()
+	message(FATAL_ERROR "Soci is a required library")
+endif()

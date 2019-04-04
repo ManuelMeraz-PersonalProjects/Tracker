@@ -18,6 +18,7 @@
 template <typename Number = unsigned int,
           typename std::enable_if_t<std::is_arithmetic_v<Number>, int> = 0>
 struct Fat {
+  Fat() : quantity{0} {}
   /**
    * @param quantity The quantiy of fat in grams per 100g of food
    */
@@ -35,6 +36,7 @@ struct Fat {
 template <typename Number = unsigned int,
           typename std::enable_if_t<std::is_arithmetic_v<Number>, int> = 0>
 struct Fiber {
+  Fiber() : quantity{0} {}
   /**
    * @param quantity The quantity of fiber in grams per 100g of food
    */
@@ -52,10 +54,11 @@ struct Fiber {
 template <typename Number = unsigned int,
           typename std::enable_if_t<std::is_arithmetic_v<Number>, int> = 0>
 struct Carbohydrate {
+  Carbohydrate() : quantity_carb{0}, quantity_fiber{0} {}
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    */
-  template <typename Fiber,
+  template <typename Fiber = Fiber<>,
             typename std::enable_if_t<std::is_class_v<Fiber>, int> = 0>
   explicit Carbohydrate(const Number total_carb)
       : quantity_carb(total_carb), quantity_fiber{0} {}
@@ -64,7 +67,7 @@ struct Carbohydrate {
    * @param total_carb The total carbohydrate in grams per 100g of food
    * @param fiber The total fiber in grams per 100g of food
    */
-  template <typename Fiber,
+  template <typename Fiber = Fiber<>,
             typename std::enable_if_t<std::is_class_v<Fiber>, int> = 0>
   explicit Carbohydrate(const Number total_carb, const Fiber &fiber)
       : quantity_carb{total_carb}, quantity_fiber(fiber.quantity) {}
@@ -86,6 +89,7 @@ struct Carbohydrate {
 template <typename Number = unsigned int,
           typename std::enable_if_t<std::is_arithmetic_v<Number>, int> = 0>
 struct Protein {
+  Protein() : quantity{0} {}
   /**
    * @param protein The protein in grams per 100g of food
    */
@@ -121,8 +125,8 @@ public:
    * @param carb The carbohydrate content of the food. Pass by value.
    * @param protein The protein content of the food
    */
-  template <typename Fat, typename Carbohydrate, typename Fiber,
-            typename Protein,
+  template <typename Fat = Fat<>, typename Carbohydrate = Carbohydrate<>,
+            typename Fiber = Fiber<>, typename Protein = Protein<>,
             typename std::enable_if_t<
                 std::is_class_v<Fat> && std::is_class_v<Carbohydrate> &&
                     std::is_class_v<Fiber> && std::is_class_v<Protein>,
@@ -134,7 +138,8 @@ public:
 
   /**
    * @brief This constructor is used automatically and not meant
-	 *				to be used by humans, due to reduced readability.
+   *				to be used by humans, due to reduced
+   *readability.
    *
    * This constructor will mainly be used to pass in data
    * from the food database to construct a food object.

@@ -10,7 +10,7 @@ set_target_properties(main
 	RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/bin)
 
 target_include_directories(main 
-	PUBLIC ${PROJECT_SOURCE_DIR}/include
+	PRIVATE ${PROJECT_SOURCE_DIR}/include
 )
 
 
