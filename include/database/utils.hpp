@@ -32,7 +32,7 @@ namespace utils {
 template <typename DataEnum,
           typename std::enable_if_t<std::is_enum_v<DataEnum>, int> = 0>
 const std::string to_string(const DataEnum &data_enum) {
-  if constexpr (std::is_same<DataEnum, DataType>::value) {
+  if constexpr (std::is_same_v<DataEnum, DataType>) {
     static std::map<DataType, std::string> type_strings{
         {DataType::REAL, "REAL"},
         {DataType::INTEGER, "INTEGER"},
@@ -89,7 +89,7 @@ void create_table(const Data &data) {
 
   sql_command << ");\n";
 
-	Database::execute(sql_command.str());
+  Database::execute(sql_command.str());
 }
 
 /**
@@ -113,7 +113,7 @@ void create_table(const Data &data) {
  *
  */
 template <typename S, typename std::enable_if_t<
-                          std::is_base_of<Storable, S>::value, int> = 0>
+                          std::is_base_of_v<Storable, S>, int> = 0>
 void insert(const S &storable) {
   const Data &data = storable.get_data();
   utils::create_table(data);
@@ -148,8 +148,9 @@ void insert(const S &storable) {
   Database::execute(sql_command.str());
 }
 
- //template <typename Storable, typename Property>
- //auto retrieve(Property property) = delete;
+template <typename S,
+          typename std::enable_if_t<std::is_base_of_v<Storable, S>, int> = 0>
+ auto retrieve(const std::string& property) = delete;
 
 } // namespace utils
 
