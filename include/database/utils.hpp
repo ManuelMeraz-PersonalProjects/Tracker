@@ -19,7 +19,7 @@
 namespace database {
 /**
  * @brief Utility functions to insert, retrieve, and manipulate objects in
- *				database.
+ *        database.
  */
 namespace utils {
 
@@ -60,8 +60,8 @@ const std::string to_string(const DataEnum &data_enum) {
  * Creates the following SQLite3 command to creare a table if it
  * does not exist:
  *
- *	CREATE TABLE IF NOT EXISTS table_name (
- *	 column_1 data_type PRIMARY KEY,
+ *  CREATE TABLE IF NOT EXISTS table_name (
+ *   column_1 data_type PRIMARY KEY,
  *   column_2 data_type NOT NULL,
  *   column_3 data_type DEFAULT 0,
  *   ...
@@ -83,7 +83,7 @@ void create_table(const Data &data) {
 
   const auto &last_column = *prev(end(data.columns));
 
-	// Add last column in without a comma at the end
+  // Add last column in without a comma at the end
   sql_command << last_column.name << " "
               << utils::to_string(last_column.data_type) << " "
               << utils::to_string(last_column.constraint) << "\n";
@@ -95,10 +95,10 @@ void create_table(const Data &data) {
 
 /**
  * @brief Gets data from any storable object and inserts it into relevant
- *				database
+ *        database
  *
  * @param storable The object containing data to be stored in a database. Must
- *								 inherit from
+ *                 inherit from
  *Storable.
  *
  * This function pulls data to be stored into a database and builds an SQL
@@ -140,7 +140,7 @@ void insert(const S &storable) {
   // Up to second to last column
   std::for_each(cbegin(data.columns), prev(cend(data.columns)), append_values);
 
-	// Add last column in without a comma at the end
+  // Add last column in without a comma at the end
   const auto &last_column = *prev(end(data.columns));
 
   column_names << last_column.name << ")\n";

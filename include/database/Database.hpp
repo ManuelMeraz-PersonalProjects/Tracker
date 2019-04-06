@@ -3,8 +3,8 @@
  * @author Manuel G. Meraz
  * @date 03/13/2019
  * @brief Due to the way SQLite works, we want a single connection to the
- *				database up and running at all times. This class keeps the connection
- *				maintained.
+ *        database up and running at all times. This class keeps the connection
+ *        maintained.
  */
 
 #ifndef DATABASE_DATABASE_HPP

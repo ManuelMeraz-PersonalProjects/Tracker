@@ -14,16 +14,16 @@
 
 /**
  * @brief Utility functions to store, retrieve, and manipulate objects in
- *				database.
+ *        database.
  */
 class Storable {
 public:
   /**
    * @brief All data will be retrieved from a storable object using this
-   *				function.
+   *        function.
    *
    * @return This A pair containing the column where the data will be store
-   *				 and the data itself.
+   *         and the data itself.
    */
   virtual const database::Data get_data() const = 0;
   virtual ~Storable() = default;

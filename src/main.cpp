@@ -8,10 +8,12 @@ using food::Fiber;
 using food::Protein;
 
 int main() {
-  food::Macronutrients macros(Fat(10), Carbohydrate(10, Fiber(10)), Protein(10));
+  food::Macronutrients macros(Fat(10), Carbohydrate(10, Fiber(10)),
+                              Protein(10));
+
   food::Food taco(macros, "tacos");
-	for(size_t i = 0; i < 100; ++i) {
-		database::utils::insert(taco);
-	}
+  for (size_t i = 0; i < 100; ++i) {
+    database::utils::insert(taco);
+  }
   return 0;
 }

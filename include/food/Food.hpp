@@ -18,7 +18,7 @@ namespace food {
 
 /**
  * @brief The food class stores all macronutrient and micronutrient data for any
- *				food
+ *        food
  */
 class Food : public Storable {
 public:
@@ -73,10 +73,10 @@ public:
 
   /**
    * @brief All data will be retrieved from a storable object using this
-   *				function.
+   *        function.
    *
    * @return A struct containing the name of the table to store this data
-   *				 and a vector of column info. See Data.hpp for more
+   *         and a vector of column info. See Data.hpp for more
    *info.
    */
   const database::Data get_data() const override;

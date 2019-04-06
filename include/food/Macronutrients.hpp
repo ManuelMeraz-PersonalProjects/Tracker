@@ -103,7 +103,7 @@ public:
 
   /**
    * @brief The classes passed in to this class are strongly typed classes
-   *				to help illustrate the data being passed in.
+   *        to help illustrate the data being passed in.
    *
    * The classes passed in to this class are strongly typed classes
    * to help illustrate the data being passed in. All data passed in
@@ -122,7 +122,7 @@ public:
 
   /**
    * @brief This constructor is used automatically and not meant
-   *				to be used by humans, due to reduced
+   *        to be used by humans, due to reduced
    *readability.
    *
    * This constructor will mainly be used to pass in data

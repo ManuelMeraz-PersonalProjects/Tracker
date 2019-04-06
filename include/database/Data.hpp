@@ -48,13 +48,13 @@ struct Column {
 
   /**
    * @brief The type of data to be stored in the database (e.g. REAL, INTEGER,
-   *				TEXT, etc)
+   *        TEXT, etc)
    */
   DataType data_type;
 
   /**
    * @brief The constraint of the data when creating the table
-   *				(e.g. PRIMARY KEY, UNIQUE, NOT NULL, or CHECK).
+   *        (e.g. PRIMARY KEY, UNIQUE, NOT NULL, or CHECK).
    */
   Constraint constraint;
 };
