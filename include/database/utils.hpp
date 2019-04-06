@@ -14,6 +14,7 @@
 #include <algorithm>
 #include <map>
 #include <sstream>
+#include <tuple>
 #include <type_traits>
 
 namespace database {
@@ -112,8 +113,8 @@ void create_table(const Data &data) {
  * value2 ,...);
  *
  */
-template <typename S, typename std::enable_if_t<
-                          std::is_base_of_v<Storable, S>, int> = 0>
+template <typename S,
+          typename std::enable_if_t<std::is_base_of_v<Storable, S>, int> = 0>
 void insert(const S &storable) {
   const Data &data = storable.get_data();
   utils::create_table(data);
@@ -147,10 +148,6 @@ void insert(const S &storable) {
   sql_command << column_names.str() << column_values.str() << ";";
   Database::execute(sql_command.str());
 }
-
-template <typename S,
-          typename std::enable_if_t<std::is_base_of_v<Storable, S>, int> = 0>
- auto retrieve(const std::string& property) = delete;
 
 } // namespace utils
 
