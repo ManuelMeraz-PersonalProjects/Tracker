@@ -43,5 +43,11 @@ docs/source/modules/*
 *.swp
 *.swo
 
-# ignore db files
+# db files
 *.db
+
+# perf data
+perf.data*
+
+# valgrind
+callgrind.out*
