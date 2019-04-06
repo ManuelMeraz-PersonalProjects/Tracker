@@ -14,7 +14,6 @@
 #include <algorithm>
 #include <map>
 #include <sstream>
-#include <tuple>
 #include <type_traits>
 
 namespace database {
@@ -84,6 +83,7 @@ void create_table(const Data &data) {
 
   const auto &last_column = *prev(end(data.columns));
 
+	// Add last column in without a comma at the end
   sql_command << last_column.name << " "
               << utils::to_string(last_column.data_type) << " "
               << utils::to_string(last_column.constraint) << "\n";
@@ -140,6 +140,7 @@ void insert(const S &storable) {
   // Up to second to last column
   std::for_each(cbegin(data.columns), prev(cend(data.columns)), append_values);
 
+	// Add last column in without a comma at the end
   const auto &last_column = *prev(end(data.columns));
 
   column_names << last_column.name << ")\n";

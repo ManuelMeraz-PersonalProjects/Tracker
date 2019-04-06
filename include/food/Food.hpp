@@ -12,10 +12,7 @@
 
 #include "database/Storable.hpp"
 #include "food/Macronutrients.hpp"
-#include <queue>
-#include <sstream>
 #include <string>
-#include <utility>
 
 namespace food {
 
@@ -78,8 +75,9 @@ public:
    * @brief All data will be retrieved from a storable object using this
    *				function.
    *
-   * @return A pair containing the column where the data will be stored
-   *				 and the data itself.
+   * @return A struct containing the name of the table to store this data
+   *				 and a vector of column info. See Data.hpp for more
+   *info.
    */
   const database::Data get_data() const override;
 

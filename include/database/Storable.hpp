@@ -10,8 +10,6 @@
 #define DATABASE_STORABLE_HPP
 
 #include "database/Data.hpp"
-#include <memory>
-#include <queue>
 #include <string>
 
 /**

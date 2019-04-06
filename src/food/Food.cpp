@@ -7,8 +7,10 @@
  *
  */
 
+#include "database/Data.hpp"
 #include "food/Food.hpp"
 #include <sstream>
+#include <string>
 
 //! @copydoc Food::get_data()
 const database::Data food::Food::get_data() const {
@@ -28,7 +30,7 @@ const database::Data food::Food::get_data() const {
 
   // The name of the table needs to be in single quotes for the SQL command
   std::stringstream quoted_name;
-	quoted_name	<< "'" << this->name() << "'";
+  quoted_name << "'" << this->name() << "'";
 
   column.name = "name"; // name column for food
   column.value = quoted_name.str();
