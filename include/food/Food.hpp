@@ -107,10 +107,26 @@ private:
 };
 } // namespace food
 
+/**
+ * @brief This is an implementation of object-relational mapping for the 
+ *        SOCI library. This will be used to retrieve and insert Food
+ *        objects directly into the SQL database without needing to manually
+ *        give data to the SOCi library.
+ *        Source: http://soci.sourceforge.net/doc/master/types/
+ */
 namespace soci {
 template <> struct type_conversion<food::Food> {
   typedef values base_type;
 
+  /*
+   * @brief Used to construct an object that is retrieved from the
+   *        database.
+   *
+   * @param v the values retrieved from the database 
+   * @param food A reference to the food that will be filled, then
+   *             given to the request filled with the right data.
+   *
+   */
   static void from_base(values const &v, indicator /* ind */,
                         food::Food &food) {
 
@@ -125,6 +141,16 @@ template <> struct type_conversion<food::Food> {
     food = food::Food(macros, food_name);
   }
 
+  /*
+   * @brief Used to construct an object that is given to the
+   *        database.
+   *
+   * @param food A reference to the food that will be used to extract data
+   *             from, then inserted into the database
+   * @param v the values that will be used to insert into the database
+   * @param ind Sets states for the data. Used by SOCI.
+   *
+   */
   static void to_base(const food::Food &food, values &v, indicator &ind) {
     v.set("fat", food.macronutrients().fat());
     v.set("carbohydrate", food.macronutrients().carbohydrate());
