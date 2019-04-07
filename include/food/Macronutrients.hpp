@@ -24,12 +24,12 @@ struct Fat {
   /**
    * @param quantity The quantiy of fat in grams per 100g of food
    */
-  explicit Fat(const float quantity) : quantity{quantity} {};
+  explicit Fat(const double quantity) : quantity{quantity} {};
 
   /**
    *  @brief The quantiy of fat in grams per 100g of food
    */
-  float quantity;
+  double quantity;
 };
 
 /**
@@ -40,12 +40,12 @@ struct Fiber {
   /**
    * @param quantity The quantity of fiber in grams per 100g of food
    */
-  explicit Fiber(const float quantity) : quantity{quantity} {}
+  explicit Fiber(const double quantity) : quantity{quantity} {}
 
   /**
    * @brief quantity The quantity of fiber in grams per 100g of food
    */
-  float quantity;
+  double quantity;
 };
 
 /**
@@ -56,25 +56,25 @@ struct Carbohydrate {
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    */
-  explicit Carbohydrate(const float total_carb)
+  explicit Carbohydrate(const double total_carb)
       : quantity_carb(total_carb), quantity_fiber{0} {}
 
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    * @param fiber The total fiber in grams per 100g of food
    */
-  explicit Carbohydrate(const float total_carb, const Fiber &fiber)
+  explicit Carbohydrate(const double total_carb, const Fiber &fiber)
       : quantity_carb{total_carb}, quantity_fiber(fiber.quantity) {}
 
   /**
    * @brief The total carbohydrate in grams per 100g of food
    */
-  float quantity_carb;
+  double quantity_carb;
 
   /**
    *  @brief The total fiber in grams per 100g of food
    */
-  float quantity_fiber;
+  double quantity_fiber;
 };
 
 /**
@@ -85,12 +85,12 @@ struct Protein {
   /**
    * @param protein The protein in grams per 100g of food
    */
-  explicit Protein(const float quantity) : quantity{quantity} {};
+  explicit Protein(const double quantity) : quantity{quantity} {};
 
   /**
    *  @brief The protein content of the food
    */
-  float quantity;
+  double quantity;
 };
 
 /**
@@ -132,8 +132,8 @@ public:
    * @param carb The carbohydrate content of the food. Pass by value.
    * @param protein The protein content of the food
    */
-  Macronutrients(const float fat, const float carbohydrate, const float fiber,
-                 const float protein)
+  Macronutrients(const double fat, const double carbohydrate, const double fiber,
+                 const double protein)
       : fat_{fat}, carbohydrate_{carbohydrate}, fiber_{fiber}, protein_{
                                                                    protein} {}
 
@@ -164,22 +164,22 @@ public:
   /**
    * @return The quantity of fat
    */
-  float fat() const { return fat_; }
+  double fat() const { return fat_; }
 
   /**
    * @return The quantity of carbohydrate
    */
-  float carbohydrate() const { return carbohydrate_; }
+  double carbohydrate() const { return carbohydrate_; }
 
   /**
    * @return The quantity of fiber
    */
-  float fiber() const { return fiber_; }
+  double fiber() const { return fiber_; }
 
   /**
    * @return The quantity of protein
    */
-  float protein() const { return protein_; }
+  double protein() const { return protein_; }
 
   ~Macronutrients() = default;
 
@@ -187,22 +187,22 @@ private:
   /**
    *  @brief The fat in grams per 100g of food
    */
-  float fat_;
+  double fat_;
 
   /**
    *  @brief The carbohydrate in grams per 100g of food
    */
-  float carbohydrate_;
+  double carbohydrate_;
 
   /**
    *  @brief The fiber in grams per 100g of food
    */
-  float fiber_;
+  double fiber_;
 
   /**
    *  @brief The protein in grams per 100g of food
    */
-  float protein_;
+  double protein_;
 };
 } // namespace food
 

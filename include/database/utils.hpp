@@ -120,9 +120,9 @@ void create_table(const Data &data) {
  * value2 ,...);
  *
  */
-template <typename S,
-          typename std::enable_if_t<std::is_base_of_v<Storable, S>, int> = 0>
-void insert(const S &storable) {
+template <typename Storable,
+          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+void insert(const Storable &storable) {
   const Data &data = storable.get_data();
   utils::create_table(data);
 
@@ -174,18 +174,28 @@ void insert(const S &storable) {
  * guarantee that the objects exist. This will either return an std optional
  * with nothing in it, a single object, or a vector.
  *
- * INSERT INTO table1 (
- * column1,
- * column2 ,..)
- * VALUES
- * (
- * value1,
- * value2 ,...);
+ * SELECT * from table;
  *
  */
-template <typename S,
-          typename std::enable_if_t<std::is_base_of_v<Storable, S>, int> = 0>
-auto retrieve(const std::string &name) = delete;
+template <typename Storable,
+          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+Storable retrieve(const std::string &name) {
+  std::stringstream sql_command;
+  sql_command << "SELECT * from food";
+
+  auto &sql_connection = Database::get_connection();
+
+  Storable food;
+  try {
+    sql_connection << sql_command.str(), soci::into(food);
+  } catch (const soci::sqlite3_soci_error &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+  }
+  sql_command << name;
+
+  return food;
+}
 
 } // namespace utils
 

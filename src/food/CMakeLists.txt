@@ -10,3 +10,5 @@ add_library(food
 target_include_directories(food 
 	PUBLIC ${PROJECT_SOURCE_DIR}/include
 )
+
+target_link_libraries(food PUBLIC Soci)
