@@ -11,15 +11,14 @@
 #include "database/Database.hpp"
 #include <iostream>
 
-static soci::session
-    _sql_connection("sqlite3", "db=tracker.db timeout=2 shared_cache=true");
+std::unique_ptr<soci::session> Database::sql_connection = nullptr;
 
-//! @copydoc Database::execute(std::string)
-void Database::execute(const std::string &sql_command) {
-  try {
-    _sql_connection << sql_command;
-  } catch (const soci::sqlite3_soci_error &error) {
-    std::cerr << error.what() << std::endl;
-    std::cerr << sql_command << std::endl;
+//! @copydoc Database::get_connection()
+auto Database::get_connection() -> soci::session & {
+  if (!sql_connection) {
+    sql_connection = std::make_unique<soci::session>(
+        "sqlite3", "db=tracker.db timeout=2 shared_cache=true");
   }
+
+  return *sql_connection;
 }

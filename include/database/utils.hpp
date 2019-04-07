@@ -12,6 +12,7 @@
 #include "database/Database.hpp"
 #include "database/Storable.hpp"
 #include <algorithm>
+#include <iostream>
 #include <map>
 #include <sstream>
 #include <type_traits>
@@ -90,7 +91,14 @@ void create_table(const Data &data) {
 
   sql_command << ");\n";
 
-  Database::execute(sql_command.str());
+  auto &sql_connection = Database::get_connection();
+
+  try {
+    sql_connection << sql_command.str();
+  } catch (const soci::sqlite3_soci_error &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+  }
 }
 
 /**
@@ -98,8 +106,7 @@ void create_table(const Data &data) {
  *        database
  *
  * @param storable The object containing data to be stored in a database. Must
- *                 inherit from
- *Storable.
+ *                 inherit from Storable.
  *
  * This function pulls data to be stored into a database and builds an SQL
  * command from the data like so:
@@ -130,8 +137,9 @@ void insert(const S &storable) {
   const auto append_values = [&column_names,
                               &column_values](const Column &column) {
     // Let the database generate a value for the primary key
-    if (column.constraint == database::Constraint::PRIMARY_KEY)
+    if (column.constraint == database::Constraint::PRIMARY_KEY) {
       return;
+    }
 
     column_names << column.name << ",\n";
     column_values << column.value << ",\n";
@@ -147,8 +155,37 @@ void insert(const S &storable) {
   column_values << last_column.value << ")\n";
 
   sql_command << column_names.str() << column_values.str() << ";";
-  Database::execute(sql_command.str());
+  auto &sql_connection = Database::get_connection();
+
+  try {
+    sql_connection << sql_command.str();
+  } catch (const soci::sqlite3_soci_error &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+  }
 }
+
+/**
+ * @brief Retrieves all database objects that match the name that is passed in
+ *
+ * @param name The name of the object being retrieved fro the database
+ *
+ * Retrieves all objects of the type requested that contain that name. Does not
+ * guarantee that the objects exist. This will either return an std optional
+ * with nothing in it, a single object, or a vector.
+ *
+ * INSERT INTO table1 (
+ * column1,
+ * column2 ,..)
+ * VALUES
+ * (
+ * value1,
+ * value2 ,...);
+ *
+ */
+template <typename S,
+          typename std::enable_if_t<std::is_base_of_v<Storable, S>, int> = 0>
+auto retrieve(const std::string &name) = delete;
 
 } // namespace utils
 

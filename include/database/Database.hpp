@@ -12,7 +12,7 @@
 
 #include "soci-sqlite3.h"
 #include "soci.h"
-#include <string>
+#include <memory>
 
 /**
  * @brief The database singleton class is in charge all database queries
@@ -23,12 +23,11 @@
 class Database {
 public:
   /**
-   * @brief Executes the passed in sqlite command
-   * @param sql_command A string conataining an sql command
+   * @brief Returns a reference to the current database connection;
    *
    * Called by Database::utils
    */
-  static void execute(const std::string &sql_command);
+  static auto get_connection() -> soci::session&;
 
   //! Deleted functions
   Database(const Database &) = delete;
@@ -39,6 +38,8 @@ public:
 private:
   Database() = default;
   ~Database() = default;
+
+  static std::unique_ptr<soci::session> sql_connection;
 };
 
 #endif /* DATABASE_DATABASE_HPP */
