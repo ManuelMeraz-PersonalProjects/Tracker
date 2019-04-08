@@ -9,35 +9,15 @@
 
 #include "database/Data.hpp"
 #include "food/Food.hpp"
-#include <nameof.hpp>
-#include <range/v3/all.hpp>
 #include <sstream>
 #include <string>
-#include <string_view>
-#include <type_traits>
 
 //! @copydoc Food::get_data()
 const database::Data food::Food::get_data() const {
   database::Data data;
+  data.table_name = "Food";
 
-  // Name with namespace included namespace::ClassName
-  data.table_name = nameof::nameof_type<std::decay_t<decltype(*this)>>();
-
-  const auto remove_namespace = [](std::string_view name) {
-    auto split_name = name 
-      | ranges::view::split(':') 
-      | ranges::view::transform([](auto &&rng) { 
-          return std::string_view(&*rng.begin(), ranges::distance(rng)); 
-        }) 
-      | ranges::to_vector;
-
-    return split_name.back();
-  };
-  
-  // namespace::ClassName -> ClassName
-  // Can now use class name as table name
-  data.table_name = remove_namespace(data.table_name);
-
+  // Will recycle this column to build other columns
   database::Column column;
 
   // This column info is only used for creating a new table
@@ -49,13 +29,12 @@ const database::Data food::Food::get_data() const {
   data.columns.emplace_back(column);
 
   // The name of the table needs to be in single quotes for the SQL command
+  column.name = "name";
+
   std::stringstream quoted_name;
   quoted_name << "'" << this->name() << "'";
-
-  // NAMEOF says columns.name is equal to the name of this function
-  // column.name = "name";
-  column.name = NAMEOF(this->name()); 
   column.value = quoted_name.str();
+
   column.data_type = database::DataType::TEXT;
 
   // The rest of the columns from hereon will be NOT NULL constraint
@@ -66,19 +45,19 @@ const database::Data food::Food::get_data() const {
   // The next 4 columns will all be REAL
   column.data_type = database::DataType::REAL;
 
-  column.name = NAMEOF(this->macronutrients().fat());
+  column.name = "fat";
   column.value = std::to_string(this->macronutrients().fat());
   data.columns.emplace_back(column);
 
-  column.name = NAMEOF(this->macronutrients().carbohydrate());
+  column.name = "carbohydrate";
   column.value = std::to_string(this->macronutrients().carbohydrate());
   data.columns.emplace_back(column);
 
-  column.name = NAMEOF(this->macronutrients().fiber());
+  column.name = "fiber";
   column.value = std::to_string(this->macronutrients().fiber());
   data.columns.emplace_back(column);
 
-  column.name = NAMEOF(this->macronutrients().protein());
+  column.name = "protein";
   column.value = std::to_string(this->macronutrients().protein());
   data.columns.emplace_back(column);
 

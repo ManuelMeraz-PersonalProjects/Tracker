@@ -11,11 +11,11 @@
 #include "database/Data.hpp" // Data, ColumnInfo
 #include "database/Database.hpp"
 #include "database/Storable.hpp"
-#include <algorithm>
-#include <iostream>
-#include <map>
-#include <nameof.hpp>
+#include <iostream>   // cerr
+#include <nameof.hpp> // NAMEOF
+#include <range/v3/all.hpp>
 #include <sstream>
+#include <string_view>
 #include <type_traits>
 #include <vector>
 
@@ -34,25 +34,12 @@ namespace utils {
  */
 template <typename DataEnum,
           typename std::enable_if_t<std::is_enum_v<DataEnum>, int> = 0>
-const std::string to_string(const DataEnum &data_enum) {
-  if constexpr (std::is_same_v<DataEnum, DataType>) {
-    static std::map<DataType, std::string> type_strings{
-        {DataType::REAL, "REAL"},
-        {DataType::INTEGER, "INTEGER"},
-        {DataType::TEXT, "TEXT"},
-        {DataType::NULL_, "NULL"},
-        {DataType::BLOB, "BLOB"}};
-
-    return type_strings[data_enum];
-  } else { // Constraint Enum
-    static std::map<Constraint, std::string> type_strings{
-        {Constraint::PRIMARY_KEY, "PRIMARY KEY"},
-        {Constraint::UNIQUE, "UNIQUE"},
-        {Constraint::NOT_NULL, "NOT NULL"},
-        {Constraint::CHECK, "CHECK"}};
-
-    return type_strings[data_enum];
+auto to_string(const DataEnum &data_enum) {
+  auto enum_string = nameof::nameof_enum<DataEnum>(data_enum);
+  if (enum_string == "NULL_") {
+    enum_string = "NULL";
   }
+  return enum_string;
 }
 
 /**
@@ -76,20 +63,14 @@ void create_table(const Data &data) {
 
   sql_command << "CREATE TABLE IF NOT EXISTS " << data.table_name << " (\n";
 
-  const auto build_column_string = [&sql_command](const Column &column) {
-    sql_command << column.name << " " << utils::to_string(column.data_type)
-                << " " << utils::to_string(column.constraint) << ",\n";
-  };
+  auto delimeter = "";
+  for (const Column &column : data.columns) {
+    sql_command << delimeter << column.name << " "
+                << utils::to_string(column.data_type) << " "
+                << utils::to_string(column.constraint);
 
-  std::for_each(cbegin(data.columns), prev(cend(data.columns)),
-                build_column_string);
-
-  const auto &last_column = *prev(end(data.columns));
-
-  // Add last column in without a comma at the end
-  sql_command << last_column.name << " "
-              << utils::to_string(last_column.data_type) << " "
-              << utils::to_string(last_column.constraint) << "\n";
+    delimeter = ",\n";
+  }
 
   sql_command << ");\n";
 
@@ -133,29 +114,24 @@ void insert(const Storable &storable) {
 
   sql_command << "INSERT INTO " << data.table_name << "(\n";
 
+  std::stringstream column_names;
   std::stringstream column_values;
   column_values << "VALUES\n(\n";
 
-  std::stringstream column_names;
-  const auto append_values = [&column_names,
-                              &column_values](const Column &column) {
+  auto delimeter = "";
+  for (const Column &column : data.columns) {
     // Let the database generate a value for the primary key
     if (column.constraint == database::Constraint::PRIMARY_KEY) {
-      return;
+      continue;
     }
 
-    column_names << column.name << ",\n";
-    column_values << column.value << ",\n";
+    column_names << delimeter << column.name;
+    column_values << delimeter << column.value;
+    delimeter = ",\n";
   };
 
-  // Up to second to last column
-  std::for_each(cbegin(data.columns), prev(cend(data.columns)), append_values);
-
-  // Add last column in without a comma at the end
-  const auto &last_column = *prev(end(data.columns));
-
-  column_names << last_column.name << ")\n";
-  column_values << last_column.value << ")\n";
+  column_names << ")\n";
+  column_values << ")\n";
 
   sql_command << column_names.str() << column_values.str() << ";";
   auto &sql_connection = Database::get_connection();
@@ -180,23 +156,45 @@ void insert(const Storable &storable) {
  * SELECT * from table;
  *
  */
-//template <
-    //typename Storable,
-    //typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
-//auto retrieve() {
-  //std::stringstream sql_command;
-  //sql_command << "SELECT name from Food";
+template <
+    typename Storable,
+    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+auto retrieve() {
+  constexpr auto type_string = nameof::nameof_type<Storable>();
 
-   //auto &sql_connection = Database::get_connection();
+  // namespace::Class -> Class
+  std::string base_type = type_string 
+                          | ranges::view::reverse 
+                          | ranges::view::delimit(':') 
+                          | ranges::view::reverse;
 
-   //std::vector<std::string> food(100);
-   //try {
-   //sql_connection << sql_command.str(), soci::into(food);
-  //} catch (const soci::sqlite3_soci_error &error) {
-   //std::cerr << error.what() << std::endl;
-   //std::cerr << sql_command.str() << std::endl;
-  //}
-//}
+  std::stringstream sql_command;
+  sql_command << "SELECT count(*) from " << base_type;
+
+  size_t count = 0;
+  auto &sql_connection = Database::get_connection();
+  try {
+    sql_connection << sql_command.str(), soci::into(count);
+  } catch (const soci::sqlite3_soci_error &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+  }
+
+  // Reset stringstream
+  sql_command.str(""); 
+  sql_command.clear();
+
+  sql_command << "SELECT name from " << base_type;
+  std::vector<std::string> storables(count);
+  try {
+    sql_connection << sql_command.str(), soci::into(storables);
+  } catch (const soci::sqlite3_soci_error &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+  }
+
+  return storables;
+}
 
 } // namespace utils
 
