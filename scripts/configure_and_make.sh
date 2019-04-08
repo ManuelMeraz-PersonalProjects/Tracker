@@ -34,5 +34,5 @@ cmake \
 .. 
 
 # Useful flag for make -j<# threads> for parallel build
-make
+make -j5
 cd - || exit
