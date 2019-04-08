@@ -34,12 +34,25 @@ namespace utils {
  */
 template <typename DataEnum,
           typename std::enable_if_t<std::is_enum_v<DataEnum>, int> = 0>
-auto to_string(const DataEnum &data_enum) {
-  auto enum_string = nameof::nameof_enum<DataEnum>(data_enum);
-  if (enum_string == "NULL_") {
-    enum_string = "NULL";
+auto enum_to_string(const DataEnum &data_enum) {
+  if constexpr (std::is_same_v<DataEnum, DataType>) {
+    static std::map<DataType, std::string_view> type_strings{
+        {DataType::REAL, "REAL"},
+        {DataType::INTEGER, "INTEGER"},
+        {DataType::TEXT, "TEXT"},
+        {DataType::NULL_, "NULL"},
+        {DataType::BLOB, "BLOB"}};
+
+    return type_strings[data_enum];
+  } else { // Constraint Enum
+    static std::map<Constraint, std::string_view> type_strings{
+        {Constraint::PRIMARY_KEY, "PRIMARY KEY"},
+        {Constraint::UNIQUE, "UNIQUE"},
+        {Constraint::NOT_NULL, "NOT NULL"},
+        {Constraint::CHECK, "CHECK"}};
+
+    return type_strings[data_enum];
   }
-  return enum_string;
 }
 
 /**
@@ -66,8 +79,8 @@ void create_table(const Data &data) {
   auto delimeter = "";
   for (const Column &column : data.columns) {
     sql_command << delimeter << column.name << " "
-                << utils::to_string(column.data_type) << " "
-                << utils::to_string(column.constraint);
+                << utils::enum_to_string(column.data_type) << " "
+                << utils::enum_to_string(column.constraint);
 
     delimeter = ",\n";
   }
@@ -149,9 +162,9 @@ void insert(const Storable &storable) {
  *
  * @param name The name of the object being retrieved fro the database
  *
- * Retrieves all objects of the type requested that contain that name. Does not
- * guarantee that the objects exist. This will either return an std optional
- * with nothing in it, a single object, or a vector.
+ * Retrieves all objects of the type requested that contain that name. Does
+ * not guarantee that the objects exist. This will either return an std
+ * optional with nothing in it, a single object, or a vector.
  *
  * SELECT * from table;
  *
@@ -181,7 +194,7 @@ auto retrieve() {
   }
 
   // Reset stringstream
-  sql_command.str(""); 
+  sql_command.str("");
   sql_command.clear();
 
   sql_command << "SELECT name from " << base_type;
