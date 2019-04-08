@@ -13,6 +13,7 @@
 #include "database/Storable.hpp"
 #include <iostream>   // cerr
 #include <nameof.hpp> // NAMEOF
+#include <optional>
 #include <range/v3/all.hpp>
 #include <sstream>
 #include <string_view>
@@ -27,7 +28,7 @@ namespace database {
 namespace utils {
 
 /**
- * @brief to string function for data enum types
+ * @brief to_string function for data enum types
  *
  * @param DataEnum type that is either a constraint type or sql type
  *
@@ -58,7 +59,7 @@ auto enum_to_string(const DataEnum &data_enum) {
 /**
  * @brief Create table if not exists
  *
- * @param table_name The name of the table to create
+ * @param data Data contains the table name and schema information
  *
  * Creates the following SQLite3 command to creare a table if it
  * does not exist:
@@ -172,38 +173,46 @@ void insert(const Storable &storable) {
 template <
     typename Storable,
     typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
-auto retrieve() {
+auto retrieve() -> std::optional<std::vector<std::string>> {
   constexpr auto type_string = nameof::nameof_type<Storable>();
 
   // namespace::Class -> Class
-  std::string base_type = type_string 
+  // "Class" is the table name
+  std::string table_name = type_string 
                           | ranges::view::reverse 
                           | ranges::view::delimit(':') 
                           | ranges::view::reverse;
 
   std::stringstream sql_command;
-  sql_command << "SELECT count(*) from " << base_type;
+  sql_command << "SELECT count(*) from " << table_name;
 
-  size_t count = 0;
+  size_t table_size = 0;
   auto &sql_connection = Database::get_connection();
+
   try {
-    sql_connection << sql_command.str(), soci::into(count);
+    sql_connection << sql_command.str(), soci::into(table_size);
+
   } catch (const soci::sqlite3_soci_error &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
+
+    return std::nullopt;
   }
 
   // Reset stringstream
   sql_command.str("");
   sql_command.clear();
 
-  sql_command << "SELECT name from " << base_type;
-  std::vector<std::string> storables(count);
+  sql_command << "SELECT name from " << table_name;
+  std::vector<std::string> storables(table_size);
   try {
     sql_connection << sql_command.str(), soci::into(storables);
+
   } catch (const soci::sqlite3_soci_error &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
+
+    return std::nullopt;
   }
 
   return storables;
