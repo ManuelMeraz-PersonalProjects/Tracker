@@ -8,7 +8,9 @@ add_library(database
 )
 
 target_include_directories(database 
-	PUBLIC ${PROJECT_SOURCE_DIR}/include
+	PUBLIC ${tracker_include}
+	PUBLIC ${nameof_include}
+  PUBLIC ${ranges_include}
 )
 
 target_link_libraries(database PUBLIC Soci)

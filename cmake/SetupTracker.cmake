@@ -30,3 +30,14 @@ include(${CMAKE_MODULE_PATH}/thirdparty/SociConfig.cmake)
 # Find soci lib. Look at file to see definitions.
 # Sets SOCI_FOUND
 include(${CMAKE_MODULE_PATH}/thirdparty/FindSoci.cmake)
+
+# All header files for tracker application
+set(tracker_include ${PROJECT_SOURCE_DIR}/include/)
+
+# nameof is a library that converts names of variables, types, etc
+# into strings
+set(nameof_include ${PROJECT_SOURCE_DIR}/extern/nameof/include/)
+
+# ranges-v3 is library to help modernise loops and transform containers
+set(ranges_include ${PROJECT_SOURCE_DIR}/extern/range-v3/include/)
+
