@@ -21,7 +21,7 @@
 #include <vector>
 
 /**
- * @brief Organizes all databasing related classes and functions 
+ * @brief Organizes all databasing related classes and functions
  */
 namespace database {
 /**
@@ -173,18 +173,16 @@ void insert(const Storable &storable) {
  * SELECT * from table;
  *
  */
-template <
-    typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<database::Storable, Storable>, int> = 0>
+template <typename Storable,
+          typename std::enable_if_t<
+              std::is_base_of_v<database::Storable, Storable>, int> = 0>
 auto retrieve() -> std::optional<std::vector<std::string>> {
   constexpr auto type_string = nameof::nameof_type<Storable>();
 
   // namespace::Class -> Class
   // "Class" is the table name
-  std::string table_name = type_string 
-                          | ranges::view::reverse 
-                          | ranges::view::delimit(':') 
-                          | ranges::view::reverse;
+  std::string table_name = type_string | ranges::view::reverse |
+                           ranges::view::delimit(':') | ranges::view::reverse;
 
   std::stringstream sql_command;
   sql_command << "SELECT count(*) from " << table_name;
@@ -206,11 +204,13 @@ auto retrieve() -> std::optional<std::vector<std::string>> {
   sql_command.str("");
   sql_command.clear();
 
-  sql_command << "SELECT name from " << table_name;
-  std::vector<std::string> storables(table_size);
-  try {
-    sql_connection << sql_command.str(), soci::into(storables);
+  sql_command << "SELECT * from " << table_name;
 
+  soci::row row;
+  soci::statement statement =
+      (sql_connection.prepare << sql_command.str(), soci::into(row));
+  try {
+    statement.execute();
   } catch (const soci::sqlite3_soci_error &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
@@ -218,6 +218,42 @@ auto retrieve() -> std::optional<std::vector<std::string>> {
     return std::nullopt;
   }
 
+  std::stringstream data_stream;
+  while (statement.fetch()) {
+    for (size_t i = 0; i < row.size(); ++i) {
+      const soci::column_properties &props = row.get_properties(i);
+
+      data_stream << props.get_name() << " ";
+
+      switch (props.get_data_type()) {
+      case soci::dt_string:
+        data_stream << row.get<std::string>(i);
+        break;
+      case soci::dt_double:
+        data_stream << row.get<double>(i);
+        break;
+      case soci::dt_integer:
+        data_stream << row.get<int>(i);
+        break;
+      case soci::dt_long_long:
+        data_stream << row.get<long long>(i);
+        break;
+      case soci::dt_unsigned_long_long:
+        data_stream << row.get<unsigned long long>(i);
+        break;
+      case soci::dt_date:
+        std::tm when = row.get<std::tm>(i);
+        data_stream << asctime(&when);
+        break;
+      }
+
+      data_stream << " ";
+    }
+    data_stream << "\n";
+  }
+
+  std::cout << data_stream.str() << std::endl;
+  std::vector<std::string> storables(table_size);
   return storables;
 }
 

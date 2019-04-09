@@ -11,10 +11,11 @@ int main() {
   food::Food taco(macros, "tacos");
   database::utils::insert(taco);
 
-  if (auto entries = database::utils::retrieve<food::Food>()) {
-    for (const std::string_view &entry : *entries) {
-      std::cout << entry << std::endl;
-    }
-  }
+  //if (auto entries = database::utils::retrieve<food::Food>()) {
+    //for (const std::string_view &entry : *entries) {
+      //std::cout << entry << std::endl;
+    //}
+  //}
+  database::utils::retrieve<food::Food>();
   return 0;
 }
