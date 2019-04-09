@@ -176,7 +176,7 @@ void insert(const Storable &storable) {
 template <typename Storable,
           typename std::enable_if_t<
               std::is_base_of_v<database::Storable, Storable>, int> = 0>
-auto retrieve() -> std::optional<std::vector<std::string>> {
+auto retrieve() -> std::optional<std::vector<Storable>> {
   constexpr auto type_string = nameof::nameof_type<Storable>();
 
   // namespace::Class -> Class
@@ -218,43 +218,54 @@ auto retrieve() -> std::optional<std::vector<std::string>> {
     return std::nullopt;
   }
 
-  std::stringstream data_stream;
+  std::vector<Storable> storables;
+  storables.reserve(table_size);
+
+  std::vector<Column> column_data;
+  column_data.reserve(row.size());
+
   while (statement.fetch()) {
     for (size_t i = 0; i < row.size(); ++i) {
       const soci::column_properties &props = row.get_properties(i);
 
-      data_stream << props.get_name() << " ";
+      Column column;
+      column.name = props.get_name();
+      if (column.name == table_name + "_id") {
+        continue;
+      }
 
       switch (props.get_data_type()) {
       case soci::dt_string:
-        data_stream << row.get<std::string>(i);
+        column.value = row.get<std::string>(i);
         break;
       case soci::dt_double:
-        data_stream << row.get<double>(i);
+        column.value = std::to_string(row.get<double>(i));
         break;
       case soci::dt_integer:
-        data_stream << row.get<int>(i);
+        column.value = std::to_string(row.get<int>(i));
         break;
       case soci::dt_long_long:
-        data_stream << row.get<long long>(i);
+        column.value = std::to_string(row.get<long long>(i));
         break;
       case soci::dt_unsigned_long_long:
-        data_stream << row.get<unsigned long long>(i);
+        column.value = std::to_string(row.get<unsigned long long>(i));
         break;
       case soci::dt_date:
-        std::tm when = row.get<std::tm>(i);
-        data_stream << asctime(&when);
+        auto when = row.get<std::tm>(i);
+        column.value = asctime(&when);
         break;
       }
 
-      data_stream << " ";
+      column_data.push_back(column);
     }
-    data_stream << "\n";
+
+    Data storable_data;
+    storable_data.columns = column_data;
+    storables.emplace_back();
+    storables.back().set_data(storable_data);
   }
 
-  std::cout << data_stream.str() << std::endl;
-  std::vector<std::string> storables(table_size);
-  return storables;
+  return std::optional<std::vector<Storable>>{storables};
 }
 
 } // namespace utils

@@ -121,23 +121,6 @@ public:
         fiber_{carb.quantity_fiber}, protein_{protein.quantity} {}
 
   /**
-   * @brief This constructor is used automatically and not meant
-   *        to be used by humans, due to reduced
-   *readability.
-   *
-   * This constructor will mainly be used to pass in data
-   * from the food database to construct a food object.
-   *
-   * @param fat The fat content of the food
-   * @param carb The carbohydrate content of the food. Pass by value.
-   * @param protein The protein content of the food
-   */
-  Macronutrients(const double fat, const double carbohydrate, const double fiber,
-                 const double protein)
-      : fat_{fat}, carbohydrate_{carbohydrate}, fiber_{fiber}, protein_{
-                                                                   protein} {}
-
-  /**
    * @brief Copy constructor for lvalues reference
    * @param macros The macros to be copied
    */

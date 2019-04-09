@@ -14,6 +14,7 @@
 #include "food/Macronutrients.hpp"
 #include "soci.h"
 #include <string>
+#include <string_view>
 
 /**
  * @brief Organizes all food related classes and utilities
@@ -32,24 +33,8 @@ public:
    * @param macros The macronutrients the food contains
    * @param food_name The name of the food
    */
-  Food(const Macronutrients &macros, std::string food_name)
-      : macronutrients_{macros}, name_{std::move(food_name)} {}
-
-  /**
-   * @param fat The fat in in grams of fat per 100g
-   * @param carbohydrate The carbohydrate in in grams of carbohydrate per 100g
-   * @param fiber The fiber in in grams of fiber per 100g
-   * @param protein The protein in in grams of protein per 100g
-   * @param food_name The name of the food
-   *
-   * This constructor will typically be used to create food objects built by
-   * database utils. Enable only if the types being passed in are all the right
-   * classes.
-   */
-  Food(const double &fat, const double &carbohydrate, const double &fiber,
-       const double &protein, std::string food_name)
-      : macronutrients_(fat, carbohydrate, fiber, protein), name_{std::move(
-                                                                food_name)} {}
+  Food(Macronutrients macros, std::string food_name)
+      : macronutrients_{std::move(macros)}, name_{std::move(food_name)} {}
 
   /**
    * @brief Copy constructor for lvalues reference
@@ -86,14 +71,46 @@ public:
   const database::Data get_data() const override;
 
   /**
+   * @brief When creating new food objects from data retrieved from the
+   *        database, this function will be used to set the data for the
+   *        Storable object.
+   *
+   * @param data The data retrieved from the database, most likely from
+   *             database::utilsA.
+   */
+  void set_data(const database::Data &data) override;
+
+  /**
+   * @return string representation of the name and data, the same way sqlite
+   *         displays table data
+   */
+  std::string str() const override;
+
+  /**
    * @return Returns the macronutrients of the food
    */
   const Macronutrients macronutrients() const { return macronutrients_; }
 
   /**
+   * @return Sets the macronutrients of the food
+   *
+   * @param macronutrients The macronutrients content of the food
+   */
+  void set_macronutrients(const Macronutrients &macronutrients) {
+    this->macronutrients_ = macronutrients;
+  }
+
+  /**
    * @return Returns the name of the food
    */
   const std::string name() const { return name_; }
+
+  /**
+   * @return Sets the macronutrients of the food
+   *
+   * @param macronutrients The macronutrients content of the food
+   */
+  void set_name(std::string_view name) { this->name_ = name; }
 
   ~Food() override = default;
 
@@ -111,7 +128,7 @@ private:
 } // namespace food
 
 /**
- * @brief This is an implementation of object-relational mapping for the 
+ * @brief This is an implementation of object-relational mapping for the
  *        SOCI library. This will be used to retrieve and insert Food
  *        objects directly into the SQL database without needing to manually
  *        give data to the SOCi library.
@@ -125,7 +142,7 @@ template <> struct type_conversion<food::Food> {
    * @brief Used to construct an object that is retrieved from the
    *        database.
    *
-   * @param v the values retrieved from the database 
+   * @param v the values retrieved from the database
    * @param food A reference to the food that will be filled, then
    *             given to the request filled with the right data.
    *

@@ -11,8 +11,10 @@
 #include "food/Food.hpp"
 #include <sstream>
 #include <string>
+#include <string_view>
+#include <unordered_map>
 
-//! @copydoc Food::get_data()
+//! @copydoc food::Food::get_data()
 const database::Data food::Food::get_data() const {
   database::Data data;
   data.table_name = "Food";
@@ -45,21 +47,68 @@ const database::Data food::Food::get_data() const {
   // The next 4 columns will all be REAL
   column.data_type = database::DataType::REAL;
 
+  const auto macronutrients = this->macronutrients();
+
   column.name = "fat";
-  column.value = std::to_string(this->macronutrients().fat());
+  column.value = std::to_string(macronutrients.fat());
   data.columns.emplace_back(column);
 
   column.name = "carbohydrate";
-  column.value = std::to_string(this->macronutrients().carbohydrate());
+  column.value = std::to_string(macronutrients.carbohydrate());
   data.columns.emplace_back(column);
 
   column.name = "fiber";
-  column.value = std::to_string(this->macronutrients().fiber());
+  column.value = std::to_string(macronutrients.fiber());
   data.columns.emplace_back(column);
 
   column.name = "protein";
-  column.value = std::to_string(this->macronutrients().protein());
+  column.value = std::to_string(macronutrients.protein());
   data.columns.emplace_back(column);
 
   return data;
+}
+
+//! @copydoc food::Food::set_data(const database::Data &data)
+void food::Food::set_data(const database::Data &data) {
+  std::unordered_map<std::string_view, std::string_view> organized_data;
+
+  for (const auto &column : data.columns) {
+    organized_data[column.name] = column.value;
+  }
+
+  this->name_ = organized_data["name"];
+
+  std::string value(organized_data["fat"]);
+  size_t size = value.size();
+  const auto fat = std::stod(value, &size);
+
+  value = std::string{organized_data["carbohydrate"]};
+  size = value.size();
+  const auto carbohydrate = std::stod(value, &size);
+
+  value = std::string{organized_data["fiber"]};
+  size = value.size();
+  const auto fiber = std::stod(value, &size);
+
+  value = std::string{organized_data["protein"]};
+  size = value.size();
+  const auto protein = std::stod(value, &size);
+
+  this->macronutrients_ = Macronutrients(
+      Fat(fat), Carbohydrate(carbohydrate, Fiber(fiber)), Protein(protein));
+}
+
+//! @copydoc food::Food::str()
+std::string food::Food::str() const {
+  std::stringstream ss;
+  ss << this->name();
+
+  const auto delimeter = "|";
+  const auto macronutrients = this->macronutrients();
+  ss << delimeter << macronutrients.fat();
+  ss << delimeter << macronutrients.carbohydrate();
+  ss << delimeter << macronutrients.fiber();
+  ss << delimeter << macronutrients.protein();
+
+  return ss.str();
 }

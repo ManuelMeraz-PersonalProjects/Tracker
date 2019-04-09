@@ -31,6 +31,22 @@ public:
    *         and the data itself.
    */
   virtual const database::Data get_data() const = 0;
+
+  /**
+   * @brief When creating new food objects from data retrieved from the
+   *        database, this function will be used to set the data for the
+   *        Storable object.
+   *
+   * @param data The data retrieved from the database, most likely from
+   *             database::utilsA.
+   */
+  virtual void set_data(const database::Data &data) = 0;
+
+  /**
+   * @return string representation of the name and data, the same way sqlite
+   *         displays table data
+   */
+  virtual std::string str() const = 0;
   virtual ~Storable() = default;
 };
 } // namespace database
