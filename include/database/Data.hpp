@@ -13,7 +13,7 @@
 #include <vector>
 
 /**
- * @brief Utility functions to store, retrieve, and manipulate objects in
+ * @brief Organizes all databasing related classes and functions 
  */
 namespace database {
 

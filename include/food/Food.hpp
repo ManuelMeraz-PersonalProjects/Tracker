@@ -1,5 +1,5 @@
 /**
- * @file food.hpp
+ * @file Food.hpp
  * @author Manuel G. Meraz
  * @date 03/11/2019
  * @brief The food class stores all macronutrient and micronutrient data for any
@@ -15,13 +15,16 @@
 #include "soci.h"
 #include <string>
 
+/**
+ * @brief Organizes all food related classes and utilities
+ */
 namespace food {
 
 /**
  * @brief The food class stores all macronutrient and micronutrient data for any
  *        food
  */
-class Food : public Storable {
+class Food : public database::Storable {
 public:
   Food() = default;
 

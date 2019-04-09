@@ -15,6 +15,10 @@
 #include <memory>
 
 /**
+ * @brief Organizes all databasing related classes and functions 
+ */
+namespace database {
+/**
  * @brief The database singleton class is in charge all database queries
  *
  *  Due to the way SQLite works, we want a single connection to the database
@@ -27,7 +31,7 @@ public:
    *
    * Called by Database::utils
    */
-  static auto get_connection() -> soci::session&;
+  static auto get_connection() -> soci::session &;
 
   //! Deleted functions
   Database(const Database &) = delete;
@@ -41,5 +45,6 @@ private:
 
   static std::unique_ptr<soci::session> sql_connection;
 };
+} // namespace database
 
 #endif /* DATABASE_DATABASE_HPP */

@@ -1,7 +1,7 @@
 /**
- * @file utils.h
+ * @file utils.hpp
  * @author Manuel G. Meraz
- * @date 03-30-2019
+ * @date 03/30/2019
  * @brief Utility functions and objects for databasing
  */
 
@@ -20,6 +20,9 @@
 #include <type_traits>
 #include <vector>
 
+/**
+ * @brief Organizes all databasing related classes and functions 
+ */
 namespace database {
 /**
  * @brief Utility functions to insert, retrieve, and manipulate objects in
@@ -172,7 +175,7 @@ void insert(const Storable &storable) {
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+    typename std::enable_if_t<std::is_base_of_v<database::Storable, Storable>, int> = 0>
 auto retrieve() -> std::optional<std::vector<std::string>> {
   constexpr auto type_string = nameof::nameof_type<Storable>();
 

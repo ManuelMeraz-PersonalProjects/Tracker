@@ -1,5 +1,5 @@
 /**
- * @file storable.hpp
+ * @file Storable.hpp
  * @author Manuel G. Meraz
  * @date 03/11/2019
  * @brief The base class that all storable data will inherit from.
@@ -13,8 +13,13 @@
 #include <string>
 
 /**
- * @brief Utility functions to store, retrieve, and manipulate objects in
- *        database.
+ * @brief Organizes all databasing related classes and functions
+ */
+namespace database {
+
+/*
+ * @brief The base class that all storable data will inherit from.
+ *
  */
 class Storable {
 public:
@@ -28,5 +33,6 @@ public:
   virtual const database::Data get_data() const = 0;
   virtual ~Storable() = default;
 };
+} // namespace database
 
 #endif /* DATABASE_STORABLE_HPP */

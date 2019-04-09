@@ -11,10 +11,10 @@
 #include "database/Database.hpp"
 #include <iostream>
 
-std::unique_ptr<soci::session> Database::sql_connection = nullptr;
+std::unique_ptr<soci::session> database::Database::sql_connection = nullptr;
 
-//! @copydoc Database::get_connection()
-auto Database::get_connection() -> soci::session & {
+//! @copydoc database::Database::get_connection()
+auto database::Database::get_connection() -> soci::session & {
   if (!sql_connection) {
     sql_connection = std::make_unique<soci::session>(
         "sqlite3", "db=tracker.db timeout=2 shared_cache=true");
