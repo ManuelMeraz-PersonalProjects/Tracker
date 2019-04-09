@@ -12,7 +12,7 @@ int main() {
   database::utils::insert(taco);
 
   if (auto entries = database::utils::retrieve<food::Food>()) {
-    for (const auto food : *entries) {
+    for (const auto& food : *entries) {
       std::cout << food.str() << std::endl;
     }
   }
