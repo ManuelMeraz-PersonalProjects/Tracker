@@ -8,7 +8,7 @@ int main() {
                               food::Carbohydrate(10, food::Fiber(10)),
                               food::Protein(10));
 
-  food::Food taco(macros, "tacos");
+  food::Food taco("tacos", macros);
   database::utils::insert(taco);
 
   if (auto entries = database::utils::retrieve<food::Food>()) {

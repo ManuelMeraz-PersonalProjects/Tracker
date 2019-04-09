@@ -33,8 +33,8 @@ public:
    * @param macros The macronutrients the food contains
    * @param food_name The name of the food
    */
-  Food(Macronutrients macros, std::string food_name)
-      : macronutrients_{std::move(macros)}, name_{std::move(food_name)} {}
+  Food(std::string food_name, Macronutrients macros)
+      : name_{std::move(food_name)}, macronutrients_{std::move(macros)} {}
 
   /**
    * @brief Copy constructor for lvalues reference
@@ -116,15 +116,16 @@ public:
 
 private:
   /**
-   *  @brief The macronutrients of the food
-   */
-  Macronutrients macronutrients_;
-
-  /**
    *  @brief The name of the food
    */
   std::string name_;
+
+  /**
+   *  @brief The macronutrients of the food
+   */
+  Macronutrients macronutrients_;
 };
+
 } // namespace food
 
 /**
@@ -158,7 +159,7 @@ template <> struct type_conversion<food::Food> {
     food::Macronutrients macros(fat, carbohydrate, protein);
     auto food_name(v.get<std::string>("name"));
 
-    food = food::Food(macros, food_name);
+    food = food::Food(food_name, macros);
   }
 
   /*
