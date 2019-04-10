@@ -15,7 +15,7 @@
 #include <memory>
 
 /**
- * @brief Organizes all databasing related classes and functions 
+ * @brief Organizes all databasing related classes and functions
  */
 namespace database {
 /**
@@ -29,7 +29,9 @@ public:
   /**
    * @brief Returns a reference to the current database connection;
    *
-   * Called by Database::utils
+   * Need to return a reference explicitly because this item is uncopyable.
+   * Attempts to copy the connection will try to call a private constructor and
+   * fail.
    */
   static auto get_connection() -> soci::session &;
 

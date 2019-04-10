@@ -3,8 +3,7 @@
  * @author Manuel G. Meraz
  * @date 03/12/2019
  * @brief Contains the Macronutrients class and related helper classes
- * food
- *
+ *        food
  */
 
 #ifndef FOOD_MACRONUTRIENTS_HPP
@@ -20,12 +19,11 @@ namespace food {
  * @brief Stores the fat content of a food
  */
 struct Fat {
-  Fat() : quantity{0} {}
+  Fat();
   /**
    * @param quantity The quantiy of fat in grams per 100g of food
    */
-  explicit Fat(double const quantity) : quantity{quantity} {};
-
+  explicit Fat(double quantity);
   /**
    *  @brief The quantiy of fat in grams per 100g of food
    */
@@ -36,12 +34,11 @@ struct Fat {
  * @brief Stores the fiber content of a food
  */
 struct Fiber {
-  Fiber() : quantity{0} {}
+  Fiber();
   /**
    * @param quantity The quantity of fiber in grams per 100g of food
    */
-  explicit Fiber(double const quantity) : quantity{quantity} {}
-
+  explicit Fiber(double quantity);
   /**
    * @brief quantity The quantity of fiber in grams per 100g of food
    */
@@ -52,22 +49,16 @@ struct Fiber {
  * @brief Stores the carbohydrate content of a food
  */
 struct Carbohydrate {
-  Carbohydrate() : quantity_carb{0}, quantity_fiber{0} {}
+  Carbohydrate();
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    */
-  explicit Carbohydrate(double const total_carb)
-      : quantity_carb(total_carb), quantity_fiber{0}
-  {}
-
+  explicit Carbohydrate(double total_carb);
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    * @param fiber The total fiber in grams per 100g of food
    */
-  explicit Carbohydrate(double const total_carb, Fiber const &fiber)
-      : quantity_carb{total_carb}, quantity_fiber(fiber.quantity)
-  {}
-
+  explicit Carbohydrate(double total_carb, Fiber const &fiber);
   /**
    * @brief The total carbohydrate in grams per 100g of food
    */
@@ -83,12 +74,11 @@ struct Carbohydrate {
  * @brief Stores the protein content of a food
  */
 struct Protein {
-  Protein() : quantity{0} {}
+  Protein();
   /**
    * @param protein The protein in grams per 100g of food
    */
-  explicit Protein(double const quantity) : quantity{quantity} {};
-
+  explicit Protein(double quantity);
   /**
    *  @brief The protein content of the food
    */
@@ -101,7 +91,7 @@ struct Protein {
  */
 class Macronutrients {
 public:
-  Macronutrients() : fat_{0}, carbohydrate_{0}, fiber_{0}, protein_{0} {}
+  Macronutrients();
 
   /**
    * @brief The classes passed in to this class are strongly typed classes
@@ -117,11 +107,8 @@ public:
    * @param carb The carbohydrate content of the food. Pass by value.
    * @param protein The protein content of the food
    */
-  Macronutrients(Fat const &fat, Carbohydrate const carb,
-                 Protein const &protein)
-      : fat_{fat.quantity}, carbohydrate_{carb.quantity_carb},
-        fiber_{carb.quantity_fiber}, protein_{protein.quantity}
-  {}
+  Macronutrients(Fat const &fat, Carbohydrate const &carb,
+                 Protein const &protein);
 
   /**
    * @brief Copy constructor for lvalues reference
@@ -150,22 +137,22 @@ public:
   /**
    * @return The quantity of fat
    */
-  auto fat() const -> double { return fat_; }
+  auto fat() const -> double;
 
   /**
    * @return The quantity of carbohydrate
    */
-  auto carbohydrate() const -> double { return carbohydrate_; }
+  auto carbohydrate() const -> double;
 
   /**
    * @return The quantity of fiber
    */
-  auto fiber() const -> double { return fiber_; }
+  auto fiber() const -> double;
 
   /**
    * @return The quantity of protein
    */
-  auto protein() const -> double { return protein_; }
+  auto protein() const -> double;
 
   ~Macronutrients() = default;
 

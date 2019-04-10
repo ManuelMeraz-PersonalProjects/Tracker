@@ -112,14 +112,20 @@ public:
   /**
    * @return Returns the name of the food
    */
-  auto name() const -> std::string const { return name_; }
+  auto name() const -> std::string const
+  {
+    return name_;
+  }
 
   /**
    * @return Sets the macronutrients of the food
    *
    * @param macronutrients The macronutrients content of the food
    */
-  void set_name(std::string_view name) { this->name_ = name; }
+  void set_name(std::string_view name)
+  {
+    this->name_ = name;
+  }
 
   ~Food() override = default;
 

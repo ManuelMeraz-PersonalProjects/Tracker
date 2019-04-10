@@ -48,7 +48,7 @@ auto table_exists(std::string_view table_name) -> bool;
  *
  * Creates the following SQLite3 command:
  *
- * SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
+ * SELECT count(*) from table_name;
  */
 auto count_rows(std::string_view table_name) -> size_t;
 
@@ -75,7 +75,7 @@ void create_table(std::string_view table_name,
 /**
  * @brief to_string function for data enum types
  *
- * @param DataEnum type that is either a constraint type or sql type
+ * @param data_enum DataEnum type that is either a constraint type or sql type
  */
 template <typename DataEnum,
           typename std::enable_if_t<std::is_enum_v<DataEnum>, int> = 0>
@@ -125,6 +125,8 @@ template <
     typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
 void insert(Storable const &storable)
 {
+  // Data contains all of the table information
+  // (e.g. table_name, schema and row(s) of data)
   Data const &data = storable.get_data();
   if (!utils::table_exists(data.table_name)) {
     utils::create_table(data.table_name, data.schema);
@@ -138,12 +140,14 @@ void insert(Storable const &storable)
   std::stringstream column_values;
   column_values << "VALUES\n(\n";
 
-  // The row will be of length one because it comes from a single Storable
-  // object
+  // The row will be of length one because it
+  // comes from a single Storable object
   auto delimeter = "";
   for (auto const &[column, row_data] :
        ranges::view::zip(data.schema, data.rows[0].row_data)) {
     // Contins a std::variant type, need to visit and extract the data
+    // index gives us the position in the template declaration, and therefore
+    // the data type (e.g. <int, double> -> <0, 1>
     auto row_index_type = static_cast<soci::data_type>(row_data.index());
 
     column_names << delimeter << column.name;
@@ -200,6 +204,9 @@ void insert(Storable const &storable)
  * optional with nothing in it, a single object, or a vector.
  *
  * SELECT * from table;
+ *
+ * Usage:
+ *
  *
  */
 template <typename Storable,

@@ -1,5 +1,5 @@
 /**
- * @file food.cpp
+ * @file Food.cpp
  * @author Manuel G. Meraz
  * @date 03/29/2019
  * @brief The food class stores all macronutrient and micronutrient data for any

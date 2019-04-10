@@ -1,5 +1,6 @@
 set(FOOD_SOURCE_FILES
 	Food.cpp
+  Macronutrients.cpp
 )
 
 add_library(food
