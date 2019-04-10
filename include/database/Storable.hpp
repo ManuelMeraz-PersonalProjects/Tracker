@@ -3,7 +3,6 @@
  * @author Manuel G. Meraz
  * @date 03/11/2019
  * @brief The base class that all storable data will inherit from.
- *
  */
 
 #pragma once
@@ -19,7 +18,6 @@ namespace database {
 
 /*
  * @brief The base class that all storable data will inherit from.
- *
  */
 class Storable {
 public:

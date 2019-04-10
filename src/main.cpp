@@ -11,8 +11,8 @@ auto main() -> int
   food::Food taco("tacos", macros);
   database::utils::insert(taco);
 
-  if (auto entries = database::utils::retrieve<food::Food>()) {
-    for (const auto &food : *entries) {
+  if (auto all_food = database::utils::retrieve_all<food::Food>()) {
+    for (const auto &food : *all_food) {
       std::cout << food.str() << std::endl;
     }
   }

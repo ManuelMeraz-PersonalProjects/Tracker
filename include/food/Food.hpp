@@ -79,7 +79,6 @@ public:
    *
    * @param data A row of data to set the object data
    * object
-   *
    */
   void set_data(std::vector<database::ColumnProperties> const &schema,
                 database::Row const &data) override;
@@ -97,7 +96,6 @@ public:
 
   /**
    * @return Sets the macronutrients of the food
-   *
    * @param macronutrients The macronutrients content of the food
    */
   void set_macronutrients(Macronutrients const &macronutrients);
@@ -109,7 +107,6 @@ public:
 
   /**
    * @return Sets the macronutrients of the food
-   *
    * @param macronutrients The macronutrients content of the food
    */
   void set_name(std::string_view name);
@@ -148,7 +145,6 @@ template <> struct type_conversion<food::Food> {
    * @param v the values retrieved from the database
    * @param food A reference to the food that will be filled, then
    *             given to the request filled with the right data.
-   *
    */
   static void from_base(values const &v, indicator /* ind */, food::Food &food);
 
@@ -158,9 +154,9 @@ template <> struct type_conversion<food::Food> {
    *
    * @param food A reference to the food that will be used to extract data
    *             from, then inserted into the database
+   *
    * @param v the values that will be used to insert into the database
    * @param ind Sets states for the data. Used by SOCI.
-   *
    */
   static void to_base(food::Food const &food, values &v, indicator &ind);
 };

@@ -111,8 +111,6 @@ public:
    * to help illustrate the data being passed in. All data passed in
    * is in gramss per 100g of the food
    *
-   *
-   *
    * @param fat The fat content of the food
    * @param carb The carbohydrate content of the food. Pass by value.
    * @param protein The protein content of the food

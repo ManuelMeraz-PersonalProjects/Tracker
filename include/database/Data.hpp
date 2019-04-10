@@ -29,7 +29,6 @@ enum class DataType { REAL, INTEGER, TEXT, NULL_, BLOB };
 
 /**
  * @brief The SQL constraint for column of data when creating a table schema
- *
  */
 enum class Constraint { PRIMARY_KEY, UNIQUE, NOT_NULL, CHECK };
 

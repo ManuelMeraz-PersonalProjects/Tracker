@@ -124,7 +124,7 @@ inline void database::utils::insert(Storable const &storable)
 template <typename Storable,
           typename std::enable_if_t<
               std::is_base_of_v<database::Storable, Storable>, int>>
-inline auto database::utils::retrieve() -> std::optional<std::vector<Storable>>
+inline auto database::utils::retrieve_all() -> std::optional<std::vector<Storable>>
 {
   constexpr auto type_string = nameof::nameof_type<Storable>();
 

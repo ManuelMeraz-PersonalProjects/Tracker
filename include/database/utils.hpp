@@ -26,7 +26,6 @@ namespace utils {
 
 /**
  * @brief Check if table exists in database
- *
  * @param table_name The name of the table
  *
  * Creates the following SQLite3 command:
@@ -61,7 +60,6 @@ auto count_rows(std::string_view table_name) -> size_t;
  *   column_3 data_type DEFAULT 0,
  *   ...
  *   );
- *
  */
 void create_table(std::string_view table_name,
                   std::vector<ColumnProperties> const &schema);
@@ -92,7 +90,6 @@ auto enum_to_string(DataEnum const &data_enum) -> std::string_view;
  * (
  * value1,
  * value2 ,...);
- *
  */
 template <
     typename Storable,
@@ -101,7 +98,6 @@ void insert(Storable const &storable);
 
 /**
  * @brief Retrieves all database objects that match the name that is passed in
- *
  * @param name The name of the object being retrieved fro the database
  *
  * Retrieves all objects of the type requested that contain that name. Does
@@ -111,13 +107,17 @@ void insert(Storable const &storable);
  * SELECT * from table;
  *
  * Usage:
+ * 
+ * auto all_food = database::utils::retrieve_all<food::Food>();
  *
- *
+ * if(all_food) {
+ *  // do something
+ *  }
  */
 template <typename Storable,
           typename std::enable_if_t<
               std::is_base_of_v<database::Storable, Storable>, int> = 0>
-auto retrieve() -> std::optional<std::vector<Storable>>;
+auto retrieve_all() -> std::optional<std::vector<Storable>>;
 
 } // namespace utils
 } // namespace database
