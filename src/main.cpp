@@ -3,7 +3,8 @@
 #include "food/Macronutrients.hpp" // Fat, Carbohydrate, Protein
 #include <string_view>
 
-int main() {
+int main()
+{
   food::Macronutrients macros(food::Fat(10),
                               food::Carbohydrate(10, food::Fiber(10)),
                               food::Protein(10));
@@ -12,7 +13,7 @@ int main() {
   database::utils::insert(taco);
 
   if (auto entries = database::utils::retrieve<food::Food>()) {
-    for (const auto& food : *entries) {
+    for (const auto &food : *entries) {
       std::cout << food.str() << std::endl;
     }
   }

@@ -9,11 +9,13 @@
 #ifndef DATABASE_DATA_HPP
 #define DATABASE_DATA_HPP
 
+#include <ctime>
 #include <string>
+#include <variant>
 #include <vector>
 
 /**
- * @brief Organizes all databasing related classes and functions 
+ * @brief Organizes all databasing related classes and functions
  */
 namespace database {
 
@@ -32,19 +34,21 @@ enum class DataType { REAL, INTEGER, TEXT, NULL_, BLOB };
 enum class Constraint { PRIMARY_KEY, UNIQUE, NOT_NULL, CHECK };
 
 /**
- * @brief The column info for inserting data into a database
+ * @brief Potential datatypes stored by Row::row_data_t std::variant. Allows us to access the variant by index.
+ *
  */
-struct Column {
+enum class RowIndexType { STRING, DOUBLE, INT, LL, ULL, TIME };
+
+/**
+ * @brief The column properties for a column in a table. A group of these
+ *        represents a schema.
+ */
+struct ColumnProperties {
 
   /**
    * @brief The name of the column
    */
   std::string name;
-
-  /**
-   * @brief The value that will be stored in this column
-   */
-  std::string value;
 
   /**
    * @brief The type of data to be stored in the database (e.g. REAL, INTEGER,
@@ -60,6 +64,25 @@ struct Column {
 };
 
 /**
+ * @brief A row of variant data
+ */
+struct Row {
+
+  /**
+   * @brief The following data types are the expected types to be received from
+   *        the SOCI library when retrieving data
+   */
+  using row_data_t = std::variant<std::string, double, int, long long,
+                                  unsigned long long, std::tm>;
+
+  /**
+   * @brief The following data types are the expected types to be received from
+   *        the SOCI library when retrieving data
+   */
+  std::vector<row_data_t> row_data;
+};
+
+/**
  * @brief The data to be stored into a database
  */
 struct Data {
@@ -70,10 +93,15 @@ struct Data {
   std::string table_name;
 
   /**
-   * @brief The column info to be stored
-   *
+   * @brief The schema of the table
    */
-  std::vector<Column> columns;
+  std::vector<ColumnProperties> schema;
+
+  /**
+   * @brief Each row contains the raw variant data in the same
+   *        order as the schema
+   */
+  std::vector<Row> rows;
 };
 
 } // namespace database

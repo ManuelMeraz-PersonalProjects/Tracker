@@ -3,8 +3,7 @@
  * @author Manuel G. Meraz
  * @date 03/11/2019
  * @brief The food class stores all macronutrient and micronutrient data for any
- * food
- *
+ *        food
  */
 
 #ifndef FOOD_FOOD_HPP
@@ -34,7 +33,8 @@ public:
    * @param food_name The name of the food
    */
   Food(std::string food_name, Macronutrients macros)
-      : name_{std::move(food_name)}, macronutrients_{std::move(macros)} {}
+      : name_{std::move(food_name)}, macronutrients_{macros}
+  {}
 
   /**
    * @brief Copy constructor for lvalues reference
@@ -75,10 +75,15 @@ public:
    *        database, this function will be used to set the data for the
    *        Storable object.
    *
-   * @param data The data retrieved from the database, most likely from
-   *             database::utilsA.
+   * @param schema A vector containing the properties of each column that make
+   *               up a schema
+   *
+   * @param data A row of data to set the object data
+   * object
+   *
    */
-  void set_data(const database::Data &data) override;
+  void set_data(std::vector<database::ColumnProperties> const &schema,
+                database::Row const &data) override;
 
   /**
    * @return string representation of the name and data, the same way sqlite
@@ -96,7 +101,8 @@ public:
    *
    * @param macronutrients The macronutrients content of the food
    */
-  void set_macronutrients(const Macronutrients &macronutrients) {
+  void set_macronutrients(const Macronutrients &macronutrients)
+  {
     this->macronutrients_ = macronutrients;
   }
 
@@ -148,8 +154,8 @@ template <> struct type_conversion<food::Food> {
    *             given to the request filled with the right data.
    *
    */
-  static void from_base(values const &v, indicator /* ind */,
-                        food::Food &food) {
+  static void from_base(values const &v, indicator /* ind */, food::Food &food)
+  {
 
     food::Fat fat(v.get<double>("fat"));
     food::Carbohydrate carbohydrate(v.get<double>("carbohydrate"));
@@ -172,7 +178,8 @@ template <> struct type_conversion<food::Food> {
    * @param ind Sets states for the data. Used by SOCI.
    *
    */
-  static void to_base(const food::Food &food, values &v, indicator &ind) {
+  static void to_base(const food::Food &food, values &v, indicator &ind)
+  {
     v.set("fat", food.macronutrients().fat());
     v.set("carbohydrate", food.macronutrients().carbohydrate());
     v.set("fiber", food.macronutrients().fiber());

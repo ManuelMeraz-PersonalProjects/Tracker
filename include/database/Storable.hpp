@@ -30,17 +30,20 @@ public:
    * @return This A pair containing the column where the data will be store
    *         and the data itself.
    */
-  virtual const database::Data get_data() const = 0;
+  virtual const Data get_data() const = 0;
 
   /**
    * @brief When creating new food objects from data retrieved from the
    *        database, this function will be used to set the data for the
    *        Storable object.
    *
-   * @param data The data retrieved from the database, most likely from
-   *             database::utilsA.
+   * @param schema A vector containing the properties of each column that make
+   *               up a schema
+   *
+   * @param data A row of data to set the object data
    */
-  virtual void set_data(const database::Data &data) = 0;
+  virtual void set_data(std::vector<ColumnProperties> const &schema,
+                        Row const &row) = 0;
 
   /**
    * @return string representation of the name and data, the same way sqlite
