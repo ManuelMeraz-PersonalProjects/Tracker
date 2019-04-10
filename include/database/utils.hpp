@@ -79,7 +79,7 @@ void create_table(std::string_view table_name,
  */
 template <typename DataEnum,
           typename std::enable_if_t<std::is_enum_v<DataEnum>, int> = 0>
-auto enum_to_string(DataEnum const &data_enum) -> char const *
+auto enum_to_string(DataEnum const &data_enum) -> std::string_view
 {
   if constexpr (std::is_same_v<DataEnum, DataType>) {
     static std::map<DataType, std::string_view> type_strings{

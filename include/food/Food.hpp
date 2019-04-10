@@ -68,7 +68,7 @@ public:
    *         and a vector of column info. See Data.hpp for more
    *info.
    */
-  const database::Data get_data() const override;
+  auto get_data() const -> database::Data const override;
 
   /**
    * @brief When creating new food objects from data retrieved from the
@@ -89,12 +89,15 @@ public:
    * @return string representation of the name and data, the same way sqlite
    *         displays table data
    */
-  std::string str() const override;
+  auto str() const -> std::string override;
 
   /**
    * @return Returns the macronutrients of the food
    */
-  const Macronutrients macronutrients() const { return macronutrients_; }
+  auto macronutrients() const -> Macronutrients const
+  {
+    return macronutrients_;
+  }
 
   /**
    * @return Sets the macronutrients of the food
@@ -109,7 +112,7 @@ public:
   /**
    * @return Returns the name of the food
    */
-  const std::string name() const { return name_; }
+  auto name() const -> std::string const { return name_; }
 
   /**
    * @return Sets the macronutrients of the food

@@ -3,7 +3,7 @@
 #include "food/Macronutrients.hpp" // Fat, Carbohydrate, Protein
 #include <string_view>
 
-int main()
+auto main() -> int
 {
   food::Macronutrients macros(food::Fat(10),
                               food::Carbohydrate(10, food::Fiber(10)),

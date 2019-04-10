@@ -30,7 +30,7 @@ public:
    * @return This A pair containing the column where the data will be store
    *         and the data itself.
    */
-  virtual const Data get_data() const = 0;
+  virtual auto get_data() const -> Data const = 0;
 
   /**
    * @brief When creating new food objects from data retrieved from the
