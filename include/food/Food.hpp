@@ -149,18 +149,7 @@ template <> struct type_conversion<food::Food> {
    *             given to the request filled with the right data.
    *
    */
-  static void from_base(values const &v, indicator /* ind */, food::Food &food)
-  {
-    food::Fat fat(v.get<double>("fat"));
-    food::Carbohydrate carbohydrate(v.get<double>("carbohydrate"));
-    carbohydrate.quantity_fiber = v.get<double>("fiber");
-    food::Protein protein(v.get<double>("protein"));
-
-    food::Macronutrients macros(fat, carbohydrate, protein);
-    auto food_name(v.get<std::string>("name"));
-
-    food = food::Food(food_name, macros);
-  }
+  static void from_base(values const &v, indicator /* ind */, food::Food &food);
 
   /*
    * @brief Used to construct an object that is given to the
@@ -172,16 +161,10 @@ template <> struct type_conversion<food::Food> {
    * @param ind Sets states for the data. Used by SOCI.
    *
    */
-  static void to_base(food::Food const &food, values &v, indicator &ind)
-  {
-    v.set("fat", food.macronutrients().fat());
-    v.set("carbohydrate", food.macronutrients().carbohydrate());
-    v.set("fiber", food.macronutrients().fiber());
-    v.set("protein", food.macronutrients().protein());
-    v.set("name", food.name());
-    ind = i_ok;
-  }
+  static void to_base(food::Food const &food, values &v, indicator &ind);
 };
 } // namespace soci
+
+#include "Food.tpp"
 
 #endif /* FOOD_FOOD_HPP */
