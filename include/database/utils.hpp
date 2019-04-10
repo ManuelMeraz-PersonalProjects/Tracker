@@ -64,8 +64,10 @@ auto count_rows() -> size_t;
  *   ...
  *   );
  */
-void create_table(std::string_view table_name,
-                  std::vector<ColumnProperties> const &schema);
+template <
+    typename Storable,
+    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+void create_table(std::vector<ColumnProperties> const &schema);
 
 /**
  * @brief Deletes the table from the database

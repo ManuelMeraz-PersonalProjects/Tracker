@@ -23,13 +23,44 @@
 #include <type_traits>
 #include <vector>
 
+template <typename Storable,
+          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
+void database::utils::create_table(std::vector<ColumnProperties> const &schema)
+{
+  std::string const table_name = utils::type_to_string<Storable>();
+  std::stringstream sql_command;
+
+  sql_command << "CREATE TABLE IF NOT EXISTS " << table_name << " (\n";
+
+  auto delimeter = "";
+  for (auto const &column : schema) {
+    sql_command << delimeter << column.name << " "
+                << utils::enum_to_string(column.data_type) << " "
+                << utils::enum_to_string(column.constraint);
+
+    delimeter = ",\n";
+  }
+
+  sql_command << ");\n";
+
+  auto &sql_connection = Database::get_connection();
+
+  try {
+    sql_connection << sql_command.str();
+  } catch (soci::sqlite3_soci_error const &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+    throw std::runtime_error("Attempt to create table failed!");
+  }
+}
+
 template <typename T> auto database::utils::type_to_string() -> std::string
 {
   constexpr auto type_string = nameof::nameof_type<T>();
 
   // namespace::Class -> Class
   // "Class" is the table name
-  std::string table_name = type_string | ranges::view::reverse |
+  std::string const table_name = type_string | ranges::view::reverse |
                            ranges::view::delimit(':') | ranges::view::reverse;
 
   return table_name;
@@ -40,7 +71,7 @@ template <typename Storable,
 inline auto database::utils::count_rows() -> size_t
 {
 
-  std::string table_name = utils::type_to_string<Storable>();
+  std::string const table_name = utils::type_to_string<Storable>();
   if (!utils::table_exists(table_name)) { return 0; }
 
   auto &sql_connection = Database::get_connection();
@@ -93,7 +124,7 @@ inline void database::utils::insert(Storable const &storable)
   // (e.g. table_name, schema and row(s) of data)
   Data const &data = storable.get_data();
   if (!utils::table_exists(data.table_name)) {
-    utils::create_table(data.table_name, data.schema);
+    utils::create_table<Storable>(data.schema);
   }
 
   std::stringstream sql_command;
@@ -164,7 +195,7 @@ template <typename Storable,
 inline auto database::utils::retrieve_all()
     -> std::optional<std::vector<Storable>>
 {
-  std::string table_name = utils::type_to_string<Storable>();
+  std::string const table_name = utils::type_to_string<Storable>();
 
   auto &sql_connection = Database::get_connection();
   size_t num_rows = utils::count_rows<Storable>();
