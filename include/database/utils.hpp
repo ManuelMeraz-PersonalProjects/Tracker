@@ -79,7 +79,7 @@ void create_table(std::string_view table_name,
  */
 template <typename DataEnum,
           typename std::enable_if_t<std::is_enum_v<DataEnum>, int> = 0>
-auto enum_to_string(DataEnum const &data_enum)
+auto enum_to_string(DataEnum const &data_enum) -> char const *
 {
   if constexpr (std::is_same_v<DataEnum, DataType>) {
     static std::map<DataType, std::string_view> type_strings{
@@ -225,7 +225,7 @@ auto retrieve() -> std::optional<std::vector<Storable>>
       (sql_connection.prepare << sql_command.str(), soci::into(from_row));
   try {
     statement.execute();
-  } catch (const soci::sqlite3_soci_error &error) {
+  } catch (soci::sqlite3_soci_error const &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
 
@@ -245,7 +245,7 @@ auto retrieve() -> std::optional<std::vector<Storable>>
 
   while (statement.fetch()) {
     for (size_t i = 0; i < from_row.size(); ++i) {
-      const soci::column_properties &props = from_row.get_properties(i);
+      soci::column_properties const &props = from_row.get_properties(i);
       ColumnProperties column_property;
       column_property.name = props.get_name();
       schema.emplace_back(column_property);

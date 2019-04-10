@@ -22,7 +22,7 @@ auto database::utils::table_exists(std::string_view table_name) -> bool
   std::string exists;
   try {
     sql_connection << sql_command.str(), soci::into(exists);
-  } catch (const soci::sqlite3_soci_error &error) {
+  } catch (soci::sqlite3_soci_error const &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
     throw std::runtime_error("Attempt to check if table exists "
@@ -43,7 +43,7 @@ auto database::utils::count_rows(std::string_view table_name) -> size_t
   size_t num_rows;
   try {
     sql_connection << sql_command.str(), soci::into(num_rows);
-  } catch (const soci::sqlite3_soci_error &error) {
+  } catch (soci::sqlite3_soci_error const &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
     throw std::runtime_error("Attempt to count the number of rows in table "
@@ -75,7 +75,7 @@ void database::utils::create_table(std::string_view table_name,
 
   try {
     sql_connection << sql_command.str();
-  } catch (const soci::sqlite3_soci_error &error) {
+  } catch (soci::sqlite3_soci_error const &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
     throw std::runtime_error("Attempt to create table failed!");
