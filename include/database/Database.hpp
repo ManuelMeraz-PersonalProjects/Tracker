@@ -32,6 +32,12 @@ public:
    * Need to return a reference explicitly because this item is uncopyable.
    * Attempts to copy the connection will try to call a private constructor and
    * fail.
+   *
+   * Usage:
+   * @n auto& sql_connection = database::Database::get_connection();
+   * @n sql_connection << "some sql command here";
+   *
+   * Will throw a soci::sqlite3_soci_error if the command fails
    */
   static auto get_connection() -> soci::session &;
 
