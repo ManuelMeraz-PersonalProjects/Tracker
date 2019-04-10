@@ -31,8 +31,8 @@ namespace utils {
  * @param T The template parameter T could be any possible type.
  *
  * Usage:
- * std::string type_string = database::utils::type_to_string<food::Food>();
- * type_string == "Food" // true
+ * @n std::string type_string = database::utils::type_to_string<food::Food>();
+ * @n type_string == "Food" // true
  */
 template <typename T> auto type_to_string() -> std::string;
 
@@ -41,10 +41,10 @@ template <typename T> auto type_to_string() -> std::string;
  * @param Storable Any type that is a base of Storable
  *
  * Creates the following SQLite3 command:
- * SELECT count(*) from table_name;
+ * @n SELECT count(*) from table_name;
  *
  * Usage:
- * size_t quantity = database::utils::count_rows<food::Food>();
+ * @n size_t quantity = database::utils::count_rows<food::Food>();
  */
 template <
     typename Storable,
@@ -57,15 +57,15 @@ auto count_rows() -> size_t;
  * @param schema The schema to be used to create the table
  *
  * Creates the following SQLite3 command:
- *  CREATE TABLE IF NOT EXISTS table_name (
- *   column_1 data_type PRIMARY KEY,
- *   column_2 data_type NOT NULL,
- *   column_3 data_type DEFAULT 0,
- *   ...
- *   );
+ * @n CREATE TABLE IF NOT EXISTS table_name (
+ * @n  column_1 data_type PRIMARY KEY,
+ * @n  column_2 data_type NOT NULL,
+ * @n  column_3 data_type DEFAULT 0,
+ * @n  ...
+ * @n  );
  *
- *  Usage:
- *  create_table<food::Food>();
+ * Usage:
+ * @n create_table<food::Food>();
  */
 template <
     typename Storable,
@@ -92,12 +92,12 @@ void drop_table();
  * @param Storable Any type that is a base of Storable
  *
  * Creates the following SQLite3 command:
- * SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
+ * @n SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
  *
  * Usage:
- * if(table_exists<food::Food>()) {
- *   // do something
- * }
+ * @n if(table_exists<food::Food>()) {
+ * @n   // do something
+ * @n }
  */
 template <
     typename Storable,
@@ -125,17 +125,17 @@ auto enum_to_string(DataEnum const &data_enum) -> std::string_view;
  *                 inherit from Storable.
  *
  * Creates the following SQLite3 command:
- * INSERT INTO table1 (
- * column1,
- * column2 ,..)
- * VALUES
- * (
- * value1,
- * value2 ,...);
+ * @n INSERT INTO table1 (
+ * @n column1,
+ * @n column2 ,..)
+ * @n VALUES
+ * @n (
+ * @n value1,
+ * @n value2 ,...);
  *
  * Usage:
- * food::Food taco("taco", macros);
- * database::utils::insert(taco);
+ * @n food::Food taco("taco", macros);
+ * @n database::utils::insert(taco);
  */
 template <
     typename Storable,
@@ -147,18 +147,18 @@ void insert(Storable const &storable);
  * @param Storable The type of storable object being retrieved
  *
  * Retrieves all objects of the type requested that contain that name. Does
- * not guarantee that the objects exist. This will either return an std
- * optional with nothing in it, or a vector.
+ * @n not guarantee that the objects exist. This will either return an std
+ * @n optional with nothing in it, or a vector.
  *
  * Creates the following SQLite3 command:
- * SELECT * from Storable;
+ * @n SELECT * from Storable;
  *
  * Usage:
- * auto all_food = database::utils::retrieve_all<food::Food>();
+ * @n auto all_food = database::utils::retrieve_all<food::Food>();
  *
- * if(all_food) {
- *  // do something
- *  }
+ * @n if(all_food) {
+ * @n  // do something
+ * @n  }
  */
 template <typename Storable,
           typename std::enable_if_t<
