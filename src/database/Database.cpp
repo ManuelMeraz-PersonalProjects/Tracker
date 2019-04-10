@@ -9,6 +9,7 @@
  */
 
 #include "database/Database.hpp"
+
 #include <iostream>
 
 std::unique_ptr<soci::session> database::Database::sql_connection = nullptr;

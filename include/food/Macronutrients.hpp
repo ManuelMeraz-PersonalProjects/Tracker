@@ -6,8 +6,8 @@
  *        food
  */
 
-#ifndef FOOD_MACRONUTRIENTS_HPP
-#define FOOD_MACRONUTRIENTS_HPP
+#pragma once
+
 #include <iostream>
 #include <type_traits>
 
@@ -188,5 +188,3 @@ private:
   double protein_;
 };
 } // namespace food
-
-#endif /* FOOD_MACRONUTRIENTS_HPP */

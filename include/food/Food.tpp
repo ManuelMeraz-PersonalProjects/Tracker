@@ -10,7 +10,7 @@
 #include "food/Food.hpp"
 #include "food/Macronutrients.hpp"
 
-#include "soci.h"
+#include <soci.h>
 
 inline void soci::type_conversion<food::Food>::from_base(values const &v,
                                                          indicator /* ind */,

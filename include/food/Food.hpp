@@ -10,7 +10,9 @@
 
 #include "database/Storable.hpp"
 #include "food/Macronutrients.hpp"
-#include "soci.h"
+
+#include <soci.h>
+
 #include <string>
 #include <string_view>
 

@@ -6,10 +6,10 @@
  *
  */
 
-#ifndef DATABASE_STORABLE_HPP
-#define DATABASE_STORABLE_HPP
+#pragma once
 
 #include "database/Data.hpp"
+
 #include <string>
 
 /**
@@ -53,5 +53,3 @@ public:
   virtual ~Storable() = default;
 };
 } // namespace database
-
-#endif /* DATABASE_STORABLE_HPP */

@@ -7,11 +7,11 @@
  *        maintained.
  */
 
-#ifndef DATABASE_DATABASE_HPP
-#define DATABASE_DATABASE_HPP
+#pragma once
 
-#include "soci-sqlite3.h"
-#include "soci.h"
+#include <soci-sqlite3.h>
+#include <soci.h>
+
 #include <memory>
 
 /**
@@ -48,5 +48,3 @@ private:
   static std::unique_ptr<soci::session> sql_connection;
 };
 } // namespace database
-
-#endif /* DATABASE_DATABASE_HPP */

@@ -6,10 +6,10 @@
  *
  */
 
-#ifndef DATABASE_DATA_HPP
-#define DATABASE_DATA_HPP
+#pragma once
 
 #include <ctime>
+
 #include <string>
 #include <variant>
 #include <vector>
@@ -96,5 +96,3 @@ struct Data {
 };
 
 } // namespace database
-
-#endif /* DATABASE_DATA_HPP */

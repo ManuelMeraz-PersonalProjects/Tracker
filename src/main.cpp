@@ -1,7 +1,6 @@
 #include "database/utils.hpp"
 #include "food/Food.hpp"           // Food
 #include "food/Macronutrients.hpp" // Fat, Carbohydrate, Protein
-#include <string_view>
 
 auto main() -> int
 {
