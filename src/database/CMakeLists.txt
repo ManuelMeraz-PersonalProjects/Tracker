@@ -1,6 +1,5 @@
 set(DATABASE_SOURCE_FILES
 	Database.cpp
-  utils.cpp
 )
 
 add_library(database

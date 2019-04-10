@@ -91,7 +91,10 @@ void drop_table();
  *
  * SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
  */
-auto table_exists(std::string_view table_name) -> bool;
+template <
+    typename Storable,
+    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+auto table_exists() -> bool;
 
 /**
  * @brief to_string function for data enum types

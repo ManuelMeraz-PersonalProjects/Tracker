@@ -25,14 +25,37 @@
 
 template <typename Storable,
           typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
-inline void database::utils::drop_table()
+auto database::utils::table_exists() -> bool
 {
+  auto &sql_connection = Database::get_connection();
   std::string const table_name = utils::type_to_string<Storable>();
 
+  std::stringstream sql_command;
+  sql_command << "SELECT name FROM sqlite_master WHERE type='table' AND name='"
+              << table_name << "';\n";
+
+  std::string exists;
+  try {
+    sql_connection << sql_command.str(), soci::into(exists);
+  } catch (soci::sqlite3_soci_error const &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+    throw std::runtime_error("Attempt to check if table exists failed.");
+  }
+
+  return exists != "";
+}
+
+template <typename Storable,
+          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
+inline void database::utils::drop_table()
+{
   // Table doesn't exist, already 'dropped'
-  if (!utils::table_exists(table_name)) return;
+  if (!utils::table_exists<Storable>()) return;
 
   auto &sql_connection = Database::get_connection();
+  std::string const table_name = utils::type_to_string<Storable>();
+
   std::stringstream sql_command;
   sql_command << "DROP TABLE " << table_name << ";\n";
 
@@ -51,8 +74,8 @@ inline void
 database::utils::create_table(std::vector<ColumnProperties> const &schema)
 {
   std::string const table_name = utils::type_to_string<Storable>();
-  std::stringstream sql_command;
 
+  std::stringstream sql_command;
   sql_command << "CREATE TABLE IF NOT EXISTS " << table_name << " (\n";
 
   auto delimeter = "";
@@ -95,11 +118,11 @@ template <typename Storable,
           typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
 inline auto database::utils::count_rows() -> size_t
 {
-
-  std::string const table_name = utils::type_to_string<Storable>();
-  if (!utils::table_exists(table_name)) { return 0; }
+  if (!utils::table_exists<Storable>()) { return 0; }
 
   auto &sql_connection = Database::get_connection();
+  std::string const table_name = utils::type_to_string<Storable>();
+
   std::stringstream sql_command;
   sql_command << "SELECT count(*) from " << table_name << ";\n";
 
@@ -148,12 +171,11 @@ inline void database::utils::insert(Storable const &storable)
   // Data contains all of the table information
   // (e.g. table_name, schema and row(s) of data)
   Data const &data = storable.get_data();
-  if (!utils::table_exists(data.table_name)) {
+  if (!utils::table_exists<Storable>()) {
     utils::create_table<Storable>(data.schema);
   }
 
   std::stringstream sql_command;
-
   sql_command << "INSERT INTO " << data.table_name << "(\n";
 
   std::stringstream column_names;
