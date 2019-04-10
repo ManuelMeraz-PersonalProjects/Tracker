@@ -166,7 +166,8 @@ void insert(Storable const &storable)
       column_values << std::get<unsigned long long>(row_data);
       break;
     case RowIndexType::TIME:
-      column_values << asctime(&std::get<std::tm>(row_data));
+      char buffer[50];
+      column_values << asctime_r(&std::get<std::tm>(row_data), buffer);
       break;
     default:
       throw std::runtime_error("Invalid variant type get!");
