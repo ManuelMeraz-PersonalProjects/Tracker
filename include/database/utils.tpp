@@ -25,7 +25,30 @@
 
 template <typename Storable,
           typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
-void database::utils::create_table(std::vector<ColumnProperties> const &schema)
+inline void database::utils::drop_table()
+{
+  std::string const table_name = utils::type_to_string<Storable>();
+
+  // Table doesn't exist, already 'dropped'
+  if (!utils::table_exists(table_name)) return;
+
+  auto &sql_connection = Database::get_connection();
+  std::stringstream sql_command;
+  sql_command << "DROP TABLE " << table_name << ";\n";
+
+  try {
+    sql_connection << sql_command.str();
+  } catch (soci::sqlite3_soci_error const &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+    throw std::runtime_error("Attempt to drop table failed!");
+  }
+}
+
+template <typename Storable,
+          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
+inline void
+database::utils::create_table(std::vector<ColumnProperties> const &schema)
 {
   std::string const table_name = utils::type_to_string<Storable>();
   std::stringstream sql_command;
@@ -54,14 +77,16 @@ void database::utils::create_table(std::vector<ColumnProperties> const &schema)
   }
 }
 
-template <typename T> auto database::utils::type_to_string() -> std::string
+template <typename T>
+inline auto database::utils::type_to_string() -> std::string
 {
   constexpr auto type_string = nameof::nameof_type<T>();
 
   // namespace::Class -> Class
   // "Class" is the table name
   std::string const table_name = type_string | ranges::view::reverse |
-                           ranges::view::delimit(':') | ranges::view::reverse;
+                                 ranges::view::delimit(':') |
+                                 ranges::view::reverse;
 
   return table_name;
 }

@@ -17,6 +17,6 @@ auto main() -> int
     }
   }
 
-  database::utils::drop_table("Food");
+  database::utils::drop_table<food::Food>();
   return 0;
 }

@@ -78,7 +78,10 @@ void create_table(std::vector<ColumnProperties> const &schema);
  * DROP TABLE table_name;
  *
  */
-void drop_table(std::string_view table_name);
+template <
+    typename Storable,
+    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+void drop_table();
 
 /**
  * @brief Check if table exists in database
