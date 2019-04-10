@@ -143,7 +143,6 @@ void insert(Storable const &storable)
   auto delimeter = "";
   for (auto const &[column, row_data] :
        ranges::view::zip(data.schema, data.rows[0].row_data)) {
-
     // Contins a std::variant type, need to visit and extract the data
     auto row_index_type = static_cast<RowIndexType>(row_data.index());
 
@@ -245,7 +244,6 @@ auto retrieve() -> std::optional<std::vector<Storable>>
 
   while (statement.fetch()) {
     for (size_t i = 0; i < from_row.size(); ++i) {
-
       const soci::column_properties &props = from_row.get_properties(i);
       ColumnProperties column_property;
       column_property.name = props.get_name();

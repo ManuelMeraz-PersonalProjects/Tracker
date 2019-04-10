@@ -44,7 +44,6 @@ enum class RowIndexType { STRING, DOUBLE, INT, LL, ULL, TIME };
  *        represents a schema.
  */
 struct ColumnProperties {
-
   /**
    * @brief The name of the column
    */
@@ -67,7 +66,6 @@ struct ColumnProperties {
  * @brief A row of variant data
  */
 struct Row {
-
   /**
    * @brief The following data types are the expected types to be received from
    *        the SOCI library when retrieving data
@@ -86,7 +84,6 @@ struct Row {
  * @brief The data to be stored into a database
  */
 struct Data {
-
   /**
    * @brief The table name where the data will be stored
    */

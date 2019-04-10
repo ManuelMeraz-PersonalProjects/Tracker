@@ -156,7 +156,6 @@ template <> struct type_conversion<food::Food> {
    */
   static void from_base(values const &v, indicator /* ind */, food::Food &food)
   {
-
     food::Fat fat(v.get<double>("fat"));
     food::Carbohydrate carbohydrate(v.get<double>("carbohydrate"));
     carbohydrate.quantity_fiber = v.get<double>("fiber");
