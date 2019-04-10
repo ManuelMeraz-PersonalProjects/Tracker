@@ -24,7 +24,7 @@ struct Fat {
   /**
    * @param quantity The quantiy of fat in grams per 100g of food
    */
-  explicit Fat(const double quantity) : quantity{quantity} {};
+  explicit Fat(double const quantity) : quantity{quantity} {};
 
   /**
    *  @brief The quantiy of fat in grams per 100g of food
@@ -40,7 +40,7 @@ struct Fiber {
   /**
    * @param quantity The quantity of fiber in grams per 100g of food
    */
-  explicit Fiber(const double quantity) : quantity{quantity} {}
+  explicit Fiber(double const quantity) : quantity{quantity} {}
 
   /**
    * @brief quantity The quantity of fiber in grams per 100g of food
@@ -56,7 +56,7 @@ struct Carbohydrate {
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    */
-  explicit Carbohydrate(const double total_carb)
+  explicit Carbohydrate(double const total_carb)
       : quantity_carb(total_carb), quantity_fiber{0}
   {}
 
@@ -64,7 +64,7 @@ struct Carbohydrate {
    * @param total_carb The total carbohydrate in grams per 100g of food
    * @param fiber The total fiber in grams per 100g of food
    */
-  explicit Carbohydrate(const double total_carb, const Fiber &fiber)
+  explicit Carbohydrate(double const total_carb, Fiber const &fiber)
       : quantity_carb{total_carb}, quantity_fiber(fiber.quantity)
   {}
 
@@ -87,7 +87,7 @@ struct Protein {
   /**
    * @param protein The protein in grams per 100g of food
    */
-  explicit Protein(const double quantity) : quantity{quantity} {};
+  explicit Protein(double const quantity) : quantity{quantity} {};
 
   /**
    *  @brief The protein content of the food
@@ -117,8 +117,8 @@ public:
    * @param carb The carbohydrate content of the food. Pass by value.
    * @param protein The protein content of the food
    */
-  Macronutrients(const Fat &fat, const Carbohydrate carb,
-                 const Protein &protein)
+  Macronutrients(Fat const &fat, Carbohydrate const carb,
+                 Protein const &protein)
       : fat_{fat.quantity}, carbohydrate_{carb.quantity_carb},
         fiber_{carb.quantity_fiber}, protein_{protein.quantity}
   {}
@@ -127,7 +127,7 @@ public:
    * @brief Copy constructor for lvalues reference
    * @param macros The macros to be copied
    */
-  Macronutrients(const Macronutrients &macros) = default;
+  Macronutrients(Macronutrients const &macros) = default;
 
   /**
    * @brief Move constructor for rvalue reference
@@ -139,7 +139,7 @@ public:
    * Copy assignment operator
    * @param macros The macros to be copied
    */
-  Macronutrients &operator=(const Macronutrients &macros) = default;
+  Macronutrients &operator=(Macronutrients const &macros) = default;
 
   /**
    * @brief Move assignment operator

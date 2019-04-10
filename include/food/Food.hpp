@@ -40,7 +40,7 @@ public:
    * @brief Copy constructor for lvalues reference
    * @param f The food to be copied
    */
-  Food(const Food &f) = default;
+  Food(Food const &f) = default;
 
   /**
    * @brief Move constructor for rvalue reference
@@ -52,7 +52,7 @@ public:
    * @brief Copy assignment operator
    * @param f The food to be copied
    */
-  Food &operator=(const Food &f) = default;
+  Food &operator=(Food const &f) = default;
 
   /**
    * @brief Move assignment operator
@@ -104,7 +104,7 @@ public:
    *
    * @param macronutrients The macronutrients content of the food
    */
-  void set_macronutrients(const Macronutrients &macronutrients)
+  void set_macronutrients(Macronutrients const &macronutrients)
   {
     this->macronutrients_ = macronutrients;
   }
@@ -180,7 +180,7 @@ template <> struct type_conversion<food::Food> {
    * @param ind Sets states for the data. Used by SOCI.
    *
    */
-  static void to_base(const food::Food &food, values &v, indicator &ind)
+  static void to_base(food::Food const &food, values &v, indicator &ind)
   {
     v.set("fat", food.macronutrients().fat());
     v.set("carbohydrate", food.macronutrients().carbohydrate());
