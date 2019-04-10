@@ -57,14 +57,16 @@ struct Carbohydrate {
    * @param total_carb The total carbohydrate in grams per 100g of food
    */
   explicit Carbohydrate(const double total_carb)
-      : quantity_carb(total_carb), quantity_fiber{0} {}
+      : quantity_carb(total_carb), quantity_fiber{0}
+  {}
 
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    * @param fiber The total fiber in grams per 100g of food
    */
   explicit Carbohydrate(const double total_carb, const Fiber &fiber)
-      : quantity_carb{total_carb}, quantity_fiber(fiber.quantity) {}
+      : quantity_carb{total_carb}, quantity_fiber(fiber.quantity)
+  {}
 
   /**
    * @brief The total carbohydrate in grams per 100g of food
@@ -118,7 +120,8 @@ public:
   Macronutrients(const Fat &fat, const Carbohydrate carb,
                  const Protein &protein)
       : fat_{fat.quantity}, carbohydrate_{carb.quantity_carb},
-        fiber_{carb.quantity_fiber}, protein_{protein.quantity} {}
+        fiber_{carb.quantity_fiber}, protein_{protein.quantity}
+  {}
 
   /**
    * @brief Copy constructor for lvalues reference
@@ -147,22 +150,22 @@ public:
   /**
    * @return The quantity of fat
    */
-  double fat() const { return fat_; }
+  auto fat() const -> double { return fat_; }
 
   /**
    * @return The quantity of carbohydrate
    */
-  double carbohydrate() const { return carbohydrate_; }
+  auto carbohydrate() const -> double { return carbohydrate_; }
 
   /**
    * @return The quantity of fiber
    */
-  double fiber() const { return fiber_; }
+  auto fiber() const -> double { return fiber_; }
 
   /**
    * @return The quantity of protein
    */
-  double protein() const { return protein_; }
+  auto protein() const -> double { return protein_; }
 
   ~Macronutrients() = default;
 
