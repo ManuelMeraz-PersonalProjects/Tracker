@@ -62,7 +62,7 @@ auto food::Food::get_data() const -> database::Data const
 
   // std::variant to hold multiple data types. Defined in Data.hpp.
   database::Row::row_data_t row_data = 0;
-  if (int count = database::utils::count_rows(data.table_name)) {
+  if (int count = database::utils::count_rows<std::decay_t<decltype(*this)>>()) {
     row_data = count + 1;
   }
   new_row.emplace_back(row_data);

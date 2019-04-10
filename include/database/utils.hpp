@@ -25,6 +25,19 @@ namespace database {
 namespace utils {
 
 /**
+ * @brief Converts a type to a string and trims the namespaces off.
+ *                 (e.g. namespace::other_namespace::ClassName -> "ClassName")
+ *
+ * Usage:
+ *
+ * auto type_string = database::utils::type_to_string<food::Food>();
+ *
+ * type_string == "Food" // true
+ *
+ */
+template <typename T> auto type_to_string() -> std::string;
+
+/**
  * @brief Count the number of rows in the table
  * @param table_name The name of the table
  *
@@ -32,7 +45,10 @@ namespace utils {
  *
  * SELECT count(*) from table_name;
  */
-auto count_rows(std::string_view table_name) -> size_t;
+template <
+    typename Storable,
+    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+auto count_rows() -> size_t;
 
 /**
  * @brief Create table if not exists
@@ -114,7 +130,7 @@ void insert(Storable const &storable);
  * SELECT * from table;
  *
  * Usage:
- * 
+ *
  * auto all_food = database::utils::retrieve_all<food::Food>();
  *
  * if(all_food) {

@@ -13,27 +13,6 @@
 #include <string_view>
 #include <vector>
 
-auto database::utils::count_rows(std::string_view table_name) -> size_t
-{
-  if (!utils::table_exists(table_name)) { return 0; }
-
-  auto &sql_connection = Database::get_connection();
-  std::stringstream sql_command;
-  sql_command << "SELECT count(*) from " << table_name << ";\n";
-
-  size_t num_rows;
-  try {
-    sql_connection << sql_command.str(), soci::into(num_rows);
-  } catch (soci::sqlite3_soci_error const &error) {
-    std::cerr << error.what() << std::endl;
-    std::cerr << sql_command.str() << std::endl;
-    throw std::runtime_error(
-        "Attempt to count the number of rows in table failed.");
-  }
-
-  return num_rows;
-}
-
 void database::utils::create_table(std::string_view table_name,
                                    std::vector<ColumnProperties> const &schema)
 {

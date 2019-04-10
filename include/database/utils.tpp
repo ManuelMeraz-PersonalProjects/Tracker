@@ -23,6 +23,43 @@
 #include <type_traits>
 #include <vector>
 
+template <typename T> auto database::utils::type_to_string() -> std::string
+{
+  constexpr auto type_string = nameof::nameof_type<T>();
+
+  // namespace::Class -> Class
+  // "Class" is the table name
+  std::string table_name = type_string | ranges::view::reverse |
+                           ranges::view::delimit(':') | ranges::view::reverse;
+
+  return table_name;
+}
+
+template <typename Storable,
+          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
+inline auto database::utils::count_rows() -> size_t
+{
+
+  std::string table_name = utils::type_to_string<Storable>();
+  if (!utils::table_exists(table_name)) { return 0; }
+
+  auto &sql_connection = Database::get_connection();
+  std::stringstream sql_command;
+  sql_command << "SELECT count(*) from " << table_name << ";\n";
+
+  size_t num_rows;
+  try {
+    sql_connection << sql_command.str(), soci::into(num_rows);
+  } catch (soci::sqlite3_soci_error const &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+    throw std::runtime_error(
+        "Attempt to count the number of rows in table failed.");
+  }
+
+  return num_rows;
+}
+
 template <typename DataEnum,
           typename std::enable_if_t<std::is_enum_v<DataEnum>, int>>
 inline auto database::utils::enum_to_string(DataEnum const &data_enum)
@@ -124,17 +161,13 @@ inline void database::utils::insert(Storable const &storable)
 template <typename Storable,
           typename std::enable_if_t<
               std::is_base_of_v<database::Storable, Storable>, int>>
-inline auto database::utils::retrieve_all() -> std::optional<std::vector<Storable>>
+inline auto database::utils::retrieve_all()
+    -> std::optional<std::vector<Storable>>
 {
-  constexpr auto type_string = nameof::nameof_type<Storable>();
-
-  // namespace::Class -> Class
-  // "Class" is the table name
-  std::string table_name = type_string | ranges::view::reverse |
-                           ranges::view::delimit(':') | ranges::view::reverse;
+  std::string table_name = utils::type_to_string<Storable>();
 
   auto &sql_connection = Database::get_connection();
-  size_t num_rows = utils::count_rows(table_name);
+  size_t num_rows = utils::count_rows<Storable>();
 
   std::stringstream sql_command;
   sql_command << "SELECT * from " << table_name;
