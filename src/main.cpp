@@ -16,5 +16,7 @@ auto main() -> int
       std::cout << food.str() << std::endl;
     }
   }
+
+  database::utils::drop_table("Food");
   return 0;
 }

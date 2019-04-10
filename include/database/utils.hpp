@@ -25,16 +25,6 @@ namespace database {
 namespace utils {
 
 /**
- * @brief Check if table exists in database
- * @param table_name The name of the table
- *
- * Creates the following SQLite3 command:
- *
- * SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
- */
-auto table_exists(std::string_view table_name) -> bool;
-
-/**
  * @brief Count the number of rows in the table
  * @param table_name The name of the table
  *
@@ -49,8 +39,7 @@ auto count_rows(std::string_view table_name) -> size_t;
  * @param table_name The name of the table to be created
  * @param schema The schema to be used to create the table
  *
- * Creates the following SQLite3 command to creare a table if it
- * does not exist:
+ * Creates the following SQLite3 command:
  *
  *  CREATE TABLE IF NOT EXISTS table_name (
  *   column_1 data_type PRIMARY KEY,
@@ -61,6 +50,27 @@ auto count_rows(std::string_view table_name) -> size_t;
  */
 void create_table(std::string_view table_name,
                   std::vector<ColumnProperties> const &schema);
+
+/**
+ * @brief Deletes the table from the database
+ * @param table_name The name of the table to be created
+ *
+ * Creates the following SQLite3 command:
+ *
+ * DROP TABLE table_name;
+ *
+ */
+void drop_table(std::string_view table_name);
+
+/**
+ * @brief Check if table exists in database
+ * @param table_name The name of the table
+ *
+ * Creates the following SQLite3 command:
+ *
+ * SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
+ */
+auto table_exists(std::string_view table_name) -> bool;
 
 /**
  * @brief to_string function for data enum types
