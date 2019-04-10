@@ -80,7 +80,7 @@ void create_table(std::vector<ColumnProperties> const &schema);
  * DROP TABLE table_name;
  *
  * Usage:
- * drop_table<food::Food>();
+ * @n drop_table<food::Food>();
  */
 template <
     typename Storable,
@@ -155,7 +155,6 @@ void insert(Storable const &storable);
  *
  * Usage:
  * @n auto all_food = database::utils::retrieve_all<food::Food>();
- *
  * @n if(all_food) {
  * @n  // do something
  * @n  }
