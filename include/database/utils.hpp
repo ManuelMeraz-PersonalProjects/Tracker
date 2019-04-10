@@ -28,22 +28,23 @@ namespace utils {
  * @brief Converts a type to a string and trims the namespaces off.
  *                 (e.g. namespace::other_namespace::ClassName -> "ClassName")
  *
+ * @param T The template parameter T could be any possible type.
+ *
  * Usage:
- *
- * auto type_string = database::utils::type_to_string<food::Food>();
- *
+ * std::string type_string = database::utils::type_to_string<food::Food>();
  * type_string == "Food" // true
- *
  */
 template <typename T> auto type_to_string() -> std::string;
 
 /**
- * @brief Count the number of rows in the table
- * @param table_name The name of the table
+ * @brief Count the number of Storable type in the database
+ * @param Storable Any type that is a base of Storable
  *
  * Creates the following SQLite3 command:
- *
  * SELECT count(*) from table_name;
+ *
+ * Usage:
+ * size_t quantity = database::utils::count_rows<food::Food>();
  */
 template <
     typename Storable,
@@ -51,18 +52,20 @@ template <
 auto count_rows() -> size_t;
 
 /**
- * @brief Create table if not exists
- * @param table_name The name of the table to be created
+ * @brief Create table of Storable if not exists
+ * @param Storable Any type that is a base of Storable
  * @param schema The schema to be used to create the table
  *
  * Creates the following SQLite3 command:
- *
  *  CREATE TABLE IF NOT EXISTS table_name (
  *   column_1 data_type PRIMARY KEY,
  *   column_2 data_type NOT NULL,
  *   column_3 data_type DEFAULT 0,
  *   ...
  *   );
+ *
+ *  Usage:
+ *  create_table<food::Food>();
  */
 template <
     typename Storable,
@@ -70,13 +73,14 @@ template <
 void create_table(std::vector<ColumnProperties> const &schema);
 
 /**
- * @brief Deletes the table from the database
- * @param table_name The name of the table to be created
+ * @brief Deletes the Storable table from the database
+ * @param Storable Any type that is a base of Storable
  *
  * Creates the following SQLite3 command:
- *
  * DROP TABLE table_name;
  *
+ * Usage:
+ * drop_table<food::Food>();
  */
 template <
     typename Storable,
@@ -84,12 +88,16 @@ template <
 void drop_table();
 
 /**
- * @brief Check if table exists in database
- * @param table_name The name of the table
+ * @brief Check if Storable table exists in database
+ * @param Storable Any type that is a base of Storable
  *
  * Creates the following SQLite3 command:
- *
  * SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
+ *
+ * Usage:
+ * if(table_exists<food::Food>()) {
+ *   // do something
+ * }
  */
 template <
     typename Storable,
@@ -99,6 +107,11 @@ auto table_exists() -> bool;
 /**
  * @brief to_string function for data enum types
  * @param data_enum DataEnum type that is either a constraint type or sql type
+ *
+ * Does not convert to exam string value, it converts to the the string
+ * that will be used by the database.
+ *
+ * e.g. NULL_ -> "NULL", PRIMARY_KEY -> "PRIMARY KEY"
  */
 template <typename DataEnum,
           typename std::enable_if_t<std::is_enum_v<DataEnum>, int> = 0>
@@ -111,9 +124,7 @@ auto enum_to_string(DataEnum const &data_enum) -> std::string_view;
  * @param storable The object containing data to be stored in a database. Must
  *                 inherit from Storable.
  *
- * This function pulls data to be stored into a database and builds an SQL
- * command from the data like so:
- *
+ * Creates the following SQLite3 command:
  * INSERT INTO table1 (
  * column1,
  * column2 ,..)
@@ -121,6 +132,10 @@ auto enum_to_string(DataEnum const &data_enum) -> std::string_view;
  * (
  * value1,
  * value2 ,...);
+ *
+ * Usage:
+ * food::Food taco("taco", macros);
+ * database::utils::insert(taco);
  */
 template <
     typename Storable,
@@ -129,16 +144,16 @@ void insert(Storable const &storable);
 
 /**
  * @brief Retrieves all database objects that match the name that is passed in
- * @param name The name of the object being retrieved fro the database
+ * @param Storable The type of storable object being retrieved
  *
  * Retrieves all objects of the type requested that contain that name. Does
  * not guarantee that the objects exist. This will either return an std
- * optional with nothing in it, a single object, or a vector.
+ * optional with nothing in it, or a vector.
  *
- * SELECT * from table;
+ * Creates the following SQLite3 command:
+ * SELECT * from Storable;
  *
  * Usage:
- *
  * auto all_food = database::utils::retrieve_all<food::Food>();
  *
  * if(all_food) {
