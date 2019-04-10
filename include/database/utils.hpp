@@ -36,7 +36,6 @@ auto table_exists(std::string_view table_name) -> bool;
 
 /**
  * @brief Count the number of rows in the table
- *
  * @param table_name The name of the table
  *
  * Creates the following SQLite3 command:
@@ -47,7 +46,6 @@ auto count_rows(std::string_view table_name) -> size_t;
 
 /**
  * @brief Create table if not exists
- *
  * @param table_name The name of the table to be created
  * @param schema The schema to be used to create the table
  *
@@ -66,7 +64,6 @@ void create_table(std::string_view table_name,
 
 /**
  * @brief to_string function for data enum types
- *
  * @param data_enum DataEnum type that is either a constraint type or sql type
  */
 template <typename DataEnum,
