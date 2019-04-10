@@ -1,4 +1,16 @@
+/**
+ * @file Food.tpp
+ * @author Manuel G. Meraz
+ * @date 04/10/2019
+ * @brief Implements the type conversion struct in food/Food.hpp
+ */
+
 #pragma once
+
+#include "food/Food.hpp"
+#include "food/Macronutrients.hpp"
+
+#include "soci.h"
 
 inline void soci::type_conversion<food::Food>::from_base(values const &v,
                                                          indicator /* ind */,

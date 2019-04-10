@@ -6,8 +6,7 @@
  *        food
  */
 
-#ifndef FOOD_FOOD_HPP
-#define FOOD_FOOD_HPP
+#pragma once
 
 #include "database/Storable.hpp"
 #include "food/Macronutrients.hpp"
@@ -166,5 +165,3 @@ template <> struct type_conversion<food::Food> {
 } // namespace soci
 
 #include "Food.tpp"
-
-#endif /* FOOD_FOOD_HPP */
