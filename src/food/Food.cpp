@@ -16,7 +16,6 @@
 #include <string_view>
 #include <unordered_map>
 
-//! @copydoc food::Food::get_data()
 auto food::Food::get_data() const -> database::Data const
 {
   database::Data data;
@@ -89,7 +88,6 @@ auto food::Food::get_data() const -> database::Data const
   return data;
 }
 
-//! @copydoc food::Food::set_data(database::Data const &data)
 void food::Food::set_data(std::vector<database::ColumnProperties> const &schema,
                           database::Row const &row)
 {
@@ -112,7 +110,6 @@ void food::Food::set_data(std::vector<database::ColumnProperties> const &schema,
       Fat(fat), Carbohydrate(carbohydrate, Fiber(fiber)), Protein(protein));
 }
 
-//! @copydoc food::Food::str()
 auto food::Food::str() const -> std::string
 {
   std::stringstream ss;
