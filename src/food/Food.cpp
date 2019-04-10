@@ -16,28 +16,25 @@
 #include <sstream>
 #include <unordered_map>
 
+food::Food::Food() : id_{get_new_id()} {}
+
 food::Food::Food(std::string food_name, Macronutrients macros)
-    : name_{std::move(food_name)}, macronutrients_{macros}
+    : id_{get_new_id()}, name_{std::move(food_name)}, macronutrients_{macros}
 {}
+
+auto food::Food::id() const -> int
+{
+  return id_;
+}
 
 auto food::Food::macronutrients() const -> Macronutrients const
 {
   return macronutrients_;
 }
 
-void food::Food::set_macronutrients(Macronutrients const &macronutrients)
-{
-  this->macronutrients_ = macronutrients;
-}
-
 auto food::Food::name() const -> std::string const
 {
   return name_;
-}
-
-void food::Food::set_name(std::string_view name)
-{
-  this->name_ = name;
 }
 
 auto food::Food::get_data() const -> database::Data const
@@ -61,10 +58,7 @@ auto food::Food::get_data() const -> database::Data const
   new_row.reserve(6);
 
   // std::variant to hold multiple data types. Defined in Data.hpp.
-  database::Row::row_data_t row_data = 0;
-  if (int count = database::utils::count_rows<std::decay_t<decltype(*this)>>()) {
-    row_data = count + 1;
-  }
+  database::Row::row_data_t row_data = this->id();
   new_row.emplace_back(row_data);
 
   // name column Begin
@@ -123,6 +117,8 @@ void food::Food::set_data(std::vector<database::ColumnProperties> const &schema,
     organized_data[first.name] = second;
   }
 
+  this->id_ = std::get<int>(organized_data["Food_id"]);
+
   this->name_ = std::get<std::string>(organized_data["name"]);
 
   double const fat = std::get<double>(organized_data["fat"]);
@@ -137,9 +133,11 @@ void food::Food::set_data(std::vector<database::ColumnProperties> const &schema,
 auto food::Food::str() const -> std::string
 {
   std::stringstream ss;
-  ss << this->name();
+  ss << this->id();
 
   auto const delimeter = "|";
+  ss << delimeter << this->name();
+
   auto const macronutrients = this->macronutrients();
   ss << delimeter << macronutrients.fat();
   ss << delimeter << macronutrients.carbohydrate();
@@ -147,4 +145,12 @@ auto food::Food::str() const -> std::string
   ss << delimeter << macronutrients.protein();
 
   return ss.str();
+}
+
+auto food::Food::get_new_id() const -> int
+{
+  size_t const count =
+      database::utils::count_rows<std::decay_t<decltype(*this)>>();
+
+  return static_cast<int>(count + 1);
 }

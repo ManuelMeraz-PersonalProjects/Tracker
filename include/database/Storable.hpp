@@ -22,6 +22,17 @@ namespace database {
 class Storable {
 public:
   /**
+   *  @return The unique ID of the Storable object
+   */
+  virtual auto id() const -> int = 0;
+
+  /**
+   * @return string representation of the name and data, the same way sqlite
+   *         displays table data
+   */
+  virtual std::string str() const = 0;
+
+  /**
    * @brief All data will be retrieved from a storable object using this
    *        function.
    *
@@ -43,11 +54,12 @@ public:
   virtual void set_data(std::vector<ColumnProperties> const &schema,
                         Row const &row) = 0;
 
-  /**
-   * @return string representation of the name and data, the same way sqlite
-   *         displays table data
-   */
-  virtual std::string str() const = 0;
   virtual ~Storable() = default;
+private:
+
+  /**
+   * @return A new ID for this food object. Called by the constructor.
+   */
+  virtual auto get_new_id() const -> int = 0;
 };
 } // namespace database

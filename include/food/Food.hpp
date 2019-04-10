@@ -27,7 +27,7 @@ namespace food {
  */
 class Food : public database::Storable {
 public:
-  Food() = default;
+  Food();
 
   /**
    * @param macros The macronutrients the food contains
@@ -84,36 +84,34 @@ public:
                 database::Row const &data) override;
 
   /**
+   *  @return The unique ID of this food in the database
+   */
+  auto id() const -> int override;
+
+  /**
+   * @return The name of the food
+   */
+  auto name() const -> std::string const;
+
+  /**
+   * @return The macronutrients of the food
+   */
+  auto macronutrients() const -> Macronutrients const;
+
+  /**
    * @return string representation of the name and data, the same way sqlite
    *         displays table data
    */
   auto str() const -> std::string override;
 
-  /**
-   * @return Returns the macronutrients of the food
-   */
-  auto macronutrients() const -> Macronutrients const;
-
-  /**
-   * @return Sets the macronutrients of the food
-   * @param macronutrients The macronutrients content of the food
-   */
-  void set_macronutrients(Macronutrients const &macronutrients);
-
-  /**
-   * @return Returns the name of the food
-   */
-  auto name() const -> std::string const;
-
-  /**
-   * @return Sets the macronutrients of the food
-   * @param macronutrients The macronutrients content of the food
-   */
-  void set_name(std::string_view name);
-
   ~Food() override = default;
 
 private:
+  /**
+   *  @brief The unique ID of this food in the database
+   */
+  int id_;
+
   /**
    *  @brief The name of the food
    */
@@ -123,6 +121,11 @@ private:
    *  @brief The macronutrients of the food
    */
   Macronutrients macronutrients_;
+
+  /**
+   * @return A new ID for this food object. Called by the constructor.
+   */
+  auto get_new_id() const -> int override;
 };
 
 } // namespace food

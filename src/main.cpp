@@ -1,6 +1,7 @@
 #include "database/utils.hpp"
 #include "food/Food.hpp"           // Food
 #include "food/Macronutrients.hpp" // Fat, Carbohydrate, Protein
+#include <iostream>
 
 auto main() -> int
 {
