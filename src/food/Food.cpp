@@ -12,9 +12,31 @@
 #include "food/Food.hpp"
 #include <range/v3/all.hpp>
 #include <sstream>
-#include <string>
-#include <string_view>
 #include <unordered_map>
+
+food::Food::Food(std::string food_name, Macronutrients macros)
+    : name_{std::move(food_name)}, macronutrients_{macros}
+{}
+
+auto food::Food::macronutrients() const -> Macronutrients const
+{
+  return macronutrients_;
+}
+
+void food::Food::set_macronutrients(Macronutrients const &macronutrients)
+{
+  this->macronutrients_ = macronutrients;
+}
+
+auto food::Food::name() const -> std::string const
+{
+  return name_;
+}
+
+void food::Food::set_name(std::string_view name)
+{
+  this->name_ = name;
+}
 
 auto food::Food::get_data() const -> database::Data const
 {

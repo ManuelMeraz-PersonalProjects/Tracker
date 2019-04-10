@@ -15,15 +15,18 @@
  * @brief Organizes all food related classes and utilities
  */
 namespace food {
+
 /**
  * @brief Stores the fat content of a food
  */
 struct Fat {
   Fat();
+
   /**
    * @param quantity The quantiy of fat in grams per 100g of food
    */
   explicit Fat(double quantity);
+
   /**
    *  @brief The quantiy of fat in grams per 100g of food
    */
@@ -35,10 +38,12 @@ struct Fat {
  */
 struct Fiber {
   Fiber();
+
   /**
    * @param quantity The quantity of fiber in grams per 100g of food
    */
   explicit Fiber(double quantity);
+
   /**
    * @brief quantity The quantity of fiber in grams per 100g of food
    */
@@ -50,15 +55,18 @@ struct Fiber {
  */
 struct Carbohydrate {
   Carbohydrate();
+
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    */
   explicit Carbohydrate(double total_carb);
+  
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    * @param fiber The total fiber in grams per 100g of food
    */
   explicit Carbohydrate(double total_carb, Fiber const &fiber);
+
   /**
    * @brief The total carbohydrate in grams per 100g of food
    */
@@ -75,10 +83,12 @@ struct Carbohydrate {
  */
 struct Protein {
   Protein();
+
   /**
    * @param protein The protein in grams per 100g of food
    */
   explicit Protein(double quantity);
+
   /**
    *  @brief The protein content of the food
    */

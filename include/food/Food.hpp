@@ -32,9 +32,7 @@ public:
    * @param macros The macronutrients the food contains
    * @param food_name The name of the food
    */
-  Food(std::string food_name, Macronutrients macros)
-      : name_{std::move(food_name)}, macronutrients_{macros}
-  {}
+  Food(std::string food_name, Macronutrients macros);
 
   /**
    * @brief Copy constructor for lvalues reference
@@ -94,38 +92,26 @@ public:
   /**
    * @return Returns the macronutrients of the food
    */
-  auto macronutrients() const -> Macronutrients const
-  {
-    return macronutrients_;
-  }
+  auto macronutrients() const -> Macronutrients const;
 
   /**
    * @return Sets the macronutrients of the food
    *
    * @param macronutrients The macronutrients content of the food
    */
-  void set_macronutrients(Macronutrients const &macronutrients)
-  {
-    this->macronutrients_ = macronutrients;
-  }
+  void set_macronutrients(Macronutrients const &macronutrients);
 
   /**
    * @return Returns the name of the food
    */
-  auto name() const -> std::string const
-  {
-    return name_;
-  }
+  auto name() const -> std::string const;
 
   /**
    * @return Sets the macronutrients of the food
    *
    * @param macronutrients The macronutrients content of the food
    */
-  void set_name(std::string_view name)
-  {
-    this->name_ = name;
-  }
+  void set_name(std::string_view name);
 
   ~Food() override = default;
 
@@ -152,7 +138,7 @@ private:
  */
 namespace soci {
 template <> struct type_conversion<food::Food> {
-  typedef values base_type;
+  using base_type = values;
 
   /*
    * @brief Used to construct an object that is retrieved from the
