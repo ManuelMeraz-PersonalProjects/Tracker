@@ -41,7 +41,6 @@ auto table_exists(std::string_view table_name) -> bool
   std::string exists;
   try {
     sql_connection << sql_command.str(), soci::into(exists);
-
   } catch (const soci::sqlite3_soci_error &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
@@ -72,7 +71,6 @@ auto count_rows(std::string_view table_name) -> size_t
   size_t num_rows;
   try {
     sql_connection << sql_command.str(), soci::into(num_rows);
-
   } catch (const soci::sqlite3_soci_error &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
