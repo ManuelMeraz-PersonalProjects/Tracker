@@ -34,12 +34,6 @@ enum class DataType { REAL, INTEGER, TEXT, NULL_, BLOB };
 enum class Constraint { PRIMARY_KEY, UNIQUE, NOT_NULL, CHECK };
 
 /**
- * @brief Potential datatypes stored by Row::row_data_t std::variant. Allows us to access the variant by index.
- *
- */
-enum class RowIndexType { STRING, DOUBLE, INT, LL, ULL, TIME };
-
-/**
  * @brief The column properties for a column in a table. A group of these
  *        represents a schema.
  */
@@ -70,8 +64,8 @@ struct Row {
    * @brief The following data types are the expected types to be received from
    *        the SOCI library when retrieving data
    */
-  using row_data_t = std::variant<std::string, double, int, long long,
-                                  unsigned long long, std::tm>;
+  using row_data_t = std::variant<std::string, std::tm, double, int, long long,
+                                  unsigned long long>;
 
   /**
    * @brief The following data types are the expected types to be received from

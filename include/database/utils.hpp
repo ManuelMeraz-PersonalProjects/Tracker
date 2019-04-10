@@ -144,28 +144,28 @@ void insert(Storable const &storable)
   for (auto const &[column, row_data] :
        ranges::view::zip(data.schema, data.rows[0].row_data)) {
     // Contins a std::variant type, need to visit and extract the data
-    auto row_index_type = static_cast<RowIndexType>(row_data.index());
+    auto row_index_type = static_cast<soci::data_type>(row_data.index());
 
     column_names << delimeter << column.name;
     column_values << delimeter;
 
     switch (row_index_type) {
-    case RowIndexType::DOUBLE:
+    case soci::dt_double:
       column_values << std::get<double>(row_data);
       break;
-    case RowIndexType::STRING:
+    case soci::dt_string:
       column_values << std::get<std::string>(row_data);
       break;
-    case RowIndexType::INT:
+    case soci::dt_integer:
       column_values << std::get<int>(row_data);
       break;
-    case RowIndexType::LL:
+    case soci::dt_long_long:
       column_values << std::get<long long>(row_data);
       break;
-    case RowIndexType::ULL:
+    case soci::dt_unsigned_long_long:
       column_values << std::get<unsigned long long>(row_data);
       break;
-    case RowIndexType::TIME:
+    case soci::dt_date:
       char buffer[50];
       column_values << asctime_r(&std::get<std::tm>(row_data), buffer);
       break;
@@ -251,11 +251,11 @@ auto retrieve() -> std::optional<std::vector<Storable>>
       schema.emplace_back(column_property);
 
       switch (props.get_data_type()) {
-      case soci::dt_string:
-        to_row.row_data.emplace_back(from_row.get<std::string>(i));
-        break;
       case soci::dt_double:
         to_row.row_data.emplace_back(from_row.get<double>(i));
+        break;
+      case soci::dt_string:
+        to_row.row_data.emplace_back(from_row.get<std::string>(i));
         break;
       case soci::dt_integer:
         to_row.row_data.emplace_back(from_row.get<int>(i));
@@ -269,6 +269,8 @@ auto retrieve() -> std::optional<std::vector<Storable>>
       case soci::dt_date:
         to_row.row_data.emplace_back(from_row.get<std::tm>(i));
         break;
+      default:
+        throw std::runtime_error("Invalid variant type get!");
       }
     }
 
