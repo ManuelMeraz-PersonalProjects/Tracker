@@ -29,8 +29,25 @@ food::Food::Food(std::string food_name, Macronutrients macros)
 }
 
 food::Food::Food(std::vector<database::ColumnProperties> const &schema,
-       database::Row const &data){
+                 database::Row const &data)
+{
   this->set_data(schema, data);
+}
+
+food::Food::Food(Food const &f)
+{
+  this->id_ = database::utils::get_new_id<decltype(*this)>();
+  this->macronutrients_ = f.macronutrients();
+  this->name_ = f.name();
+  database::utils::insert(*this);
+}
+
+food::Food &food::Food::operator=(food::Food const &f)
+{
+  this->macronutrients_ = f.macronutrients();
+  this->name_ = f.name();
+
+  return *this;
 }
 
 auto food::Food::id() const -> int

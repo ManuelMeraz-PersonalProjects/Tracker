@@ -47,7 +47,7 @@ public:
    * @brief Copy constructor for lvalues reference
    * @param f The food to be copied
    */
-  Food(Food const &f) = default;
+  Food(Food const &f);
 
   /**
    * @brief Move constructor for rvalue reference
@@ -59,7 +59,7 @@ public:
    * @brief Copy assignment operator
    * @param f The food to be copied
    */
-  Food &operator=(Food const &f) = default;
+  Food &operator=(Food const &f);
 
   /**
    * @brief Move assignment operator
