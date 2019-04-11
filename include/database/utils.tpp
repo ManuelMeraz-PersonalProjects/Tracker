@@ -333,9 +333,7 @@ void database::utils::update(Storable const &storable)
   sql_command << "UPDATE " << data.table_name << "\n";
   sql_command << "SET ";
 
-  int food_id = 0;
   auto delimeter = "\n";
-
   // build this part of the SQL command: column_name = column_data,
   for (auto const &[column, row_data] :
        ranges::view::zip(data.schema, data.rows[0].row_data)) {
@@ -343,7 +341,6 @@ void database::utils::update(Storable const &storable)
     // We need the food id to find the object
     // in the database.
     if (column.name == data.table_name + "_id") {
-      food_id = std::get<int>(row_data);
       continue;
     }
 
@@ -358,7 +355,7 @@ void database::utils::update(Storable const &storable)
     delimeter = ",\n";
   }
 
-  sql_command << "\nWHERE " << data.table_name << "_id = " << food_id << ";";
+  sql_command << "\nWHERE " << data.table_name << "_id = " << storable.id() << ";";
 
   try {
     sql_connection << sql_command.str();

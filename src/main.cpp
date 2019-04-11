@@ -6,6 +6,8 @@
 
 template <typename F>
 void handle_all_food(F const &handle, std::vector<food::Food> &all_food);
+
+// Handle functions passed to handle_all_food
 void print_food(food::Food const &food);
 void update_food(food::Food &food);
 
