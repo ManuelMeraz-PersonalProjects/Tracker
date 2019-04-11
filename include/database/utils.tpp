@@ -46,10 +46,9 @@ auto database::utils::table_exists() -> bool
   return exists != "";
 }
 
-template <
-    typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
-void database::utils::delete_storable (Storable const &storable)
+template <typename Storable,
+          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
+void database::utils::delete_storable(Storable const &storable)
 {
   auto &sql_connection = Database::get_connection();
   std::string const table_name = utils::type_to_string<Storable>();
@@ -208,7 +207,6 @@ inline void database::utils::insert(Storable const &storable)
   auto delimeter = "";
   for (auto const &[column, row_data] :
        ranges::view::zip(data.schema, data.rows[0].row_data)) {
-
     column_names << delimeter << column.name;
     column_values << delimeter;
 
@@ -337,12 +335,9 @@ void database::utils::update(Storable const &storable)
   // build this part of the SQL command: column_name = column_data,
   for (auto const &[column, row_data] :
        ranges::view::zip(data.schema, data.rows[0].row_data)) {
-
     // We need the food id to find the object
     // in the database.
-    if (column.name == data.table_name + "_id") {
-      continue;
-    }
+    if (column.name == data.table_name + "_id") { continue; }
 
     sql_command << delimeter << column.name << " = ";
 
@@ -355,7 +350,8 @@ void database::utils::update(Storable const &storable)
     delimeter = ",\n";
   }
 
-  sql_command << "\nWHERE " << data.table_name << "_id = " << storable.id() << ";";
+  sql_command << "\nWHERE " << data.table_name << "_id = " << storable.id()
+              << ";";
 
   try {
     sql_connection << sql_command.str();
@@ -370,7 +366,6 @@ template <typename Lambda>
 void database::utils::visit_row_data(Lambda const &handler,
                                      Row::row_data_t const &row_data)
 {
-
   // Contins a std::variant type, need to visit and extract the data
   // index gives us the position in the template declaration, and therefore
   // the data type (e.g. <int, double> -> <0, 1>

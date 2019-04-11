@@ -240,4 +240,4 @@ void visit_row_data(Lambda const &handler, Row::row_data_t const &row_data);
 } // namespace utils
 } // namespace database
 
-#include "utils.cpp"
+#include "utils.tpp"
