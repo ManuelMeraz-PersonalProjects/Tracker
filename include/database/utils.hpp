@@ -25,18 +25,6 @@ namespace database {
 namespace utils {
 
 /**
- * @brief Converts a type to a string and trims the namespaces off.
- *                 (e.g. namespace::other_namespace::ClassName -> "ClassName")
- *
- * @param T The template parameter T could be any possible type.
- *
- * Usage:
- * @n std::string type_string = database::utils::type_to_string<food::Food>();
- * @n type_string == "Food" // true
- */
-template <typename T> auto type_to_string() -> std::string;
-
-/**
  * @brief Count the number of Storable type in the database
  * @param Storable Any type that is a base of Storable
  *
@@ -48,7 +36,7 @@ template <typename T> auto type_to_string() -> std::string;
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 auto count_rows() -> size_t;
 
 /**
@@ -69,7 +57,7 @@ auto count_rows() -> size_t;
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void create_table(std::vector<ColumnProperties> const &schema);
 
 /**
@@ -90,7 +78,7 @@ void create_table(std::vector<ColumnProperties> const &schema);
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void delete_storable(Storable const &storable);
 
 /**
@@ -105,25 +93,8 @@ void delete_storable(Storable const &storable);
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void drop_table();
-
-/**
- * @brief Check if Storable table exists in database
- * @param Storable Any type that is a base of Storable
- *
- * Creates the following SQLite3 command:
- * @n SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
- *
- * Usage:
- * @n if(table_exists<food::Food>()) {
- * @n   // do something
- * @n }
- */
-template <
-    typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
-auto table_exists() -> bool;
 
 /**
  * @brief to_string function for data enum types
@@ -137,6 +108,18 @@ auto table_exists() -> bool;
 template <typename DataEnum,
           typename std::enable_if_t<std::is_enum_v<DataEnum>, int> = 0>
 auto enum_to_string(DataEnum const &data_enum) -> std::string_view;
+
+/**
+ * @brief Generates new unique ID for the type being asked for
+ * @param Storable Any type that is a base of Storable
+ *
+ * Usage:
+ * @n int new_id = database::utils::get_new_id<food::Food>();
+ */
+template <
+    typename Storable,
+    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+auto get_new_id() -> int;
 
 /**
  * @brief Gets data from any storable object and inserts it into relevant
@@ -160,7 +143,7 @@ auto enum_to_string(DataEnum const &data_enum) -> std::string_view;
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void insert(Storable const &storable);
 
 /**
@@ -183,8 +166,37 @@ void insert(Storable const &storable);
  */
 template <typename Storable,
           typename std::enable_if_t<
-              std::is_base_of_v<database::Storable, Storable>, int> = 0>
+              std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 auto retrieve_all() -> std::optional<std::vector<Storable>>;
+
+/**
+ * @brief Check if Storable table exists in database
+ * @param Storable Any type that is a base of Storable
+ *
+ * Creates the following SQLite3 command:
+ * @n SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
+ *
+ * Usage:
+ * @n if(table_exists<food::Food>()) {
+ * @n   // do something
+ * @n }
+ */
+template <
+    typename Storable,
+    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+auto table_exists() -> bool;
+
+/**
+ * @brief Converts a type to a string and trims the namespaces off.
+ *                 (e.g. namespace::other_namespace::ClassName -> "ClassName")
+ *
+ * @param T The template parameter T could be any possible type.
+ *
+ * Usage:
+ * @n std::string type_string = database::utils::type_to_string<food::Food>();
+ * @n type_string == "Food" // true
+ */
+template <typename T> auto type_to_string() -> std::string;
 
 /**
  * @brief Updates the Storable objects data within the database
@@ -211,7 +223,7 @@ auto retrieve_all() -> std::optional<std::vector<Storable>>;
 
 template <typename Storable,
           typename std::enable_if_t<
-              std::is_base_of_v<database::Storable, Storable>, int> = 0>
+              std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void update(Storable const &storable);
 
 /**

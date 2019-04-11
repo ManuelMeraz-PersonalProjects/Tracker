@@ -18,78 +18,50 @@
 
 #include <iostream> // cerr
 #include <optional>
+#include <queue>
 #include <sstream>
 #include <string_view>
 #include <type_traits>
+#include <unordered_map>
 #include <vector>
 
-template <typename Storable,
-          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
-auto database::utils::table_exists() -> bool
+namespace {
+// When a a storable object is deleted, the ID will be stored in here
+// and recycled
+static std::unordered_map<std::string, std::priority_queue<int>> deleted_ids;
+} // namespace
+
+template <
+    typename Storable,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
+inline auto database::utils::count_rows() -> size_t
 {
-  auto &sql_connection = Database::get_connection();
-  std::string const table_name = utils::type_to_string<Storable>();
-
-  std::stringstream sql_command;
-  sql_command << "SELECT name FROM sqlite_master WHERE type='table' AND name='"
-              << table_name << "';\n";
-
-  std::string exists;
-  try {
-    sql_connection << sql_command.str(), soci::into(exists);
-  } catch (soci::sqlite3_soci_error const &error) {
-    std::cerr << error.what() << std::endl;
-    std::cerr << sql_command.str() << std::endl;
-    throw std::runtime_error("Attempt to check if table exists failed.");
-  }
-
-  return exists != "";
-}
-
-template <typename Storable,
-          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
-void database::utils::delete_storable(Storable const &storable)
-{
-  auto &sql_connection = Database::get_connection();
-  std::string const table_name = utils::type_to_string<Storable>();
-
-  std::stringstream sql_command;
-  sql_command << "DELETE FROM " << table_name << " WHERE " << table_name
-              << "_id = " << storable.id();
-
-  try {
-    sql_connection << sql_command.str();
-  } catch (soci::sqlite3_soci_error const &error) {
-    std::cerr << error.what() << std::endl;
-    std::cerr << sql_command.str() << std::endl;
-    throw std::runtime_error("Attempt to delete object failed!");
-  }
-}
-
-template <typename Storable,
-          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
-inline void database::utils::drop_table()
-{
-  // Table doesn't exist, already 'dropped'
-  if (!utils::table_exists<Storable>()) return;
+  if (!utils::table_exists<Storable>()) { return 0; }
 
   auto &sql_connection = Database::get_connection();
   std::string const table_name = utils::type_to_string<Storable>();
 
   std::stringstream sql_command;
-  sql_command << "DROP TABLE " << table_name << ";\n";
+  sql_command << "SELECT count(*) from " << table_name << ";\n";
 
+  size_t num_rows;
   try {
-    sql_connection << sql_command.str();
+    sql_connection << sql_command.str(), soci::into(num_rows);
   } catch (soci::sqlite3_soci_error const &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
-    throw std::runtime_error("Attempt to drop table failed!");
+    throw std::runtime_error(
+        "Attempt to count the number of rows in table failed.");
   }
+
+  return num_rows;
 }
 
-template <typename Storable,
-          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
+template <
+    typename Storable,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 inline void
 database::utils::create_table(std::vector<ColumnProperties> const &schema)
 {
@@ -120,43 +92,52 @@ database::utils::create_table(std::vector<ColumnProperties> const &schema)
   }
 }
 
-template <typename T>
-inline auto database::utils::type_to_string() -> std::string
+template <
+    typename Storable,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
+void database::utils::delete_storable(Storable const &storable)
 {
-  constexpr auto type_string = nameof::nameof_type<T>();
+  auto &sql_connection = Database::get_connection();
+  std::string const table_name = utils::type_to_string<Storable>();
 
-  // namespace::Class -> Class
-  // "Class" is the table name
-  std::string const table_name = type_string | ranges::view::reverse |
-                                 ranges::view::delimit(':') |
-                                 ranges::view::reverse;
+  deleted_ids[table_name].push(storable.id());
 
-  return table_name;
+  std::stringstream sql_command;
+  sql_command << "DELETE FROM " << table_name << " WHERE " << table_name
+              << "_id = " << storable.id();
+
+  try {
+    sql_connection << sql_command.str();
+  } catch (soci::sqlite3_soci_error const &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+    throw std::runtime_error("Attempt to delete object failed!");
+  }
 }
 
-template <typename Storable,
-          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
-inline auto database::utils::count_rows() -> size_t
+template <
+    typename Storable,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
+inline void database::utils::drop_table()
 {
-  if (!utils::table_exists<Storable>()) { return 0; }
+  // Table doesn't exist, already 'dropped'
+  if (!utils::table_exists<Storable>()) return;
 
   auto &sql_connection = Database::get_connection();
   std::string const table_name = utils::type_to_string<Storable>();
 
   std::stringstream sql_command;
-  sql_command << "SELECT count(*) from " << table_name << ";\n";
+  sql_command << "DROP TABLE " << table_name << ";\n";
 
-  size_t num_rows;
   try {
-    sql_connection << sql_command.str(), soci::into(num_rows);
+    sql_connection << sql_command.str();
   } catch (soci::sqlite3_soci_error const &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
-    throw std::runtime_error(
-        "Attempt to count the number of rows in table failed.");
+    throw std::runtime_error("Attempt to drop table failed!");
   }
-
-  return num_rows;
 }
 
 template <typename DataEnum,
@@ -165,7 +146,7 @@ inline auto database::utils::enum_to_string(DataEnum const &data_enum)
     -> std::string_view
 {
   if constexpr (std::is_same_v<DataEnum, DataType>) {
-    static std::map<DataType, std::string_view> type_strings{
+    static std::unordered_map<DataType, std::string_view> type_strings{
         {DataType::REAL, "REAL"},
         {DataType::INTEGER, "INTEGER"},
         {DataType::TEXT, "TEXT"},
@@ -174,7 +155,7 @@ inline auto database::utils::enum_to_string(DataEnum const &data_enum)
 
     return type_strings[data_enum];
   } else { // Constraint Enum
-    static std::map<Constraint, std::string_view> type_strings{
+    static std::unordered_map<Constraint, std::string_view> type_strings{
         {Constraint::PRIMARY_KEY, "PRIMARY KEY"},
         {Constraint::UNIQUE, "UNIQUE"},
         {Constraint::NOT_NULL, "NOT NULL"},
@@ -184,8 +165,34 @@ inline auto database::utils::enum_to_string(DataEnum const &data_enum)
   }
 }
 
-template <typename Storable,
-          typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
+template <
+    typename Storable,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
+auto database::utils::get_new_id() -> int
+{
+  int new_id;
+
+  std::string const table_name = utils::type_to_string<Storable>();
+
+  // Check if there are previously deleted ID's to recycle
+  auto &id_queue = deleted_ids[table_name];
+  if (!id_queue.empty()) {
+    new_id = id_queue.top();
+    id_queue.pop();
+  } else {
+    // Generate a new unique key from the table size because nothing has
+    // been previously deleted
+    new_id = static_cast<int>(utils::count_rows<Storable>()) + 1;
+  }
+
+  return new_id;
+}
+
+template <
+    typename Storable,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 inline void database::utils::insert(Storable const &storable)
 {
   // Data contains all of the table information
@@ -233,9 +240,10 @@ inline void database::utils::insert(Storable const &storable)
   }
 }
 
-template <typename Storable,
-          typename std::enable_if_t<
-              std::is_base_of_v<database::Storable, Storable>, int>>
+template <
+    typename Storable,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 inline auto database::utils::retrieve_all()
     -> std::optional<std::vector<Storable>>
 {
@@ -309,16 +317,58 @@ inline auto database::utils::retrieve_all()
   return std::optional<std::vector<Storable>>{storables};
 }
 
-template <typename Storable,
-          typename std::enable_if_t<
-              std::is_base_of_v<database::Storable, Storable>, int>>
+template <
+    typename Storable,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
+auto database::utils::table_exists() -> bool
+{
+  auto &sql_connection = Database::get_connection();
+  std::string const table_name = utils::type_to_string<Storable>();
+
+  std::stringstream sql_command;
+  sql_command << "SELECT name FROM sqlite_master WHERE type='table' AND name='"
+              << table_name << "';\n";
+
+  std::string exists;
+  try {
+    sql_connection << sql_command.str(), soci::into(exists);
+  } catch (soci::sqlite3_soci_error const &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+    throw std::runtime_error("Attempt to check if table exists failed.");
+  }
+
+  return exists != "";
+}
+
+template <typename T>
+inline auto database::utils::type_to_string() -> std::string
+{
+  constexpr auto type_string = nameof::nameof_type<std::decay_t<T>>();
+
+  // namespace::Class -> Class
+  // "Class" is the table name
+  std::string const table_name = type_string | ranges::view::reverse |
+                                 ranges::view::delimit(':') |
+                                 ranges::view::reverse;
+
+  return table_name;
+}
+
+template <
+    typename Storable,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 void database::utils::update(Storable const &storable)
 {
   // Not an already existing ID
-  size_t id = static_cast<size_t>(storable.id());
-  if (id > utils::count_rows<std::decay_t<decltype(storable)>>()) {
+  if (storable.id() >= utils::get_new_id<decltype(storable)>()) {
+    // utils::insert(storable);
+    // keep this commented for now, might not want to insert if object doesn't
+    // exist in database when trying to update
     throw std::runtime_error("Attemp to update storable object failed! ID must "
-                             "already exist within database");
+                             " already exist within database");
   }
 
   auto &sql_connection = Database::get_connection();

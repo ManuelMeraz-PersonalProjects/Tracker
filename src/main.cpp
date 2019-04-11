@@ -18,8 +18,6 @@ auto main() -> int
                               food::Protein(10));
 
   food::Food taco("tacos", macros);
-  // Need to create unique ID's if they're only created here
-  database::utils::insert(taco);
 
   if (auto all_food = database::utils::retrieve_all<food::Food>()) {
     handle_all_food(update_food, *all_food);

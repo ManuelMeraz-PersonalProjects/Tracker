@@ -70,11 +70,5 @@ public:
                         Row const &row) = 0;
 
   virtual ~Storable() = default;
-
-private:
-  /**
-   * @return A new ID for this food object. Called by the constructor.
-   */
-  virtual auto get_new_id() const -> int = 0;
 };
 } // namespace database

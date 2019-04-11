@@ -136,11 +136,6 @@ private:
    *  @brief The macronutrients of the food
    */
   Macronutrients macronutrients_;
-
-  /**
-   * @return A new ID for this food object. Called by the constructor.
-   */
-  auto get_new_id() const -> int override;
 };
 
 } // namespace food

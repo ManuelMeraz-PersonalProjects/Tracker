@@ -24,7 +24,8 @@ inline void soci::type_conversion<food::Food>::from_base(values const &v,
   food::Macronutrients macros(fat, carbohydrate, protein);
   auto food_name(v.get<std::string>("name"));
 
-  food = food::Food(food_name, macros);
+  food.set_macronutrients(macros);
+  food.set_name(food_name);
 }
 
 inline void soci::type_conversion<food::Food>::to_base(food::Food const &food,

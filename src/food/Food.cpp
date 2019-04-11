@@ -16,11 +16,13 @@
 #include <sstream>
 #include <unordered_map>
 
-food::Food::Food() : id_{get_new_id()} {}
+food::Food::Food() : id_{database::utils::get_new_id<decltype(*this)>()} { }
 
 food::Food::Food(std::string food_name, Macronutrients macros)
-    : id_{get_new_id()}, name_{std::move(food_name)}, macronutrients_{macros}
-{}
+    : id_{database::utils::get_new_id<decltype(*this)>()}, name_{std::move(food_name)}, macronutrients_{macros}
+{
+  database::utils::insert(*this);
+}
 
 auto food::Food::id() const -> int
 {
@@ -143,6 +145,8 @@ void food::Food::set_data(std::vector<database::ColumnProperties> const &schema,
 
   this->macronutrients_ = Macronutrients(
       Fat(fat), Carbohydrate(carbohydrate, Fiber(fiber)), Protein(protein));
+
+  database::utils::update(*this);
 }
 
 auto food::Food::str() const -> std::string
@@ -160,12 +164,4 @@ auto food::Food::str() const -> std::string
   ss << delimeter << macronutrients.protein();
 
   return ss.str();
-}
-
-auto food::Food::get_new_id() const -> int
-{
-  size_t const count =
-      database::utils::count_rows<std::decay_t<decltype(*this)>>();
-
-  return static_cast<int>(count + 1);
 }
