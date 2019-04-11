@@ -89,9 +89,25 @@ public:
   auto id() const -> int override;
 
   /**
+   *  @param A new ID for this object
+   */
+  void set_id(int id) override;
+
+  /**
    * @return The name of the food
    */
-  auto name() const -> std::string const;
+  auto name() const -> std::string const override;
+
+  /**
+   * @return The name of the food
+   */
+  void set_name(std::string_view name) override;
+
+  /**
+   * @return string representation of the name and data, the same way sqlite
+   *         displays table data
+   */
+  auto str() const -> std::string override;
 
   /**
    * @return The macronutrients of the food
@@ -99,10 +115,9 @@ public:
   auto macronutrients() const -> Macronutrients const;
 
   /**
-   * @return string representation of the name and data, the same way sqlite
-   *         displays table data
+   * @return The macronutrients of the food
    */
-  auto str() const -> std::string override;
+  void set_macronutrients(Macronutrients const &macros);
 
   ~Food() override = default;
 

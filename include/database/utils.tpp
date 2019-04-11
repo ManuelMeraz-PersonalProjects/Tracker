@@ -311,3 +311,79 @@ inline auto database::utils::retrieve_all()
 
   return std::optional<std::vector<Storable>>{storables};
 }
+
+template <typename Storable,
+          typename std::enable_if_t<
+              std::is_base_of_v<database::Storable, Storable>, int>>
+void database::utils::update(Storable const &storable)
+{
+  // Not an already existing ID
+  size_t id = static_cast<size_t>(storable.id());
+  if (id > utils::count_rows<std::decay_t<decltype(storable)>>()) {
+    throw std::runtime_error("Attemp to update storable object failed! ID must "
+                             "already exist within database");
+  }
+
+  auto &sql_connection = Database::get_connection();
+
+  // Data contains all of the table information
+  // (e.g. table_name, schema and row(s) of data)
+  Data const &data = storable.get_data();
+
+  std::stringstream sql_command;
+  sql_command << "UPDATE " << data.table_name << "\n";
+  sql_command << "SET ";
+
+  auto delimeter = "\n";
+  int food_id = 0;
+  for (auto const &[column, row_data] :
+       ranges::view::zip(data.schema, data.rows[0].row_data)) {
+
+    if (column.name == data.table_name + "_id") {
+      food_id = std::get<int>(row_data);
+      continue;
+    }
+
+    // Contins a std::variant type, need to visit and extract the data
+    // index gives us the position in the template declaration, and therefore
+    // the data type (e.g. <int, double> -> <0, 1>
+    auto row_index_type = static_cast<soci::data_type>(row_data.index());
+
+    sql_command << delimeter << column.name << " = ";
+
+    switch (row_index_type) {
+    case soci::dt_double:
+      sql_command << std::get<double>(row_data);
+      break;
+    case soci::dt_string:
+      sql_command << std::get<std::string>(row_data);
+      break;
+    case soci::dt_integer:
+      sql_command << std::get<int>(row_data);
+      break;
+    case soci::dt_long_long:
+      sql_command << std::get<long long>(row_data);
+      break;
+    case soci::dt_unsigned_long_long:
+      sql_command << std::get<unsigned long long>(row_data);
+      break;
+    case soci::dt_date:
+      char buffer[50];
+      sql_command << asctime_r(&std::get<std::tm>(row_data), buffer);
+      break;
+    default:
+      throw std::runtime_error("Invalid variant type get!");
+    }
+    delimeter = ",\n";
+  }
+
+  sql_command << "\nWHERE " << data.table_name << "_id = " << food_id << ";";
+
+  try {
+    sql_connection << sql_command.str();
+  } catch (soci::sqlite3_soci_error const &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+    throw std::runtime_error("Attempt to update food failed.");
+  }
+}

@@ -24,17 +24,32 @@ food::Food::Food(std::string food_name, Macronutrients macros)
 
 auto food::Food::id() const -> int
 {
-  return id_;
+  return this->id_;
 }
 
-auto food::Food::macronutrients() const -> Macronutrients const
+void food::Food::set_id(int id)
 {
-  return macronutrients_;
+  this->id_ = id;
 }
 
 auto food::Food::name() const -> std::string const
 {
-  return name_;
+  return this->name_;
+}
+
+void food::Food::set_name(std::string_view name)
+{
+  this->name_ = name;
+}
+
+auto food::Food::macronutrients() const -> Macronutrients const
+{
+  return this->macronutrients_;
+}
+
+void food::Food::set_macronutrients(Macronutrients const &macros)
+{
+  this->macronutrients_ = macros;
 }
 
 auto food::Food::get_data() const -> database::Data const

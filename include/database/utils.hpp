@@ -143,7 +143,8 @@ template <
 void insert(Storable const &storable);
 
 /**
- * @brief Retrieves all database objects that match the name that is passed in
+ * @brief Retrieves all database objects that match the Storable that is passed
+ * in
  * @param Storable The type of storable object being retrieved
  *
  * Retrieves all objects of the type requested that contain that name. Does
@@ -163,6 +164,34 @@ template <typename Storable,
           typename std::enable_if_t<
               std::is_base_of_v<database::Storable, Storable>, int> = 0>
 auto retrieve_all() -> std::optional<std::vector<Storable>>;
+
+/**
+ * @brief Updates the Storable objects data within the database
+ * @param storable A storable object that already exists within the database
+ *                 and will update the data
+ *
+ * Creates the following SQLite3 command:
+ * @n UPDATE Storable
+ * @n SET column_1 = new_value_1,
+ * @n     colimn_2 = new_value_2,
+ * @n     ...
+ * @n WHERE Storable_id = Storable_id_value;
+ *
+ * Usage:
+ * @n auto all_food = database::utils::retrieve_all<food::Food>();
+ * @n if(all_food && all_food.size() > 0) {
+ * @n   auto my_food = all_food.back();
+ * @n   food.set_protein(100);
+ * @n   database::utils::update(my_food);
+ * @n  }
+ *
+ * Will throw a runtime error if food is not in the database!
+ */
+
+template <typename Storable,
+          typename std::enable_if_t<
+              std::is_base_of_v<database::Storable, Storable>, int> = 0>
+void update(Storable const &storable);
 
 } // namespace utils
 } // namespace database

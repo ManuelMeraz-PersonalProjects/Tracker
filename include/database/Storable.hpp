@@ -27,6 +27,21 @@ public:
   virtual auto id() const -> int = 0;
 
   /**
+   *  @param A new ID for this object
+   */
+  virtual void set_id(int id) = 0;
+
+  /**
+   * @return The name of the food
+   */
+  virtual auto name() const -> std::string const = 0;
+
+  /**
+   * @param A new name for the food
+   */
+  virtual void set_name(std::string_view name) = 0;
+
+  /**
    * @return string representation of the name and data, the same way sqlite
    *         displays table data
    */

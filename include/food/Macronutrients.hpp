@@ -148,9 +148,19 @@ public:
   auto fat() const -> double;
 
   /**
+   * @param A new quantity of fat in grams per 100g of food
+   */
+  void set_fat(double fat);
+
+  /**
    * @return The quantity of carbohydrate
    */
   auto carbohydrate() const -> double;
+
+  /**
+   * @param A new quantity of carbohydrate in grams per 100g of food
+   */
+  void set_carbohydrate(double carbohydrate);
 
   /**
    * @return The quantity of fiber
@@ -158,9 +168,19 @@ public:
   auto fiber() const -> double;
 
   /**
+   * @param A new quantity of fiber in grams per 100g of food
+   */
+  void set_fiber(double fiber);
+
+  /**
    * @return The quantity of protein
    */
   auto protein() const -> double;
+
+  /**
+   * @param A new quantity of protein in grams per 100g of food
+   */
+  void set_protein(double protein);
 
   ~Macronutrients() = default;
 

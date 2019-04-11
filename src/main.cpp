@@ -13,7 +13,20 @@ auto main() -> int
   database::utils::insert(taco);
 
   if (auto all_food = database::utils::retrieve_all<food::Food>()) {
-    for (const auto &food : *all_food) {
+    for (auto &food : *all_food) {
+      std::cout << food.str() << std::endl;
+
+      auto macros = food.macronutrients();
+      macros.set_protein(25.67);
+      macros.set_fiber(3133717397219);
+      food.set_macronutrients(macros);
+
+      database::utils::update(food);
+    }
+  }
+
+  if (auto all_food = database::utils::retrieve_all<food::Food>()) {
+    for (auto const &food : *all_food) {
       std::cout << food.str() << std::endl;
     }
   }
