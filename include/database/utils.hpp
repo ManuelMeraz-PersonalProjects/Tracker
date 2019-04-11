@@ -193,6 +193,29 @@ template <typename Storable,
               std::is_base_of_v<database::Storable, Storable>, int> = 0>
 void update(Storable const &storable);
 
+/**
+ * @brief Updates the Storable objects data within the database
+ * @param handler A handler that will handle for the row_data_t once
+ *                it passes the data into it.
+ *
+ * @param row_data A std::variant containing multiple data types. See 
+ *                 Row implementation or the implementation of this
+ *                 function for all the types it contains.
+ *
+ * Usage:
+ * @n std::stringstream column_values;
+ * @n utils::visit_row_data(
+ * @n     [&column_values = column_values](auto const &row_data) {
+ * @n       column_values << row_data;
+ * @n     },
+ * @n     row_data);
+ *
+ * In this example we're using a capture initializer to prevent a dangling 
+ * reference.
+ */
+template<typename Lambda>
+void visit_row_data(Lambda const &handler, Row::row_data_t const &row_data);
+
 } // namespace utils
 } // namespace database
 

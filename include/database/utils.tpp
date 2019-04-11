@@ -187,37 +187,15 @@ inline void database::utils::insert(Storable const &storable)
   auto delimeter = "";
   for (auto const &[column, row_data] :
        ranges::view::zip(data.schema, data.rows[0].row_data)) {
-    // Contins a std::variant type, need to visit and extract the data
-    // index gives us the position in the template declaration, and therefore
-    // the data type (e.g. <int, double> -> <0, 1>
-    auto row_index_type = static_cast<soci::data_type>(row_data.index());
 
     column_names << delimeter << column.name;
     column_values << delimeter;
 
-    switch (row_index_type) {
-    case soci::dt_double:
-      column_values << std::get<double>(row_data);
-      break;
-    case soci::dt_string:
-      column_values << std::get<std::string>(row_data);
-      break;
-    case soci::dt_integer:
-      column_values << std::get<int>(row_data);
-      break;
-    case soci::dt_long_long:
-      column_values << std::get<long long>(row_data);
-      break;
-    case soci::dt_unsigned_long_long:
-      column_values << std::get<unsigned long long>(row_data);
-      break;
-    case soci::dt_date:
-      char buffer[50];
-      column_values << asctime_r(&std::get<std::tm>(row_data), buffer);
-      break;
-    default:
-      throw std::runtime_error("Invalid variant type get!");
-    };
+    utils::visit_row_data(
+        [&column_values = column_values](auto const &row_data) {
+          column_values << row_data;
+        },
+        row_data);
 
     delimeter = ",\n";
   }
@@ -334,46 +312,28 @@ void database::utils::update(Storable const &storable)
   sql_command << "UPDATE " << data.table_name << "\n";
   sql_command << "SET ";
 
-  auto delimeter = "\n";
   int food_id = 0;
+  auto delimeter = "\n";
+
+  // build this part of the SQL command: column_name = column_data,
   for (auto const &[column, row_data] :
        ranges::view::zip(data.schema, data.rows[0].row_data)) {
 
+    // We need the food id to find the object
+    // in the database.
     if (column.name == data.table_name + "_id") {
       food_id = std::get<int>(row_data);
       continue;
     }
 
-    // Contins a std::variant type, need to visit and extract the data
-    // index gives us the position in the template declaration, and therefore
-    // the data type (e.g. <int, double> -> <0, 1>
-    auto row_index_type = static_cast<soci::data_type>(row_data.index());
-
     sql_command << delimeter << column.name << " = ";
 
-    switch (row_index_type) {
-    case soci::dt_double:
-      sql_command << std::get<double>(row_data);
-      break;
-    case soci::dt_string:
-      sql_command << std::get<std::string>(row_data);
-      break;
-    case soci::dt_integer:
-      sql_command << std::get<int>(row_data);
-      break;
-    case soci::dt_long_long:
-      sql_command << std::get<long long>(row_data);
-      break;
-    case soci::dt_unsigned_long_long:
-      sql_command << std::get<unsigned long long>(row_data);
-      break;
-    case soci::dt_date:
-      char buffer[50];
-      sql_command << asctime_r(&std::get<std::tm>(row_data), buffer);
-      break;
-    default:
-      throw std::runtime_error("Invalid variant type get!");
-    }
+    utils::visit_row_data(
+        [&sql_command = sql_command](auto const &row_data) {
+          sql_command << row_data;
+        },
+        row_data);
+
     delimeter = ",\n";
   }
 
@@ -385,5 +345,40 @@ void database::utils::update(Storable const &storable)
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
     throw std::runtime_error("Attempt to update food failed.");
+  }
+}
+
+template <typename Lambda>
+void database::utils::visit_row_data(Lambda const &handler,
+                                     Row::row_data_t const &row_data)
+{
+
+  // Contins a std::variant type, need to visit and extract the data
+  // index gives us the position in the template declaration, and therefore
+  // the data type (e.g. <int, double> -> <0, 1>
+  auto row_index_type = static_cast<soci::data_type>(row_data.index());
+
+  switch (row_index_type) {
+  case soci::dt_double:
+    handler(std::get<double>(row_data));
+    break;
+  case soci::dt_string:
+    handler(std::get<std::string>(row_data));
+    break;
+  case soci::dt_integer:
+    handler(std::get<int>(row_data));
+    break;
+  case soci::dt_long_long:
+    handler(std::get<long long>(row_data));
+    break;
+  case soci::dt_unsigned_long_long:
+    handler(std::get<unsigned long long>(row_data));
+    break;
+  case soci::dt_date:
+    char buffer[50];
+    handler(asctime_r(&std::get<std::tm>(row_data), buffer));
+    break;
+  default:
+    throw std::runtime_error("Invalid variant type get!");
   }
 }
