@@ -21,6 +21,7 @@ auto main() -> int
   food::Food taco1("tacos", macros);
   food::Food taco2("tacos", macros);
   food::Food legit_taco; 
+  macros.set_fat(200);
   legit_taco.set_macronutrients(macros);
   legit_taco.set_name("legit taco");
 

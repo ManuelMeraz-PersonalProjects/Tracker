@@ -26,9 +26,15 @@
 #include <vector>
 
 namespace {
-// When a a storable object is deleted, the ID will be stored in here
-// and recycled
-static std::unordered_map<std::string, std::priority_queue<int>> deleted_ids;
+// When a a storable object is deleted, the ID will become available for new
+// objects
+static std::unordered_map<std::string, std::priority_queue<int>> available_ids;
+
+// If an object is deleted and then attempted to be inserted, a check to see if
+// it's deleted from here will be done. If it has been deleted, a new ID will
+// be assigned to it.
+static std::unordered_map<std::string, std::unordered_map<int, bool>>
+    deleted_ids;
 } // namespace
 
 template <
@@ -101,7 +107,8 @@ void database::utils::delete_storable(Storable const &storable)
   auto &sql_connection = Database::get_connection();
   std::string const table_name = utils::type_to_string<Storable>();
 
-  deleted_ids[table_name].push(storable.id());
+  available_ids[table_name].push(storable.id());
+  deleted_ids[table_name][storable.id()] = true;
 
   std::stringstream sql_command;
   sql_command << "DELETE FROM " << table_name << " WHERE " << table_name
@@ -176,7 +183,7 @@ auto database::utils::get_new_id() -> int
   std::string const table_name = utils::type_to_string<Storable>();
 
   // Check if there are previously deleted ID's to recycle
-  auto &id_queue = deleted_ids[table_name];
+  auto &id_queue = available_ids[table_name];
   if (!id_queue.empty()) {
     new_id = id_queue.top();
     id_queue.pop();
@@ -195,9 +202,16 @@ template <
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 inline void database::utils::insert(Storable const &storable)
 {
+
   // Data contains all of the table information
   // (e.g. table_name, schema and row(s) of data)
   Data const &data = storable.get_data();
+
+  if (deleted_ids[data.table_name][storable.id()]) {
+    throw std::runtime_error("Must never insert a deleted object back into the "
+                             "database. Copy construct a new object");
+  }
+
   if (!utils::table_exists<Storable>()) {
     utils::create_table<Storable>(data.schema);
   }
@@ -237,6 +251,7 @@ inline void database::utils::insert(Storable const &storable)
   } catch (const soci::sqlite3_soci_error &error) {
     std::cerr << error.what() << std::endl;
     std::cerr << sql_command.str() << std::endl;
+    throw std::runtime_error("Attempt to insert storabled failed!");
   }
 }
 
@@ -377,10 +392,6 @@ void database::utils::update(Storable const &storable)
   // Not an already existing ID
   if (storable.id() >= utils::get_new_id<decltype(storable)>()) {
     utils::insert(storable);
-    // keep this commented for now, might not want to insert if object doesn't
-    // exist in database when trying to update
-    // throw std::runtime_error("Attemp to update storable object failed! ID
-    // must " " already exist within database");
   }
 
   auto &sql_connection = Database::get_connection();

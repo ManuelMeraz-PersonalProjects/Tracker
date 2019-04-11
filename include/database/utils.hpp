@@ -36,7 +36,8 @@ namespace utils {
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 auto count_rows() -> size_t;
 
 /**
@@ -57,7 +58,8 @@ auto count_rows() -> size_t;
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void create_table(std::vector<ColumnProperties> const &schema);
 
 /**
@@ -78,7 +80,8 @@ void create_table(std::vector<ColumnProperties> const &schema);
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void delete_storable(Storable const &storable);
 
 /**
@@ -93,7 +96,8 @@ void delete_storable(Storable const &storable);
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void drop_table();
 
 /**
@@ -118,7 +122,8 @@ auto enum_to_string(DataEnum const &data_enum) -> std::string_view;
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 auto get_new_id() -> int;
 
 /**
@@ -143,7 +148,8 @@ auto get_new_id() -> int;
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void insert(Storable const &storable);
 
 /**
@@ -164,9 +170,10 @@ void insert(Storable const &storable);
  * @n  // do something
  * @n  }
  */
-template <typename Storable,
-          typename std::enable_if_t<
-              std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+template <
+    typename Storable,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 auto retrieve_all() -> std::optional<std::vector<Storable>>;
 
 /**
@@ -183,7 +190,8 @@ auto retrieve_all() -> std::optional<std::vector<Storable>>;
  */
 template <
     typename Storable,
-    typename std::enable_if_t<std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 auto table_exists() -> bool;
 
 /**
@@ -221,9 +229,10 @@ template <typename T> auto type_to_string() -> std::string;
  * Will throw a runtime error if food is not in the database!
  */
 
-template <typename Storable,
-          typename std::enable_if_t<
-              std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+template <
+    typename Storable,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void update(Storable const &storable);
 
 /**
@@ -231,7 +240,7 @@ void update(Storable const &storable);
  * @param handler A handler that will handle for the row_data_t once
  *                it passes the data into it.
  *
- * @param row_data A std::variant containing multiple data types. See 
+ * @param row_data A std::variant containing multiple data types. See
  *                 Row implementation or the implementation of this
  *                 function for all the types it contains.
  *
@@ -243,10 +252,10 @@ void update(Storable const &storable);
  * @n     },
  * @n     row_data);
  *
- * In this example we're using a capture initializer to prevent a dangling 
+ * In this example we're using a capture initializer to prevent a dangling
  * reference.
  */
-template<typename Lambda>
+template <typename Lambda>
 void visit_row_data(Lambda const &handler, Row::row_data_t const &row_data);
 
 } // namespace utils
