@@ -46,6 +46,27 @@ auto database::utils::table_exists() -> bool
   return exists != "";
 }
 
+template <
+    typename Storable,
+    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
+void database::utils::delete_storable (Storable const &storable)
+{
+  auto &sql_connection = Database::get_connection();
+  std::string const table_name = utils::type_to_string<Storable>();
+
+  std::stringstream sql_command;
+  sql_command << "DELETE FROM " << table_name << " WHERE " << table_name
+              << "_id = " << storable.id();
+
+  try {
+    sql_connection << sql_command.str();
+  } catch (soci::sqlite3_soci_error const &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+    throw std::runtime_error("Attempt to delete object failed!");
+  }
+}
+
 template <typename Storable,
           typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int>>
 inline void database::utils::drop_table()

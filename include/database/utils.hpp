@@ -65,12 +65,33 @@ auto count_rows() -> size_t;
  * @n  );
  *
  * Usage:
- * @n create_table<food::Food>();
+ * @n database::utils::create_table<food::Food>();
  */
 template <
     typename Storable,
     typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
 void create_table(std::vector<ColumnProperties> const &schema);
+
+/**
+ * @brief Delete Storable object from datbase
+ * @param storable Any type that is a base of Storable
+ *
+ * Creates the following SQLite3 command:
+ * @n DELETE
+ * @n FROM
+ * @n  table
+ * @n WHERE
+ * @n  search_condition;
+ *
+ * Usage:
+ * @n database::utils::delete_storable(food);
+ *
+ * Note: delete is a keyword, could not use that.
+ */
+template <
+    typename Storable,
+    typename std::enable_if_t<std::is_base_of_v<Storable, Storable>, int> = 0>
+void delete_storable(Storable const &storable);
 
 /**
  * @brief Deletes the Storable table from the database
