@@ -89,11 +89,6 @@ public:
   auto id() const -> int override;
 
   /**
-   *  @param A new ID for this object
-   */
-  void set_id(int id) override;
-
-  /**
    * @return The name of the food
    */
   auto name() const -> std::string const override;

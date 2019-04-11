@@ -18,6 +18,11 @@ auto main() -> int
                               food::Protein(10));
 
   food::Food taco("tacos", macros);
+  food::Food taco1("tacos", macros);
+  food::Food taco2("tacos", macros);
+  food::Food legit_taco;
+  legit_taco.set_macronutrients(macros);
+  legit_taco.set_name("legit taco");
 
   if (auto all_food = database::utils::retrieve_all<food::Food>()) {
     handle_all_food(update_food, *all_food);
@@ -63,5 +68,5 @@ void update_food(food::Food &food)
   macros.set_fiber(3133717397219);
   food.set_macronutrients(macros);
 
-  database::utils::update(food);
+  // database::utils::update(food);
 }

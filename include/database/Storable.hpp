@@ -27,11 +27,6 @@ public:
   virtual auto id() const -> int = 0;
 
   /**
-   *  @param A new ID for this object
-   */
-  virtual void set_id(int id) = 0;
-
-  /**
    * @return The name of the food
    */
   virtual auto name() const -> std::string const = 0;

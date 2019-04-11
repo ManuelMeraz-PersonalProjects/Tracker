@@ -364,11 +364,11 @@ void database::utils::update(Storable const &storable)
 {
   // Not an already existing ID
   if (storable.id() >= utils::get_new_id<decltype(storable)>()) {
-    // utils::insert(storable);
+     utils::insert(storable);
     // keep this commented for now, might not want to insert if object doesn't
     // exist in database when trying to update
-    throw std::runtime_error("Attemp to update storable object failed! ID must "
-                             " already exist within database");
+    //throw std::runtime_error("Attemp to update storable object failed! ID must "
+                             //" already exist within database");
   }
 
   auto &sql_connection = Database::get_connection();

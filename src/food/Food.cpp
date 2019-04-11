@@ -16,10 +16,11 @@
 #include <sstream>
 #include <unordered_map>
 
-food::Food::Food() : id_{database::utils::get_new_id<decltype(*this)>()} { }
+food::Food::Food() : id_{database::utils::get_new_id<decltype(*this)>()} {}
 
 food::Food::Food(std::string food_name, Macronutrients macros)
-    : id_{database::utils::get_new_id<decltype(*this)>()}, name_{std::move(food_name)}, macronutrients_{macros}
+    : id_{database::utils::get_new_id<decltype(*this)>()},
+      name_{std::move(food_name)}, macronutrients_{macros}
 {
   database::utils::insert(*this);
 }
@@ -27,11 +28,6 @@ food::Food::Food(std::string food_name, Macronutrients macros)
 auto food::Food::id() const -> int
 {
   return this->id_;
-}
-
-void food::Food::set_id(int id)
-{
-  this->id_ = id;
 }
 
 auto food::Food::name() const -> std::string const
@@ -42,6 +38,7 @@ auto food::Food::name() const -> std::string const
 void food::Food::set_name(std::string_view name)
 {
   this->name_ = name;
+  database::utils::update(*this);
 }
 
 auto food::Food::macronutrients() const -> Macronutrients const
@@ -52,6 +49,7 @@ auto food::Food::macronutrients() const -> Macronutrients const
 void food::Food::set_macronutrients(Macronutrients const &macros)
 {
   this->macronutrients_ = macros;
+  database::utils::update(*this);
 }
 
 auto food::Food::get_data() const -> database::Data const
