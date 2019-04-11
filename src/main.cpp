@@ -20,7 +20,7 @@ auto main() -> int
   food::Food taco("tacos", macros);
   food::Food taco1("tacos", macros);
   food::Food taco2("tacos", macros);
-  food::Food legit_taco;
+  food::Food legit_taco; 
   legit_taco.set_macronutrients(macros);
   legit_taco.set_name("legit taco");
 
@@ -67,6 +67,4 @@ void update_food(food::Food &food)
   macros.set_protein(25.67);
   macros.set_fiber(3133717397219);
   food.set_macronutrients(macros);
-
-  // database::utils::update(food);
 }

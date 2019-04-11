@@ -36,6 +36,14 @@ public:
   Food(std::string food_name, Macronutrients macros);
 
   /**
+   * @brief This constructor is to be used only by the database utils
+   * @param A schema for this Storable object
+   * @param The row of data to construct the object
+   */
+  Food(std::vector<database::ColumnProperties> const &schema,
+       database::Row const &data);
+
+  /**
    * @brief Copy constructor for lvalues reference
    * @param f The food to be copied
    */

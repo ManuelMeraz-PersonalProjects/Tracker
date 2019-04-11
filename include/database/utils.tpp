@@ -267,23 +267,27 @@ inline auto database::utils::retrieve_all()
     return std::nullopt;
   }
 
-  // Getting data from soci row to tracker row
-  Row to_row;
-  to_row.row_data.reserve(from_row.size());
-
   // Schema contains the column names to map the data correctly
   std::vector<ColumnProperties> schema;
   schema.reserve(from_row.size());
 
-  std::vector<Storable> storables;
-  storables.reserve(num_rows);
+  std::vector<Row> to_rows;
+  to_rows.reserve(num_rows);
 
   while (statement.fetch()) {
+
+    // Getting data from soci row to tracker row
+    Row to_row;
+    to_row.row_data.reserve(from_row.size());
+
     for (size_t i = 0; i < from_row.size(); ++i) {
       soci::column_properties const &props = from_row.get_properties(i);
-      ColumnProperties column_property;
-      column_property.name = props.get_name();
-      schema.emplace_back(column_property);
+
+      if (schema.size() < from_row.size()) {
+        ColumnProperties column_property;
+        column_property.name = props.get_name();
+        schema.emplace_back(column_property);
+      }
 
       switch (props.get_data_type()) {
       case soci::dt_double:
@@ -309,9 +313,17 @@ inline auto database::utils::retrieve_all()
       }
     }
 
-    // Construct default storable
-    storables.emplace_back();
-    storables.back().set_data(schema, to_row);
+    to_rows.emplace_back(to_row);
+  }
+
+  // This is done after fetching the data from the rows
+  // because while(statement.fetch()) goes into an infinite
+  // loop if this is done inside the loop because we insert/update
+  // storable data as they're constructed
+  std::vector<Storable> storables;
+  storables.reserve(num_rows);
+  for (auto const &row : to_rows) {
+    storables.emplace_back(schema, row);
   }
 
   return std::optional<std::vector<Storable>>{storables};
@@ -364,11 +376,11 @@ void database::utils::update(Storable const &storable)
 {
   // Not an already existing ID
   if (storable.id() >= utils::get_new_id<decltype(storable)>()) {
-     utils::insert(storable);
+    utils::insert(storable);
     // keep this commented for now, might not want to insert if object doesn't
     // exist in database when trying to update
-    //throw std::runtime_error("Attemp to update storable object failed! ID must "
-                             //" already exist within database");
+    // throw std::runtime_error("Attemp to update storable object failed! ID
+    // must " " already exist within database");
   }
 
   auto &sql_connection = Database::get_connection();
