@@ -55,8 +55,8 @@ public:
                         Row const &row) = 0;
 
   virtual ~Storable() = default;
-private:
 
+private:
   /**
    * @return A new ID for this food object. Called by the constructor.
    */
