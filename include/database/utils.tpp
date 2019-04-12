@@ -26,15 +26,55 @@
 #include <vector>
 
 namespace {
-// When a a storable object is deleted, the ID will become available for new
-// objects
-static std::unordered_map<std::string, std::priority_queue<int>> available_ids;
+// Every ID tht is currently being used by this program
+static std::unordered_map<std::string, std::vector<int>> id_cache = []() {
+  auto &sql_connection = database::Database::get_connection();
+  std::unordered_map<std::string, std::vector<int>> id_cache;
 
-// If an object is deleted and then attempted to be inserted, a check to see if
-// it's deleted from here will be done. If it has been deleted, a new ID will
-// be assigned to it.
-static std::unordered_map<std::string, std::unordered_map<int, bool>>
-    deleted_ids;
+  std::stringstream sql_command;
+  sql_command << "SELECT count(name) FROM sqlite_master WHERE type='table'";
+
+  try {
+    int num_tables = 0;
+    sql_connection << sql_command.str(), soci::into(num_tables);
+    if (num_tables == 0) return id_cache;
+
+    sql_command.str("");
+    sql_command.clear();
+
+    sql_command << "SELECT name FROM sqlite_master WHERE type='table'";
+    // For whatever reason this needs to be one more than the actual
+    // number of tables in the database
+    std::vector<std::string> tables(num_tables + 1);
+    sql_connection << sql_command.str(), soci::into(tables);
+
+    for (auto &table : tables) {
+      sql_command.str("");
+      sql_command.clear();
+
+      int id_count = 0;
+      sql_command << "SELECT count(" << table << "_id) FROM " << table;
+      sql_connection << sql_command.str(), soci::into(id_count);
+
+      sql_command.str("");
+      sql_command.clear();
+
+      std::vector<int> ids(id_count + 1);
+      sql_command << "SELECT " << table << "_id FROM " << table;
+      sql_connection << sql_command.str(), soci::into(ids);
+
+      id_cache[table] = ids;
+    }
+
+  } catch (soci::sqlite3_soci_error const &error) {
+    std::cerr << error.what() << std::endl;
+    std::cerr << sql_command.str() << std::endl;
+    throw std::runtime_error("Attempt to grab a count of all tables failed!");
+  }
+
+  return id_cache;
+}();
+
 } // namespace
 
 template <
@@ -107,8 +147,14 @@ void database::utils::delete_storable(Storable const &storable)
   auto &sql_connection = Database::get_connection();
   std::string const table_name = utils::type_to_string<Storable>();
 
-  available_ids[table_name].push(storable.id());
-  deleted_ids[table_name][storable.id()] = true;
+  // Find the id, swap with the back, remove from back, resort
+  auto &ids = id_cache[table_name];
+  auto id_iter = std::lower_bound(begin(ids), end(ids), storable.id());
+  if (id_iter == end(ids)) {
+    throw std::runtime_error("Impossible to delete an id that doesn't exist");
+  }
+  std::swap(*id_iter, *prev(end(ids)));
+  std::sort(begin(ids), end(ids));
 
   std::stringstream sql_command;
   sql_command << "DELETE FROM " << table_name << " WHERE " << table_name
@@ -136,7 +182,7 @@ inline void database::utils::drop_table()
   std::string const table_name = utils::type_to_string<Storable>();
 
   std::stringstream sql_command;
-  sql_command << "DROP TABLE " << table_name << ";\n";
+  sql_command << "DROP TABLE " << table_name << "\n";
 
   try {
     sql_connection << sql_command.str();
@@ -178,20 +224,30 @@ template <
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 auto database::utils::get_new_id() -> int
 {
-  int new_id;
-
   std::string const table_name = utils::type_to_string<Storable>();
+  auto &ids = id_cache[table_name];
 
-  // Check if there are previously deleted ID's to recycle
-  auto &id_queue = available_ids[table_name];
-  if (!id_queue.empty()) {
-    new_id = id_queue.top();
-    id_queue.pop();
+  int new_id = 0;
+  if (ids.size() >= 2) {
+    // Find a gap in the sorted vector of IDs
+    // if a gap exists, this is a deleted key.
+    auto const is_gap = [](int id, int next_id) { return (next_id - id) != 1; };
+    auto potential_id = std::adjacent_find(begin(ids), end(ids), is_gap);
+    if (potential_id != end(ids)) {
+      new_id = *potential_id + 1;
+    } else {
+      new_id = ids.size() + 1;
+    }
+
+  } else if (ids.size() == 1 && ids[0] == 1) {
+    new_id = 2;
   } else {
-    // Generate a new unique key from the table size because nothing has
-    // been previously deleted
-    new_id = static_cast<int>(utils::count_rows<Storable>()) + 1;
+    // Empty or first value is not 1
+    new_id = 1;
   }
+
+  ids.emplace_back(new_id);
+  std::sort(begin(ids), end(ids));
 
   return new_id;
 }
@@ -207,7 +263,8 @@ inline void database::utils::insert(Storable const &storable)
   // (e.g. table_name, schema and row(s) of data)
   Data const &data = storable.get_data();
 
-  if (deleted_ids[data.table_name][storable.id()]) {
+  auto &ids = id_cache[data.table_name];
+  if (!std::binary_search(begin(ids), end(ids), storable.id())) {
     throw std::runtime_error("Must never insert a deleted object back into the "
                              "database. Copy construct a new object");
   }
@@ -243,7 +300,7 @@ inline void database::utils::insert(Storable const &storable)
   column_names << ")\n";
   column_values << ")\n";
 
-  sql_command << column_names.str() << column_values.str() << ";";
+  sql_command << column_names.str() << column_values.str();
   auto &sql_connection = Database::get_connection();
 
   try {
@@ -341,7 +398,9 @@ inline auto database::utils::retrieve_all()
     storables.emplace_back(schema, row);
   }
 
-  return std::optional<std::vector<Storable>>{storables};
+  // Moving prevents copies, and therefore new contructors generation
+  // a new ID!
+  return std::optional<std::vector<Storable>>{std::move(storables)};
 }
 
 template <
@@ -390,15 +449,17 @@ template <
 void database::utils::update(Storable const &storable)
 {
   // Not an already existing ID
-  if (storable.id() >= utils::get_new_id<decltype(storable)>()) {
-    utils::insert(storable);
-  }
-
   auto &sql_connection = Database::get_connection();
 
   // Data contains all of the table information
   // (e.g. table_name, schema and row(s) of data)
   Data const &data = storable.get_data();
+  auto &ids = id_cache[data.table_name];
+
+  // Not an already existing ID, can't update
+  if (!std::binary_search(begin(ids), end(ids), storable.id())) {
+    utils::insert(storable);
+  }
 
   std::stringstream sql_command;
   sql_command << "UPDATE " << data.table_name << "\n";
@@ -423,8 +484,7 @@ void database::utils::update(Storable const &storable)
     delimeter = ",\n";
   }
 
-  sql_command << "\nWHERE " << data.table_name << "_id = " << storable.id()
-              << ";";
+  sql_command << "\nWHERE " << data.table_name << "_id = " << storable.id();
 
   try {
     sql_connection << sql_command.str();

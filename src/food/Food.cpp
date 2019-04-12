@@ -46,6 +46,7 @@ food::Food &food::Food::operator=(food::Food const &f)
 {
   this->macronutrients_ = f.macronutrients();
   this->name_ = f.name();
+  database::utils::update(*this);
 
   return *this;
 }
