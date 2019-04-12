@@ -19,22 +19,22 @@ auto main() -> int
 
   food::Food taco("tacos", macros);
   food::Food taco1("tacos", macros);
-  //food::Food taco2("tacos", macros);
-  //food::Food legit_taco; 
-  //macros.set_fat(200);
-  //legit_taco.set_macronutrients(macros);
-  //legit_taco.set_name("legit taco");
-  //taco = legit_taco;
-  //food::Food new_taco(taco);
+  food::Food taco2("tacos", macros);
+  food::Food legit_taco; 
+  macros.set_fat(200);
+  legit_taco.set_macronutrients(macros);
+  legit_taco.set_name("legit taco");
+  taco = legit_taco;
+  food::Food new_taco(taco);
 
 
   if (auto all_food = database::utils::retrieve_all<food::Food>()) {
     handle_all_food(update_food, *all_food);
   }
 
-  //if (auto all_food = database::utils::retrieve_all<food::Food>()) {
-    //handle_all_food(print_food, *all_food);
-  //}
+  if (auto all_food = database::utils::retrieve_all<food::Food>()) {
+    handle_all_food(print_food, *all_food);
+  }
 
   //auto const delete_food = [](auto &food) {
     //database::utils::delete_storable(food);
@@ -46,7 +46,7 @@ auto main() -> int
     //std::cout << "Deleted!\n";
   //}
 
-  //database::utils::drop_table<food::Food>();
+  database::utils::drop_table<food::Food>();
   return 0;
 }
 
