@@ -210,8 +210,9 @@ auto database::utils::get_new_id() -> int
   } else {
     // Find a gap in the sorted vector of IDs
     // if a gap exists, this is a deleted key.
+    // storables is sorted
     auto const is_deleted_key = [](Storable const &s, Storable const &s_next) {
-      return (s.id() - s_next.id()) != 1;
+      return (s_next.id() - s.id()) != 1;
     };
 
     auto potential_id =
