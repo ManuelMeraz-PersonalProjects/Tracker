@@ -25,57 +25,18 @@
 #include <unordered_map>
 #include <vector>
 
-namespace {
-// Every ID tht is currently being used by this program
-static std::unordered_map<std::string, std::vector<int>> id_cache = []() {
-  auto &sql_connection = database::Database::get_connection();
-  std::unordered_map<std::string, std::vector<int>> id_cache;
+template <class ForwardIt, class T, class Compare>
+ForwardIt database::utils::binary_find(ForwardIt first, ForwardIt last,
+                                       const T &value, Compare comp)
+{
+  // Use a less than comp to find:
+  // auto const comp = [](Storable const& value, Storable const& found) {
+  //    return value.id() < found.id();
+  //}
 
-  std::stringstream sql_command;
-  sql_command << "SELECT count(name) FROM sqlite_master WHERE type='table'";
-
-  try {
-    int num_tables = 0;
-    sql_connection << sql_command.str(), soci::into(num_tables);
-    if (num_tables == 0) return id_cache;
-
-    sql_command.str("");
-    sql_command.clear();
-
-    sql_command << "SELECT name FROM sqlite_master WHERE type='table'";
-    // For whatever reason this needs to be one more than the actual
-    // number of tables in the database
-    std::vector<std::string> tables(num_tables + 1);
-    sql_connection << sql_command.str(), soci::into(tables);
-
-    for (auto &table : tables) {
-      sql_command.str("");
-      sql_command.clear();
-
-      int id_count = 0;
-      sql_command << "SELECT count(" << table << "_id) FROM " << table;
-      sql_connection << sql_command.str(), soci::into(id_count);
-
-      sql_command.str("");
-      sql_command.clear();
-
-      std::vector<int> ids(id_count + 1);
-      sql_command << "SELECT " << table << "_id FROM " << table;
-      sql_connection << sql_command.str(), soci::into(ids);
-
-      id_cache[table] = ids;
-    }
-
-  } catch (soci::sqlite3_soci_error const &error) {
-    std::cerr << error.what() << std::endl;
-    std::cerr << sql_command.str() << std::endl;
-    throw std::runtime_error("Attempt to grab a count of all tables failed!");
-  }
-
-  return id_cache;
-}();
-
-} // namespace
+  first = std::lower_bound(first, last, value, comp);
+  return first != last && !comp(value, *first) ? first : last;
+}
 
 template <
     typename Storable,
@@ -144,17 +105,29 @@ template <
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 void database::utils::delete_storable(Storable const &storable)
 {
+  auto &storables = utils::retrieve_all<Storable>();
+
+  auto const compare = [](Storable const &lhs, Storable const &rhs) {
+    return lhs.id() < rhs.id();
+  };
+
+  auto &found =
+      utils::binary_find(begin(storables), end(storables), storable, compare);
+
+  if (found == end(storables)) {
+    throw std::runtime_error("Impossible to delete an id that doesn't exist");
+  }
+
   auto &sql_connection = Database::get_connection();
   std::string const table_name = utils::type_to_string<Storable>();
 
-  // Find the id, swap with the back, remove from back, resort
-  auto &ids = id_cache[table_name];
-  auto id_iter = std::lower_bound(begin(ids), end(ids), storable.id());
-  if (id_iter == end(ids)) {
-    throw std::runtime_error("Impossible to delete an id that doesn't exist");
-  }
-  std::swap(*id_iter, *prev(end(ids)));
-  std::sort(begin(ids), end(ids));
+  // Found the id, swap with the back, remove from back, sort
+  std::swap(*found, *prev(end(storables)));
+  storables.pop_back();
+  std::sort(begin(storables), end(storables),
+            [](Storable const &lhs, Storable const &rhs) {
+              return lhs.id() < rhs.id();
+            });
 
   std::stringstream sql_command;
   sql_command << "DELETE FROM " << table_name << " WHERE " << table_name
@@ -224,29 +197,39 @@ template <
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 auto database::utils::get_new_id() -> int
 {
-  std::string const table_name = utils::type_to_string<Storable>();
-  auto &ids = id_cache[table_name];
+  auto &storables = utils::retrieve_all<Storable>();
 
   int new_id = 0;
   // Empty or first value is not 1
-  if ((ids.size() >= 1 && ids[0] != 1) || ids.empty()) {
+  if ((storables.size() >= 1 && storables[0].id() != 1) || storables.empty()) {
     new_id = 1;
-  } else if (ids.size() == 1 && ids[0] == 1) {
+
+    // First element is equal to one, can't use adjacent find
+  } else if (storables.size() == 1 && storables[0].id() == 1) {
     new_id = 2;
   } else {
     // Find a gap in the sorted vector of IDs
     // if a gap exists, this is a deleted key.
-    auto const is_gap = [](int id, int next_id) { return (next_id - id) != 1; };
-    auto potential_id = std::adjacent_find(begin(ids), end(ids), is_gap);
-    if (potential_id != end(ids)) {
-      new_id = *potential_id + 1;
+    auto const is_deleted_key = [](Storable const &s, Storable const &s_next) {
+      return (s.id() - s_next.id()) != 1;
+    };
+
+    auto potential_id =
+        std::adjacent_find(begin(storables), end(storables), is_deleted_key);
+
+    if (potential_id != end(storables)) {
+      new_id = (*potential_id).id() + 1;
     } else {
-      new_id = ids.size() + 1;
+      new_id = storables.size() + 1;
     }
   }
 
-  ids.emplace_back(new_id);
-  std::sort(begin(ids), end(ids));
+  storables.emplace_back(new_id);
+
+  auto const compare = [](Storable const &lhs, Storable const &rhs) {
+    return lhs.id() < rhs.id();
+  };
+  std::sort(begin(storables), end(storables), compare);
 
   return new_id;
 }
@@ -257,16 +240,20 @@ template <
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 inline void database::utils::insert(Storable const &storable)
 {
+  auto &storables = utils::retrieve_all<Storable>();
+  auto const compare = [](Storable const &lhs, Storable const &rhs) {
+    return lhs.id() < rhs.id();
+  };
+
+  if (!std::binary_search(begin(storables), end(storables), storable,
+                          compare)) {
+    throw std::runtime_error("Must never insert a deleted object back into the "
+                             "database. Copy construct a new object");
+  }
 
   // Data contains all of the table information
   // (e.g. table_name, schema and row(s) of data)
   Data const &data = storable.get_data();
-
-  auto &ids = id_cache[data.table_name];
-  if (!std::binary_search(begin(ids), end(ids), storable.id())) {
-    throw std::runtime_error("Must never insert a deleted object back into the "
-                             "database. Copy construct a new object");
-  }
 
   if (!utils::table_exists<Storable>()) {
     utils::create_table<Storable>(data.schema);
@@ -312,94 +299,108 @@ inline void database::utils::insert(Storable const &storable)
 }
 
 template <
+    typename Storable, typename... Args,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
+auto database::utils::make(Args &&... args) -> Storable &
+{
+  int const id = utils::get_new_id<Storable>();
+  return Storable::make(id, std::forward<Args>(args)...);
+}
+
+template <
     typename Storable,
     typename std::enable_if_t<
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 inline auto database::utils::retrieve_all()
-    -> std::optional<std::vector<Storable>>
+    -> std::vector<Storable, struct Storable::Allocator> &
 {
-  std::string const table_name = utils::type_to_string<Storable>();
+  static bool data_is_loaded = false;
+  static std::vector<Storable, struct Storable::Allocator> storables;
 
-  auto &sql_connection = Database::get_connection();
-  size_t num_rows = utils::count_rows<Storable>();
+  if (!data_is_loaded) {
+    std::string const table_name = utils::type_to_string<Storable>();
 
-  std::stringstream sql_command;
-  sql_command << "SELECT * from " << table_name;
+    auto &sql_connection = Database::get_connection();
+    size_t num_rows = utils::count_rows<Storable>();
 
-  soci::row from_row;
-  soci::statement statement =
-      (sql_connection.prepare << sql_command.str(), soci::into(from_row));
-  try {
-    statement.execute();
-  } catch (soci::sqlite3_soci_error const &error) {
-    std::cerr << error.what() << std::endl;
-    std::cerr << sql_command.str() << std::endl;
+    std::stringstream sql_command;
+    sql_command << "SELECT * from " << table_name;
 
-    return std::nullopt;
-  }
-
-  // Schema contains the column names to map the data correctly
-  std::vector<ColumnProperties> schema;
-  schema.reserve(from_row.size());
-
-  std::vector<Row> to_rows;
-  to_rows.reserve(num_rows);
-
-  while (statement.fetch()) {
-
-    // Getting data from soci row to tracker row
-    Row to_row;
-    to_row.row_data.reserve(from_row.size());
-
-    for (size_t i = 0; i < from_row.size(); ++i) {
-      soci::column_properties const &props = from_row.get_properties(i);
-
-      if (schema.size() < from_row.size()) {
-        ColumnProperties column_property;
-        column_property.name = props.get_name();
-        schema.emplace_back(column_property);
-      }
-
-      switch (props.get_data_type()) {
-      case soci::dt_double:
-        to_row.row_data.emplace_back(from_row.get<double>(i));
-        break;
-      case soci::dt_string:
-        to_row.row_data.emplace_back(from_row.get<std::string>(i));
-        break;
-      case soci::dt_integer:
-        to_row.row_data.emplace_back(from_row.get<int>(i));
-        break;
-      case soci::dt_long_long:
-        to_row.row_data.emplace_back(from_row.get<long long>(i));
-        break;
-      case soci::dt_unsigned_long_long:
-        to_row.row_data.emplace_back(from_row.get<unsigned long long>(i));
-        break;
-      case soci::dt_date:
-        to_row.row_data.emplace_back(from_row.get<std::tm>(i));
-        break;
-      default:
-        throw std::runtime_error("Invalid variant type get!");
-      }
+    soci::row from_row;
+    soci::statement statement =
+        (sql_connection.prepare << sql_command.str(), soci::into(from_row));
+    try {
+      statement.execute();
+    } catch (soci::sqlite3_soci_error const &error) {
+      std::cerr << error.what() << std::endl;
+      std::cerr << sql_command.str() << std::endl;
+      throw std::runtime_error(
+          " Failed to retrieve all storables from database");
     }
 
-    to_rows.emplace_back(to_row);
+    // Schema contains the column names to map the data correctly
+    std::vector<ColumnProperties> schema;
+    schema.reserve(from_row.size());
+
+    std::vector<Row> to_rows;
+    to_rows.reserve(num_rows);
+
+    while (statement.fetch()) {
+
+      // Getting data from soci row to tracker row
+      Row to_row;
+      to_row.row_data.reserve(from_row.size());
+
+      for (size_t i = 0; i < from_row.size(); ++i) {
+        soci::column_properties const &props = from_row.get_properties(i);
+
+        if (schema.size() < from_row.size()) {
+          ColumnProperties column_property;
+          column_property.name = props.get_name();
+          schema.emplace_back(column_property);
+        }
+
+        switch (props.get_data_type()) {
+        case soci::dt_double:
+          to_row.row_data.emplace_back(from_row.get<double>(i));
+          break;
+        case soci::dt_string:
+          to_row.row_data.emplace_back(from_row.get<std::string>(i));
+          break;
+        case soci::dt_integer:
+          to_row.row_data.emplace_back(from_row.get<int>(i));
+          break;
+        case soci::dt_long_long:
+          to_row.row_data.emplace_back(from_row.get<long long>(i));
+          break;
+        case soci::dt_unsigned_long_long:
+          to_row.row_data.emplace_back(from_row.get<unsigned long long>(i));
+          break;
+        case soci::dt_date:
+          to_row.row_data.emplace_back(from_row.get<std::tm>(i));
+          break;
+        default:
+          throw std::runtime_error("Invalid variant type get!");
+        }
+      }
+
+      to_rows.emplace_back(to_row);
+    }
+
+    // This is done after fetching the data from the rows
+    // because while(statement.fetch()) goes into an infinite
+    // loop if this is done inside the loop because we insert/update
+    // storable data as they're constructed
+    storables.reserve(num_rows);
+    for (auto const &row : to_rows) {
+      storables.emplace_back(schema, row);
+    }
+
+    data_is_loaded = true;
   }
 
-  // This is done after fetching the data from the rows
-  // because while(statement.fetch()) goes into an infinite
-  // loop if this is done inside the loop because we insert/update
-  // storable data as they're constructed
-  std::vector<Storable> storables;
-  storables.reserve(num_rows);
-  for (auto const &row : to_rows) {
-    storables.emplace_back(schema, row);
-  }
-
-  // Moving prevents copies, and therefore new contructors generation
-  // a new ID!
-  return std::optional<std::vector<Storable>>{std::move(storables)};
+  return storables;
 }
 
 template <
@@ -447,18 +448,21 @@ template <
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 void database::utils::update(Storable const &storable)
 {
-  // Not an already existing ID
+  auto &storables = utils::retrieve_all<Storable>();
+  auto const compare = [](Storable const &lhs, Storable const &rhs) {
+    return lhs.id() < rhs.id();
+  };
+
+  // Not an already existing ID, can't update
+  if (!std::binary_search(begin(storables), end(storables), storable,
+                          compare)) {
+    utils::insert(storable);
+  }
   auto &sql_connection = Database::get_connection();
 
   // Data contains all of the table information
   // (e.g. table_name, schema and row(s) of data)
   Data const &data = storable.get_data();
-  auto &ids = id_cache[data.table_name];
-
-  // Not an already existing ID, can't update
-  if (!std::binary_search(begin(ids), end(ids), storable.id())) {
-    utils::insert(storable);
-  }
 
   std::stringstream sql_command;
   sql_command << "UPDATE " << data.table_name << "\n";

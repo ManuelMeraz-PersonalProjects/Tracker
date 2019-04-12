@@ -16,39 +16,29 @@
 #include <sstream>
 #include <unordered_map>
 
-food::Food::Food() : id_{database::utils::get_new_id<decltype(*this)>()}
-{
-  database::utils::insert(*this);
-}
+//template <typename... Args>
+//auto food::Food::make(Args &&... args) -> Food &
+//{
+  //// if (!database::utils::is_verified(id)) {
+  //// throw std::runtime_error(
+  ////"Only database utils can call this function. please call "
+  ////"database::utils::make<Storable>(args). A unique ID that is registered "
+  ////"must be used");
+  ////}
+  //auto &all_food = database::utils::retrieve_all<Food>();
+  //return all_food.emplace_back(std::forward<Args>(args)...);
+//}
 
-food::Food::Food(std::string food_name, Macronutrients macros)
-    : id_{database::utils::get_new_id<decltype(*this)>()},
-      name_{std::move(food_name)}, macronutrients_{macros}
-{
-  database::utils::insert(*this);
-}
+food::Food::Food(int id) : id_{id} {}
+
+food::Food::Food(int id, std::string food_name, Macronutrients macros)
+    : id_{id}, name_{std::move(food_name)}, macronutrients_{macros}
+{}
 
 food::Food::Food(std::vector<database::ColumnProperties> const &schema,
                  database::Row const &data)
 {
   this->set_data(schema, data);
-}
-
-food::Food::Food(Food const &f)
-{
-  this->id_ = database::utils::get_new_id<decltype(*this)>();
-  this->macronutrients_ = f.macronutrients();
-  this->name_ = f.name();
-  database::utils::insert(*this);
-}
-
-food::Food &food::Food::operator=(food::Food const &f)
-{
-  this->macronutrients_ = f.macronutrients();
-  this->name_ = f.name();
-  database::utils::update(*this);
-
-  return *this;
 }
 
 auto food::Food::id() const -> int

@@ -24,6 +24,10 @@ namespace database {
  */
 namespace utils {
 
+template <class ForwardIt, class T, class Compare = std::less<>>
+ForwardIt binary_find(ForwardIt first, ForwardIt last, const T &value,
+                      Compare comp = {});
+
 /**
  * @brief Count the number of Storable type in the database
  * @param Storable Any type that is a base of Storable
@@ -152,6 +156,12 @@ template <
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void insert(Storable const &storable);
 
+template <
+    typename Storable, typename... Args,
+    typename std::enable_if_t<
+        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
+auto make(Args &&... args) -> Storable &;
+
 /**
  * @brief Retrieves all database objects that match the Storable that is passed
  * in
@@ -166,7 +176,7 @@ void insert(Storable const &storable);
  *
  * Usage:
  * @n auto all_food = database::utils::retrieve_all<food::Food>();
- * @n if(all_food) {
+ * @n if(!all_food.empty()) {
  * @n  // do something
  * @n  }
  */
@@ -174,7 +184,7 @@ template <
     typename Storable,
     typename std::enable_if_t<
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
-auto retrieve_all() -> std::optional<std::vector<Storable>>;
+auto retrieve_all() -> std::vector<Storable, struct Storable::Allocator> &;
 
 /**
  * @brief Check if Storable table exists in database

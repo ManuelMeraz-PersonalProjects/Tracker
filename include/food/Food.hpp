@@ -27,45 +27,25 @@ namespace food {
  */
 class Food : public database::Storable {
 public:
-  Food();
-
-  /**
-   * @param macros The macronutrients the food contains
-   * @param food_name The name of the food
-   */
-  Food(std::string food_name, Macronutrients macros);
-
-  /**
-   * @brief This constructor is to be used only by the database utils
-   * @param A schema for this Storable object
-   * @param The row of data to construct the object
-   */
-  Food(std::vector<database::ColumnProperties> const &schema,
-       database::Row const &data);
-
-  /**
-   * @brief Copy constructor for lvalues reference
-   * @param f The food to be copied
-   */
-  Food(Food const &f);
-
-  /**
-   * @brief Move constructor for rvalue reference
-   * @param f The food to be moved
-   */
-  Food(Food &&f) noexcept = default;
+  template <typename... Args> static auto make(Args &&... args) -> Food &
+  {
+    // if (!database::utils::is_verified(id)) {
+    // throw std::runtime_error(
+    //"Only database utils can call this function. please call "
+    //"database::utils::make<Storable>(args). A unique ID that is registered "
+    //"must be used");
+    //}
+    auto &all_food = database::utils::retrieve_all<Food>();
+    return all_food.emplace_back(std::forward<Args>(args)...);
+  }
 
   /**
    * @brief Copy assignment operator
    * @param f The food to be copied
    */
-  Food &operator=(Food const &f);
-
-  /**
-   * @brief Move assignment operator
-   * @param f The food to be moved
-   */
-  Food &operator=(Food &&f) noexcept = default;
+  Food &operator=(Food const &f) = default;
+  Food &operator=(Food &&f) = default;
+  Food(Food &&f) = default;
 
   /**
    * @brief All data will be retrieved from a storable object using this
@@ -76,20 +56,6 @@ public:
    *info.
    */
   auto get_data() const -> database::Data const override;
-
-  /**
-   * @brief When creating new food objects from data retrieved from the
-   *        database, this function will be used to set the data for the
-   *        Storable object.
-   *
-   * @param schema A vector containing the properties of each column that make
-   *               up a schema
-   *
-   * @param data A row of data to set the object data
-   * object
-   */
-  void set_data(std::vector<database::ColumnProperties> const &schema,
-                database::Row const &data) override;
 
   /**
    *  @return The unique ID of this food in the database
@@ -124,7 +90,54 @@ public:
 
   ~Food() override = default;
 
+  struct Allocator : std::allocator<Food> {
+    template <class Food, typename... Args>
+    void construct(Food *buffer, Args &&... args)
+    {
+      new (buffer) Food(std::forward<Args>(args)...);
+    }
+
+    template <class Food> struct rebind {
+      using other = Allocator;
+    };
+  };
+
+  friend struct Allocator;
+
 private:
+  Food() = default;
+  Food(Food const &f) = default;
+
+  Food(int id);
+
+  /**
+   * @param macros The macronutrients the food contains
+   * @param food_name The name of the food
+   */
+  Food(int id, std::string food_name, Macronutrients macros);
+
+  /**
+   * @brief This constructor is to be used only by the database utils
+   * @param A schema for this Storable object
+   * @param The row of data to construct the object
+   */
+  Food(std::vector<database::ColumnProperties> const &schema,
+       database::Row const &data);
+
+  /**
+   * @brief When creating new food objects from data retrieved from the
+   *        database, this function will be used to set the data for the
+   *        Storable object.
+   *
+   * @param schema A vector containing the properties of each column that make
+   *               up a schema
+   *
+   * @param data A row of data to set the object data
+   * object
+   */
+  void set_data(std::vector<database::ColumnProperties> const &schema,
+                database::Row const &data) override;
+
   /**
    *  @brief The unique ID of this food in the database
    */
