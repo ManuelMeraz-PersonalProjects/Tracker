@@ -228,7 +228,12 @@ auto database::utils::get_new_id() -> int
   auto &ids = id_cache[table_name];
 
   int new_id = 0;
-  if (ids.size() >= 2) {
+  // Empty or first value is not 1
+  if ((ids.size() >= 1 && ids[0] != 1) || ids.empty()) {
+    new_id = 1;
+  } else if (ids.size() == 1 && ids[0] == 1) {
+    new_id = 2;
+  } else {
     // Find a gap in the sorted vector of IDs
     // if a gap exists, this is a deleted key.
     auto const is_gap = [](int id, int next_id) { return (next_id - id) != 1; };
@@ -238,12 +243,6 @@ auto database::utils::get_new_id() -> int
     } else {
       new_id = ids.size() + 1;
     }
-
-  } else if (ids.size() == 1 && ids[0] == 1) {
-    new_id = 2;
-  } else {
-    // Empty or first value is not 1
-    new_id = 1;
   }
 
   ids.emplace_back(new_id);
