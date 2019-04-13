@@ -124,10 +124,14 @@ void database::utils::delete_storable(Storable const &storable)
   // Found the id, swap with the back, remove from back, sort
   std::swap(*found, *prev(end(storables)));
   storables.pop_back();
-  std::sort(begin(storables), end(storables),
-            [](Storable const &lhs, Storable const &rhs) {
-              return lhs.id() < rhs.id();
-            });
+
+  auto const less_than = [](Storable const &lhs, Storable const &rhs) {
+    return lhs.id() < rhs.id();
+  };
+
+  if (!std::is_sorted(begin(storables), end(storables), less_than)) {
+    std::sort(begin(storables), end(storables), less_than);
+  }
 
   std::stringstream sql_command;
   sql_command << "DELETE FROM " << table_name << " WHERE " << table_name
@@ -225,13 +229,6 @@ auto database::utils::get_new_id() -> int
     }
   }
 
-  storables.emplace_back(new_id);
-
-  auto const compare = [](Storable const &lhs, Storable const &rhs) {
-    return lhs.id() < rhs.id();
-  };
-  std::sort(begin(storables), end(storables), compare);
-
   return new_id;
 }
 
@@ -306,7 +303,9 @@ template <
 auto database::utils::make(Args &&... args) -> Storable &
 {
   int const id = utils::get_new_id<Storable>();
-  return Storable::make(id, std::forward<Args>(args)...);
+  auto &storable = Storable::make(id, std::forward<Args>(args)...);
+  utils::insert(storable);
+  return storable;
 }
 
 template <
@@ -324,6 +323,7 @@ inline auto database::utils::retrieve_all()
 
     auto &sql_connection = Database::get_connection();
     size_t num_rows = utils::count_rows<Storable>();
+    if (num_rows == 0) return storables;
 
     std::stringstream sql_command;
     sql_command << "SELECT * from " << table_name;
@@ -399,6 +399,15 @@ inline auto database::utils::retrieve_all()
     }
 
     data_is_loaded = true;
+  }
+
+  // Sort if not sorted
+  auto const less_than = [](Storable const &lhs, Storable const &rhs) {
+    return lhs.id() < rhs.id();
+  };
+
+  if (!std::is_sorted(begin(storables), end(storables), less_than)) {
+    std::sort(begin(storables), end(storables), less_than);
   }
 
   return storables;

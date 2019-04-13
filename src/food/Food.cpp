@@ -160,7 +160,7 @@ void food::Food::set_data(std::vector<database::ColumnProperties> const &schema,
   this->macronutrients_ = Macronutrients(
       Fat(fat), Carbohydrate(carbohydrate, Fiber(fiber)), Protein(protein));
 
-  //database::utils::update(*this);
+  //database::utils::insert(*this);
 }
 
 auto food::Food::str() const -> std::string
