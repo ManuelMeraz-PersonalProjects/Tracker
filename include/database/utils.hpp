@@ -9,7 +9,6 @@
 
 #include "database/Storable.hpp"
 
-#include <optional>
 #include <string_view>
 #include <type_traits>
 #include <vector>
@@ -24,13 +23,37 @@ namespace database {
  */
 namespace utils {
 
+/**
+ * @brief Finds and returns the object if it exists in the stl container
+ * @param first A forward iterator for the start of the search
+ * @param last A forward iterator for the end of the search
+ * @param comp A less than comparison function for the object to be found
+ * @return An iterator to the found object, will be the end iterator if now
+ *         found
+ *
+ * Source: https://en.cppreference.com/w/cpp/algorithm/lower_bound
+ *
+ * Requirements: Container must be sorted in relation to the comparison
+ *               function
+ *
+ * Usage:
+ * @n auto const compare = [](Storable const &lhs, Storable const &rhs) {
+ * @n  return lhs.id() < rhs.id();
+ * @n };
+ *
+ * @n auto found = utils::binary_find(begin(storables), end(storables));
+ * @n if(found != end(storables) {
+ * @n   // Do something with found object
+ * @n }
+ */
 template <class ForwardIt, class T, class Compare = std::less<>>
-ForwardIt binary_find(ForwardIt first, ForwardIt last, const T &value,
-                      Compare comp = {});
+auto binary_find(ForwardIt first, ForwardIt last, const T &value, Compare comp)
+    -> ForwardIt;
 
 /**
  * @brief Count the number of Storable type in the database
  * @param Storable Any type that is a base of Storable
+ * @return The number of rows in the table, 0 if table does not exist
  *
  * Creates the following SQLite3 command:
  * @n SELECT count(*) from table_name;
@@ -67,7 +90,7 @@ template <
 void create_table(std::vector<ColumnProperties> const &schema);
 
 /**
- * @brief Delete Storable object from datbase
+ * @brief Delete Storable object from datbase and cache of storables
  * @param storable Any type that is a base of Storable
  *
  * Creates the following SQLite3 command:
@@ -107,6 +130,8 @@ void drop_table();
 /**
  * @brief to_string function for data enum types
  * @param data_enum DataEnum type that is either a constraint type or sql type
+ * @return a string view of the string version of the enum appropriate for a
+ *         database
  *
  * Does not convert to exam string value, it converts to the the string
  * that will be used by the database.
@@ -120,6 +145,8 @@ auto enum_to_string(DataEnum const &data_enum) -> std::string_view;
 /**
  * @brief Generates new unique ID for the type being asked for
  * @param Storable Any type that is a base of Storable
+ * @return A new id that is not being used by the database for this Storable
+ *         type
  *
  * Usage:
  * @n int new_id = database::utils::get_new_id<food::Food>();
@@ -156,6 +183,16 @@ template <
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
 void insert(Storable const &storable);
 
+/**
+ * @brief Generates a new Storable object stores it in the cache, inserts it
+ *        into the database, and returns a reference to tht new object.
+ *
+ * @param The arguments to construct the storable object.
+ * @return A reference to the new object, copies are not allowed.
+ *
+ * Usage:
+ * @n auto &some_food = database::utils::make<food::Food>("taco", macros);
+ */
 template <
     typename Storable, typename... Args,
     typename std::enable_if_t<
@@ -166,19 +203,21 @@ auto make(Args &&... args) -> Storable &;
  * @brief Retrieves all database objects that match the Storable that is passed
  * in
  * @param Storable The type of storable object being retrieved
+ * @return A reference to the vector containing all the storable objects of tht
+ *         type
  *
- * Retrieves all objects of the type requested that contain that name. Does
- * @n not guarantee that the objects exist. This will either return an std
- * @n optional with nothing in it, or a vector.
+ * Retrieves all objects of the type requested that contain that name.
  *
  * Creates the following SQLite3 command:
  * @n SELECT * from Storable;
  *
+ * Note: Copies of storable objects not allowed
+ *
  * Usage:
  * @n auto all_food = database::utils::retrieve_all<food::Food>();
- * @n if(!all_food.empty()) {
- * @n  // do something
- * @n  }
+ * @n for(auto const &food: all_food) {
+ * @n   // do something
+ * @n }
  */
 template <
     typename Storable,
@@ -189,6 +228,7 @@ auto retrieve_all() -> std::vector<Storable, struct Storable::Allocator> &;
 /**
  * @brief Check if Storable table exists in database
  * @param Storable Any type that is a base of Storable
+ * @return true if the table exists, false otherwise
  *
  * Creates the following SQLite3 command:
  * @n SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
@@ -209,6 +249,7 @@ auto table_exists() -> bool;
  *                 (e.g. namespace::other_namespace::ClassName -> "ClassName")
  *
  * @param T The template parameter T could be any possible type.
+ * @return A std::string of that type passed in as a template parameter
  *
  * Usage:
  * @n std::string type_string = database::utils::type_to_string<food::Food>();
@@ -238,7 +279,6 @@ template <typename T> auto type_to_string() -> std::string;
  *
  * Will throw a runtime error if food is not in the database!
  */
-
 template <
     typename Storable,
     typename std::enable_if_t<

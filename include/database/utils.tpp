@@ -8,17 +8,15 @@
 
 #pragma once
 
-#include "database/Data.hpp" // Data, ColumnInfo
+#include "database/Data.hpp" // Data, Row, ColumnProperties
 #include "database/Database.hpp"
 #include "database/Storable.hpp"
 #include "database/utils.hpp"
 
 #include <nameof.hpp> // NAMEOF
-#include <range/v3/all.hpp>
+#include <range/v3/all.hpp> //ranges
 
 #include <iostream> // cerr
-#include <optional>
-#include <queue>
 #include <sstream>
 #include <string_view>
 #include <type_traits>
@@ -26,8 +24,8 @@
 #include <vector>
 
 template <class ForwardIt, class T, class Compare>
-ForwardIt database::utils::binary_find(ForwardIt first, ForwardIt last,
-                                       const T &value, Compare comp)
+auto database::utils::binary_find(ForwardIt first, ForwardIt last,
+                                  const T &value, Compare comp) -> ForwardIt
 {
   // Use a less than comp to find:
   // auto const comp = [](Storable const& value, Storable const& found) {
