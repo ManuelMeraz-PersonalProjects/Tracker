@@ -27,11 +27,6 @@ template <class ForwardIt, class T, class Compare>
 auto database::utils::binary_find(ForwardIt first, ForwardIt last,
                                   const T &value, Compare comp) -> ForwardIt
 {
-  // Use a less than comp to find:
-  // auto const comp = [](Storable const& value, Storable const& found) {
-  //    return value.id() < found.id();
-  //}
-
   first = std::lower_bound(first, last, value, comp);
   return first != last && !comp(value, *first) ? first : last;
 }
@@ -45,7 +40,7 @@ inline auto database::utils::count_rows() -> size_t
   if (!utils::table_exists<Storable>()) { return 0; }
 
   auto &sql_connection = Database::get_connection();
-  std::string const table_name = utils::type_to_string<Storable>();
+  auto const table_name = utils::type_to_string<Storable>();
 
   std::stringstream sql_command;
   sql_command << "SELECT count(*) from " << table_name << ";\n";
@@ -70,7 +65,7 @@ template <
 inline void
 database::utils::create_table(std::vector<ColumnProperties> const &schema)
 {
-  std::string const table_name = utils::type_to_string<Storable>();
+  auto const table_name = utils::type_to_string<Storable>();
 
   std::stringstream sql_command;
   sql_command << "CREATE TABLE IF NOT EXISTS " << table_name << " (\n";
@@ -109,6 +104,7 @@ void database::utils::delete_storable(Storable const &storable)
     return lhs.id() < rhs.id();
   };
 
+  // Make sure the storable object exists before attempting to delete
   auto found =
       utils::binary_find(begin(storables), end(storables), storable, compare);
 
@@ -117,7 +113,7 @@ void database::utils::delete_storable(Storable const &storable)
   }
 
   auto &sql_connection = Database::get_connection();
-  std::string const table_name = utils::type_to_string<Storable>();
+  auto const table_name = utils::type_to_string<Storable>();
 
   // Need to delete from database first, otherwise if we delete from
   // the vector of storables first, the references to the storable we're
@@ -152,7 +148,7 @@ inline void database::utils::drop_table()
   if (!utils::table_exists<Storable>()) return;
 
   auto &sql_connection = Database::get_connection();
-  std::string const table_name = utils::type_to_string<Storable>();
+  auto const table_name = utils::type_to_string<Storable>();
 
   std::stringstream sql_command;
   sql_command << "DROP TABLE " << table_name << "\n";
@@ -329,7 +325,7 @@ inline auto database::utils::retrieve_all()
   static std::vector<Storable, struct Storable::Allocator> storables;
 
   if (!data_is_loaded) {
-    std::string const table_name = utils::type_to_string<Storable>();
+    auto const table_name = utils::type_to_string<Storable>();
 
     auto &sql_connection = Database::get_connection();
     size_t num_rows = utils::count_rows<Storable>();
@@ -421,7 +417,7 @@ template <
 auto database::utils::table_exists() -> bool
 {
   auto &sql_connection = Database::get_connection();
-  std::string const table_name = utils::type_to_string<Storable>();
+  auto const table_name = utils::type_to_string<Storable>();
 
   std::stringstream sql_command;
   sql_command << "SELECT name FROM sqlite_master WHERE type='table' AND name='"
@@ -449,7 +445,6 @@ inline auto database::utils::type_to_string() -> std::string
   std::string const table_name = type_string | ranges::view::reverse |
                                  ranges::view::delimit(':') |
                                  ranges::view::reverse;
-
   return table_name;
 }
 
