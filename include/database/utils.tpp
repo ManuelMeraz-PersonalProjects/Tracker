@@ -111,7 +111,7 @@ void database::utils::delete_storable(Storable const &storable)
     return lhs.id() < rhs.id();
   };
 
-  auto &found =
+  auto found =
       utils::binary_find(begin(storables), end(storables), storable, compare);
 
   if (found == end(storables)) {
@@ -121,13 +121,13 @@ void database::utils::delete_storable(Storable const &storable)
   auto &sql_connection = Database::get_connection();
   std::string const table_name = utils::type_to_string<Storable>();
 
-  // Found the id, swap with the back, remove from back
-  std::swap(*found, *prev(end(storables)));
-  storables.pop_back();
-
+  // Need to delete from database first, otherwise if we delete from
+  // the vector of storables first, the references to the storable we're
+  // referring to changes to a different ID. 
   std::stringstream sql_command;
   sql_command << "DELETE FROM " << table_name << " WHERE " << table_name
               << "_id = " << storable.id();
+  std::cout << sql_command.str() << std::endl;
 
   try {
     sql_connection << sql_command.str();
@@ -136,6 +136,13 @@ void database::utils::delete_storable(Storable const &storable)
     std::cerr << sql_command.str() << std::endl;
     throw std::runtime_error("Attempt to delete object failed!");
   }
+
+  // Found the id, swap with the back, remove from back, and sort
+  std::swap(*found, *prev(end(storables)));
+  storables.pop_back();
+
+  std::sort(begin(storables), end(storables), compare);
+
 }
 
 template <
