@@ -121,7 +121,6 @@ void database::utils::delete_storable(Storable const &storable)
   std::stringstream sql_command;
   sql_command << "DELETE FROM " << table_name << " WHERE " << table_name
               << "_id = " << storable.id();
-  std::cout << sql_command.str() << std::endl;
 
   try {
     sql_connection << sql_command.str();
