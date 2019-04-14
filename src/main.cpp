@@ -30,9 +30,12 @@ auto main() -> int
   std::cout << "\n" << taco.str() << std::endl;
   macros.set_fat(25);
   macros.set_protein(3000000);
+  taco.set_macronutrients(macros);
 
 
   print(all_food);
-  utils::drop_table<food::Food>();
+  if(all_food.size() >= 5) {
+    utils::drop_table<food::Food>();
+  }
   return 0;
 }

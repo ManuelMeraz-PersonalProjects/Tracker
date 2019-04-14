@@ -121,17 +121,9 @@ void database::utils::delete_storable(Storable const &storable)
   auto &sql_connection = Database::get_connection();
   std::string const table_name = utils::type_to_string<Storable>();
 
-  // Found the id, swap with the back, remove from back, sort
+  // Found the id, swap with the back, remove from back
   std::swap(*found, *prev(end(storables)));
   storables.pop_back();
-
-  auto const less_than = [](Storable const &lhs, Storable const &rhs) {
-    return lhs.id() < rhs.id();
-  };
-
-  if (!std::is_sorted(begin(storables), end(storables), less_than)) {
-    std::sort(begin(storables), end(storables), less_than);
-  }
 
   std::stringstream sql_command;
   sql_command << "DELETE FROM " << table_name << " WHERE " << table_name
@@ -304,7 +296,6 @@ auto database::utils::make(Args &&... args) -> Storable &
 {
   int const id = utils::get_new_id<Storable>();
   auto &storable = Storable::make(id, std::forward<Args>(args)...);
-  utils::insert(storable);
   return storable;
 }
 
@@ -401,15 +392,6 @@ inline auto database::utils::retrieve_all()
     data_is_loaded = true;
   }
 
-  // Sort if not sorted
-  auto const less_than = [](Storable const &lhs, Storable const &rhs) {
-    return lhs.id() < rhs.id();
-  };
-
-  if (!std::is_sorted(begin(storables), end(storables), less_than)) {
-    std::sort(begin(storables), end(storables), less_than);
-  }
-
   return storables;
 }
 
@@ -458,16 +440,6 @@ template <
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 void database::utils::update(Storable const &storable)
 {
-  auto &storables = utils::retrieve_all<Storable>();
-  auto const compare = [](Storable const &lhs, Storable const &rhs) {
-    return lhs.id() < rhs.id();
-  };
-
-  // Not an already existing ID, can't update
-  if (!std::binary_search(begin(storables), end(storables), storable,
-                          compare)) {
-    utils::insert(storable);
-  }
   auto &sql_connection = Database::get_connection();
 
   // Data contains all of the table information

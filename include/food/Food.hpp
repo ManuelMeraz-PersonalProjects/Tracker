@@ -10,6 +10,7 @@
 
 #include "database/Storable.hpp"
 #include "food/Macronutrients.hpp"
+#include <database/utils.hpp>
 
 #include <soci.h>
 
@@ -35,8 +36,25 @@ public:
     //"database::utils::make<Storable>(args). A unique ID that is registered "
     //"must be used");
     //}
-    auto &all_food = database::utils::retrieve_all<Food>();
-    return all_food.emplace_back(std::forward<Args>(args)...);
+    auto &storables = database::utils::retrieve_all<Food>();
+
+    // Store into local cache
+    auto &storable =
+        storables.emplace_back(std::forward<Args>(args)...);
+
+    // Insert into the database
+    database::utils::insert(storable);
+
+    // Sort if not sorted to maintain sorted storable objects for quick lookups
+    auto const less_than = [](Food const &lhs, Food const &rhs) {
+      return lhs.id() < rhs.id();
+    };
+
+    if (!std::is_sorted(begin(storables), end(storables), less_than)) {
+      std::sort(begin(storables), end(storables), less_than);
+    }
+
+    return storable;
   }
 
   /**

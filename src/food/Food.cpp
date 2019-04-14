@@ -16,17 +16,17 @@
 #include <sstream>
 #include <unordered_map>
 
-//template <typename... Args>
-//auto food::Food::make(Args &&... args) -> Food &
+// template <typename... Args>
+// auto food::Food::make(Args &&... args) -> Food &
 //{
-  //// if (!database::utils::is_verified(id)) {
-  //// throw std::runtime_error(
-  ////"Only database utils can call this function. please call "
-  ////"database::utils::make<Storable>(args). A unique ID that is registered "
-  ////"must be used");
-  ////}
-  //auto &all_food = database::utils::retrieve_all<Food>();
-  //return all_food.emplace_back(std::forward<Args>(args)...);
+//// if (!database::utils::is_verified(id)) {
+//// throw std::runtime_error(
+////"Only database utils can call this function. please call "
+////"database::utils::make<Storable>(args). A unique ID that is registered "
+////"must be used");
+////}
+// auto &all_food = database::utils::retrieve_all<Food>();
+// return all_food.emplace_back(std::forward<Args>(args)...);
 //}
 
 food::Food::Food(int id) : id_{id} {}
@@ -159,8 +159,6 @@ void food::Food::set_data(std::vector<database::ColumnProperties> const &schema,
 
   this->macronutrients_ = Macronutrients(
       Fat(fat), Carbohydrate(carbohydrate, Fiber(fiber)), Protein(protein));
-
-  //database::utils::insert(*this);
 }
 
 auto food::Food::str() const -> std::string
