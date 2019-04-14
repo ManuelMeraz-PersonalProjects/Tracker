@@ -28,35 +28,6 @@ namespace food {
  */
 class Food : public database::Storable {
 public:
-  template <typename... Args> static auto make(Args &&... args) -> Food &
-  {
-    // if (!database::utils::is_verified(id)) {
-    // throw std::runtime_error(
-    //"Only database utils can call this function. please call "
-    //"database::utils::make<Storable>(args). A unique ID that is registered "
-    //"must be used");
-    //}
-    auto &storables = database::utils::retrieve_all<Food>();
-
-    // Store into local cache
-    auto &storable =
-        storables.emplace_back(std::forward<Args>(args)...);
-
-    // Insert into the database
-    database::utils::insert(storable);
-
-    // Sort if not sorted to maintain sorted storable objects for quick lookups
-    auto const less_than = [](Food const &lhs, Food const &rhs) {
-      return lhs.id() < rhs.id();
-    };
-
-    if (!std::is_sorted(begin(storables), end(storables), less_than)) {
-      std::sort(begin(storables), end(storables), less_than);
-    }
-
-    return storable;
-  }
-
   /**
    * @brief Copy assignment operator
    * @param f The food to be copied

@@ -123,7 +123,7 @@ void database::utils::delete_storable(Storable const &storable)
 
   // Need to delete from database first, otherwise if we delete from
   // the vector of storables first, the references to the storable we're
-  // referring to changes to a different ID. 
+  // referring to changes to a different ID.
   std::stringstream sql_command;
   sql_command << "DELETE FROM " << table_name << " WHERE " << table_name
               << "_id = " << storable.id();
@@ -142,7 +142,6 @@ void database::utils::delete_storable(Storable const &storable)
   storables.pop_back();
 
   std::sort(begin(storables), end(storables), compare);
-
 }
 
 template <
@@ -302,7 +301,22 @@ template <
 auto database::utils::make(Args &&... args) -> Storable &
 {
   int const id = utils::get_new_id<Storable>();
-  auto &storable = Storable::make(id, std::forward<Args>(args)...);
+  auto &storables = database::utils::retrieve_all<Storable>();
+
+  // Store into local cache
+  auto &storable = storables.emplace_back(id, std::forward<Args>(args)...);
+
+  // Insert into the database
+  database::utils::insert(storable);
+
+  // Sort if not sorted to maintain sorted storable objects for quick lookups
+  auto const less_than = [](Storable const &lhs, Storable const &rhs) {
+    return lhs.id() < rhs.id();
+  };
+
+  if (!std::is_sorted(begin(storables), end(storables), less_than)) {
+    std::sort(begin(storables), end(storables), less_than);
+  }
   return storable;
 }
 

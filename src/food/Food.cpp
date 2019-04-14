@@ -16,19 +16,6 @@
 #include <sstream>
 #include <unordered_map>
 
-// template <typename... Args>
-// auto food::Food::make(Args &&... args) -> Food &
-//{
-//// if (!database::utils::is_verified(id)) {
-//// throw std::runtime_error(
-////"Only database utils can call this function. please call "
-////"database::utils::make<Storable>(args). A unique ID that is registered "
-////"must be used");
-////}
-// auto &all_food = database::utils::retrieve_all<Food>();
-// return all_food.emplace_back(std::forward<Args>(args)...);
-//}
-
 food::Food::Food(int id) : id_{id} {}
 
 food::Food::Food(int id, std::string food_name, Macronutrients macros)
