@@ -28,13 +28,10 @@ namespace food {
  */
 class Food : public database::Storable {
 public:
-  /**
-   * @brief Copy assignment operator
-   * @param f The food to be copied
-   */
+  Food(Food &&f) = default;
+
   Food &operator=(Food const &f) = default;
   Food &operator=(Food &&f) = default;
-  Food(Food &&f) = default;
 
   /**
    * @brief All data will be retrieved from a storable object using this
@@ -79,10 +76,18 @@ public:
 
   ~Food() override = default;
 
+  /**
+   * @brief Custom allocator that allows database utils to own a vector
+   *        of storable objects with private constructors
+   */
   struct Allocator : std::allocator<Food> {
     template <class Food, typename... Args>
     void construct(Food *buffer, Args &&... args)
     {
+      /**
+       * @brief In place new construction of storable by memory pool that is
+       *        given
+       */
       new (buffer) Food(std::forward<Args>(args)...);
     }
 
@@ -97,16 +102,19 @@ private:
   Food() = default;
   Food(Food const &f) = default;
 
-  Food(int id);
+  /**
+   * @param id a uniquely generated ID given by database utils
+   */
+  explicit Food(int id);
 
   /**
+   * @param id a uniquely generated ID given by database utils
    * @param macros The macronutrients the food contains
    * @param food_name The name of the food
    */
   Food(int id, std::string food_name, Macronutrients macros);
 
   /**
-   * @brief This constructor is to be used only by the database utils
    * @param A schema for this Storable object
    * @param The row of data to construct the object
    */
