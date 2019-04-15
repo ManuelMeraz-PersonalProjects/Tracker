@@ -209,7 +209,7 @@ auto database::utils::get_new_id() -> int
     // if a gap exists, this is a deleted key.
     // storables is sorted
     auto const is_deleted_key = [](Storable const &s, Storable const &s_next) {
-      return (s_next.id() - s.id()) != 1;
+      return (s_next.id() - s.id()) > 1;
     };
 
     auto potential_id =
@@ -326,6 +326,7 @@ inline auto database::utils::retrieve_all()
   static std::vector<Storable, struct Storable::Allocator> storables;
 
   if (!data_is_loaded) {
+    data_is_loaded = true;
     auto const table_name = utils::type_to_string<Storable>();
 
     auto &sql_connection = Database::get_connection();
@@ -404,8 +405,6 @@ inline auto database::utils::retrieve_all()
     for (auto const &row : to_rows) {
       storables.emplace_back(schema, row);
     }
-
-    data_is_loaded = true;
   }
 
   return storables;

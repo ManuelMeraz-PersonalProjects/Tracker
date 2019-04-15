@@ -8,10 +8,17 @@ namespace utils = database::utils;
 
 auto main() -> int
 {
-  Macronutrients macros(Fat(10), Carbohydrate(10, Fiber(10)), Protein(10));
-  auto &taco = utils::make<Food>("tacos", macros);
-  std::cout << taco.str() << std::endl;
+  std::cout << "Creating food..." << std::endl;
+  for (size_t i = 0; i < 100; ++i) {
+    Macronutrients macros(Fat(i), Carbohydrate(i, Fiber(i)), Protein(i));
+    utils::make<Food>("tacos", macros);
+  }
 
-  utils::delete_storable(taco);
+  auto &all_food = utils::retrieve_all<Food>();
+  std::cout << "Deleting..." << std::endl;
+  while (!all_food.empty()) {
+    utils::delete_storable(all_food.back());
+  }
+  std::cout << "Done!" << std::endl;
   return 0;
 }
