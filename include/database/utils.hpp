@@ -350,7 +350,7 @@ inline auto database::utils::count_rows() -> size_t
   std::stringstream sql_command;
   sql_command << "SELECT count(*) from " << table_name << ";\n";
 
-  size_t num_rows;
+  size_t num_rows = 0;
   try {
     sql_connection << sql_command.str(), soci::into(num_rows);
   } catch (soci::sqlite3_soci_error const &error) {
@@ -376,10 +376,9 @@ database::utils::create_table(std::vector<ColumnProperties> const &schema)
   sql_command << "CREATE TABLE IF NOT EXISTS " << table_name << " (\n";
 
   auto delimeter = "";
-  for (auto const &column : schema) {
-    sql_command << delimeter << column.name << " "
-                << utils::enum_to_string(column.data_type) << " "
-                << utils::enum_to_string(column.constraint);
+  for (auto const &[name, data_type, constraint] : schema) {
+    sql_command << delimeter << name << " " << utils::enum_to_string(data_type)
+                << " " << utils::enum_to_string(constraint);
 
     delimeter = ",\n";
   }
@@ -598,9 +597,7 @@ auto database::utils::make(Args &&... args) -> Storable &
   int const id = utils::get_new_id<Storable>();
   auto &storables = database::utils::retrieve_all<Storable>();
 
-  auto const comp = [](Storable const &lhs, int id) {
-    return lhs.id() < id;
-  };
+  auto const comp = [](Storable const &lhs, int id) { return lhs.id() < id; };
 
   // Find the position to insert in the cache
   auto pos = std::lower_bound(begin(storables), end(storables), id, comp);
