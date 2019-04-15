@@ -435,11 +435,7 @@ void database::utils::delete_storable(Storable const &storable)
     throw std::runtime_error("Attempt to delete object failed!");
   }
 
-  // Found the id, swap with the back, remove from back, and sort
-  std::swap(*found, *prev(end(storables)));
-  storables.pop_back();
-
-  std::sort(begin(storables), end(storables), compare);
+  storables.erase(found);
 }
 
 template <
@@ -602,20 +598,19 @@ auto database::utils::make(Args &&... args) -> Storable &
   int const id = utils::get_new_id<Storable>();
   auto &storables = database::utils::retrieve_all<Storable>();
 
+  auto const comp = [](Storable const &lhs, int id) {
+    return lhs.id() < id;
+  };
+
+  // Find the position to insert in the cache
+  auto pos = std::lower_bound(begin(storables), end(storables), id, comp);
+
   // Store into local cache
-  auto &storable = storables.emplace_back(id, std::forward<Args>(args)...);
+  auto &storable = *storables.emplace(pos, id, std::forward<Args>(args)...);
 
   // Insert into the database
   database::utils::insert(storable);
 
-  // Sort if not sorted to maintain sorted storable objects for quick lookups
-  auto const less_than = [](Storable const &lhs, Storable const &rhs) {
-    return lhs.id() < rhs.id();
-  };
-
-  if (!std::is_sorted(begin(storables), end(storables), less_than)) {
-    std::sort(begin(storables), end(storables), less_than);
-  }
   return storable;
 }
 
