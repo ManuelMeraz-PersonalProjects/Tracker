@@ -659,7 +659,6 @@ inline auto database::utils::retrieve_all()
     to_rows.reserve(num_rows);
 
     while (statement.fetch()) {
-
       // Getting data from soci row to tracker row
       Row to_row;
       to_row.row_data.reserve(from_row.size());
