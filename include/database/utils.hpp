@@ -234,25 +234,6 @@ template <
 auto retrieve_all() -> std::vector<Storable, struct Storable::Allocator> &;
 
 /**
- * @brief Check if Storable table exists in database
- * @param Storable Any type that is a base of Storable
- * @return true if the table exists, false otherwise
- *
- * Creates the following SQLite3 command:
- * @n SELECT name FROM sqlite_master WHERE type='table' AND name='table_name';
- *
- * Usage:
- * @n if(table_exists<food::Food>()) {
- * @n   // do something
- * @n }
- */
-template <
-    typename Storable,
-    typename std::enable_if_t<
-        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int> = 0>
-auto table_exists() -> bool;
-
-/**
  * @brief Converts a type to a string and trims the namespaces off.
  *                 (e.g. namespace::other_namespace::ClassName -> "ClassName")
  *
@@ -325,7 +306,9 @@ namespace {
 /*
  * @brief flag used to determine if data has been loaded into cache or not
  */
-static bool data_is_loaded = false;
+template <typename Storable> static bool data_is_loaded = false;
+
+template <typename Storable> static bool table_exists = false;
 } // namespace
 
 template <class ForwardIt, class T, class Compare>
@@ -342,7 +325,7 @@ template <
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 inline auto database::utils::count_rows() -> size_t
 {
-  if (!utils::table_exists<Storable>()) { return 0; }
+  if (!table_exists<Storable>) { return 0; }
 
   auto &sql_connection = Database::get_connection();
   auto const table_name = utils::type_to_string<Storable>();
@@ -394,6 +377,8 @@ database::utils::create_table(std::vector<ColumnProperties> const &schema)
     std::cerr << sql_command.str() << std::endl;
     throw std::runtime_error("Attempt to create table failed!");
   }
+
+  table_exists<Storable> = true;
 }
 
 template <
@@ -444,7 +429,7 @@ template <
 inline void database::utils::drop_table()
 {
   // Table doesn't exist, already 'dropped'
-  if (!utils::table_exists<Storable>()) return;
+  if (!table_exists<Storable>) { return; }
 
   auto &sql_connection = Database::get_connection();
   auto const table_name = utils::type_to_string<Storable>();
@@ -459,6 +444,8 @@ inline void database::utils::drop_table()
     std::cerr << sql_command.str() << std::endl;
     throw std::runtime_error("Attempt to drop table failed!");
   }
+
+  table_exists<Storable> = false;
 }
 
 template <typename DataEnum,
@@ -544,9 +531,9 @@ inline void database::utils::insert(Storable const &storable)
   // (e.g. table_name, schema and row(s) of data)
   Data const &data = storable.get_data();
 
-  if (!utils::table_exists<Storable>()) {
+  if (!table_exists<Storable>) {
     utils::create_table<Storable>(data.schema);
-    data_is_loaded = true;
+    data_is_loaded<Storable> = true;
   }
 
   std::stringstream sql_command;
@@ -564,11 +551,12 @@ inline void database::utils::insert(Storable const &storable)
     column_names << delimeter << column.name;
     column_values << delimeter;
 
-    utils::visit_row_data(
-        [&column_values = column_values](auto const &row_data) {
-          column_values << row_data;
-        },
-        row_data);
+    // Prevent dangling reference with capture init
+    auto const visitor = [&col_vals = column_values](auto const &row_data) {
+      col_vals << row_data;
+    };
+
+    utils::visit_row_data(visitor, row_data);
 
     delimeter = ",\n";
   }
@@ -620,8 +608,8 @@ inline auto database::utils::retrieve_all()
 {
   static std::vector<Storable, struct Storable::Allocator> storables;
 
-  if (!data_is_loaded) {
-    data_is_loaded = true;
+  if (!data_is_loaded<Storable>) {
+    data_is_loaded<Storable> = true;
     auto const table_name = utils::type_to_string<Storable>();
 
     auto &sql_connection = Database::get_connection();
@@ -702,31 +690,6 @@ inline auto database::utils::retrieve_all()
   }
 
   return storables;
-}
-
-template <
-    typename Storable,
-    typename std::enable_if_t<
-        std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
-auto database::utils::table_exists() -> bool
-{
-  auto &sql_connection = Database::get_connection();
-  auto const table_name = utils::type_to_string<Storable>();
-
-  std::stringstream sql_command;
-  sql_command << "SELECT name FROM sqlite_master WHERE type='table' AND name='"
-              << table_name << "';\n";
-
-  std::string exists;
-  try {
-    sql_connection << sql_command.str(), soci::into(exists);
-  } catch (soci::sqlite3_soci_error const &error) {
-    std::cerr << error.what() << std::endl;
-    std::cerr << sql_command.str() << std::endl;
-    throw std::runtime_error("Attempt to check if table exists failed.");
-  }
-
-  return exists != "";
 }
 
 template <typename T>
