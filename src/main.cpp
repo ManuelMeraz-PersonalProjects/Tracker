@@ -12,5 +12,6 @@ auto main() -> int
   auto &taco = utils::make<Food>("tacos", macros);
   std::cout << taco.str() << std::endl;
 
+  utils::delete_storable(taco);
   return 0;
 }

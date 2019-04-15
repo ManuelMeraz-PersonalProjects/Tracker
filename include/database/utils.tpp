@@ -13,7 +13,7 @@
 #include "database/Storable.hpp"
 #include "database/utils.hpp"
 
-#include <nameof.hpp> // NAMEOF
+#include <nameof.hpp>       // NAMEOF
 #include <range/v3/all.hpp> //ranges
 
 #include <iostream> // cerr
@@ -22,6 +22,8 @@
 #include <type_traits>
 #include <unordered_map>
 #include <vector>
+
+static bool data_is_loaded = false;
 
 template <class ForwardIt, class T, class Compare>
 auto database::utils::binary_find(ForwardIt first, ForwardIt last,
@@ -246,6 +248,7 @@ inline void database::utils::insert(Storable const &storable)
 
   if (!utils::table_exists<Storable>()) {
     utils::create_table<Storable>(data.schema);
+    data_is_loaded = true;
   }
 
   std::stringstream sql_command;
@@ -320,7 +323,6 @@ template <
 inline auto database::utils::retrieve_all()
     -> std::vector<Storable, struct Storable::Allocator> &
 {
-  static bool data_is_loaded = false;
   static std::vector<Storable, struct Storable::Allocator> storables;
 
   if (!data_is_loaded) {
