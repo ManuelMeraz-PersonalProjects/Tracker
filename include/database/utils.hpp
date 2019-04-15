@@ -717,7 +717,6 @@ template <
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 auto database::utils::table_exists() -> bool
 {
-
   if (!table_exists_flag<Storable>) {
     auto &sql_connection = Database::get_connection();
     auto const table_name = utils::type_to_string<Storable>();
