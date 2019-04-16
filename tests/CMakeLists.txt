@@ -21,6 +21,7 @@ macro(package_add_test TESTNAME)
   target_link_libraries(${TESTNAME} gtest gmock gtest_main)
   add_test(NAME ${TESTNAME} COMMAND ${TESTNAME})
   set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
+  cotire(${TESTNAME})
 endmacro()
 
 package_add_test(test-food test-food.cpp)

@@ -15,3 +15,4 @@ target_include_directories(food
 )
 
 target_link_libraries(food PUBLIC Soci)
+cotire(food)

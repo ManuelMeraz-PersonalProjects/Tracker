@@ -25,6 +25,9 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Set up third party libraries #
 ################################
 
+# Reduce compile time with cotire
+include(${CMAKE_MODULE_PATH}/thirdparty/cotire.cmake)
+
 # Find out where soci lib is based on the architecture
 include(${CMAKE_MODULE_PATH}/thirdparty/SociConfig.cmake)
 # Find soci lib. Look at file to see definitions.

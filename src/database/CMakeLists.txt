@@ -14,4 +14,4 @@ target_include_directories(database
 )
 
 target_link_libraries(database PUBLIC Soci)
-
+cotire(database)
