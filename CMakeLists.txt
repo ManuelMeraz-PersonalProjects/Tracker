@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.9.6...3.13)
 set(CMAKE_CXX_COMPILER clang++)
 
 #TODO(Manny): Use git tag to get version
-project(tracker VERSION 0.0.1)
+project(tracker VERSION 0.0.1 LANGUAGES CXX)
 
 # Build Options
 option(ENABLE_DOCUMENTATION "Build tracker documentation" OFF)
