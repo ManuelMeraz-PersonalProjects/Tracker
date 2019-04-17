@@ -1,4 +1,4 @@
-###############################################################################
+# ~~~
 # CMake module to search for SOCI library
 #
 # WARNING: This module is experimental work in progress.
@@ -21,93 +21,75 @@
 #
 # Redistribution and use is allowed according to the terms of the BSD license.
 # For details see the accompanying COPYING-CMAKE-SCRIPTS file.
-#
-###############################################################################
-#
-### Global Configuration Section
-#
-SET(_SOCI_ALL_PLUGINS    mysql odbc postgresql sqlite3)
-SET(_SOCI_REQUIRED_VARS  SOCI_INCLUDE_DIR SOCI_LIBRARY)
+# ~~~
 
-#
-### FIRST STEP: Find the soci headers.
-#
-FIND_PATH(
-    SOCI_INCLUDE_DIR 
-		NAMES soci.h 
-    PATH "/usr/local/"
-    PATH_SUFFIXES "" "soci"
-    DOC "Soci (http://soci.sourceforge.net) include directory")
-MARK_AS_ADVANCED(SOCI_INCLUDE_DIR)
+# Global Configuration Section
+set(_SOCI_ALL_PLUGINS mysql odbc postgresql sqlite3)
+set(_SOCI_REQUIRED_VARS SOCI_INCLUDE_DIR SOCI_LIBRARY)
 
-SET(SOCI_INCLUDE_DIRS ${SOCI_INCLUDE_DIR})
+# FIRST STEP: Find the soci headers.
+find_path(SOCI_INCLUDE_DIR
+          NAMES soci.h PATH "/usr/local/"
+          PATH_SUFFIXES "" "soci"
+          DOC "Soci (http://soci.sourceforge.net) include directory")
+mark_as_advanced(SOCI_INCLUDE_DIR)
 
-#
-### SECOND STEP: Find the soci core library. Respect LIB_SUFFIX
-#
-FIND_LIBRARY(
-    SOCI_LIBRARY
-    NAMES soci_core
-    HINTS ${SOCI_INCLUDE_DIR}/..
-    PATH_SUFFIXES lib${LIB_SUFFIX})
-MARK_AS_ADVANCED(SOCI_LIBRARY)
+set(SOCI_INCLUDE_DIRS ${SOCI_INCLUDE_DIR})
 
-GET_FILENAME_COMPONENT(SOCI_LIBRARY_DIR ${SOCI_LIBRARY} PATH)
-MARK_AS_ADVANCED(SOCI_LIBRARY_DIR)
+# SECOND STEP: Find the soci core library. Respect LIB_SUFFIX
+find_library(SOCI_LIBRARY
+             NAMES soci_core
+             HINTS ${SOCI_INCLUDE_DIR}/..
+             PATH_SUFFIXES lib${LIB_SUFFIX})
+mark_as_advanced(SOCI_LIBRARY)
 
-#
-### THIRD STEP: Find all installed plugins if the library was found
-#
-IF(SOCI_INCLUDE_DIR AND SOCI_LIBRARY)
+get_filename_component(SOCI_LIBRARY_DIR ${SOCI_LIBRARY} PATH)
+mark_as_advanced(SOCI_LIBRARY_DIR)
 
-    MESSAGE(STATUS "Soci found: Looking for plugins")
-    FOREACH(plugin IN LISTS _SOCI_ALL_PLUGINS)
+# THIRD STEP: Find all installed plugins if the library was found
+if(SOCI_INCLUDE_DIR AND SOCI_LIBRARY)
 
-        FIND_LIBRARY(
-            SOCI_${plugin}_PLUGIN
-            NAMES soci_${plugin}
-            HINTS ${SOCI_INCLUDE_DIR}/..
-            PATH_SUFFIXES lib${LIB_SUFFIX})
-        MARK_AS_ADVANCED(SOCI_${plugin}_PLUGIN)
+  message(STATUS "Soci found: Looking for plugins")
+  foreach(plugin IN LISTS _SOCI_ALL_PLUGINS)
 
-        IF(SOCI_${plugin}_PLUGIN)
-            MESSAGE(STATUS "    * Plugin ${plugin} found ${SOCI_${plugin}_PLUGIN}.")
-            SET(SOCI_${plugin}_FOUND True)
-						SET(SOCI_INCLUDE_DIRS ${SOCI_INCLUDE_DIRS} ${SOCI_INCLUDE_DIR}/${plugin})
-        ELSE()
-            MESSAGE(STATUS "    * Plugin ${plugin} not found.")
-            SET(SOCI_${plugin}_FOUND False)
-        ENDIF()
+    find_library(SOCI_${plugin}_PLUGIN
+                 NAMES soci_${plugin}
+                 HINTS ${SOCI_INCLUDE_DIR}/..
+                 PATH_SUFFIXES lib${LIB_SUFFIX})
+    mark_as_advanced(SOCI_${plugin}_PLUGIN)
 
-    ENDFOREACH()
+    if(SOCI_${plugin}_PLUGIN)
+      message(STATUS "    * Plugin ${plugin} found ${SOCI_${plugin}_PLUGIN}.")
+      set(SOCI_${plugin}_FOUND True)
+      set(SOCI_INCLUDE_DIRS ${SOCI_INCLUDE_DIRS} ${SOCI_INCLUDE_DIR}/${plugin})
+    else()
+      message(STATUS "    * Plugin ${plugin} not found.")
+      set(SOCI_${plugin}_FOUND False)
+    endif()
 
-    #
-    ### FOURTH CHECK: Check if the required components were all found
-    #
-    FOREACH(component ${Soci_FIND_COMPONENTS})
-        IF(NOT SOCI_${component}_FOUND)
-            MESSAGE(SEND_ERROR "Required component ${component} not found.")
-        ENDIF()
-    ENDFOREACH()
-ELSE()
-	message(STATUS "SOCI_INCLUDE_DIR: ${SOCI_INCLUDE_DIR}")
-	message(STATUS "SOCI_LIBRARY_DIR: ${SOCI_LIBRARY_DIR}")
-	message(FATAL_ERROR "Soci library not found, it is required for build.")
-ENDIF()
+  endforeach()
 
-#
-### ADHERE TO STANDARDS
-#
-include(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(Soci DEFAULT_MSG ${_SOCI_REQUIRED_VARS})
-
-if(SOCI_FOUND) 
-	# Make library visible in source directory by setting global
-	add_library(Soci SHARED IMPORTED GLOBAL)
-	set_target_properties(Soci 
-		PROPERTIES 
-		IMPORTED_LOCATION ${SOCI_LIBRARY})
-	target_include_directories(Soci INTERFACE ${SOCI_INCLUDE_DIRS})
+  # FOURTH CHECK: Check if the required components were all found
+  foreach(component ${Soci_FIND_COMPONENTS})
+    if(NOT SOCI_${component}_FOUND)
+      message(SEND_ERROR "Required component ${component} not found.")
+    endif()
+  endforeach()
 else()
-	message(FATAL_ERROR "Soci is a required library")
+  message(STATUS "SOCI_INCLUDE_DIR: ${SOCI_INCLUDE_DIR}")
+  message(STATUS "SOCI_LIBRARY_DIR: ${SOCI_LIBRARY_DIR}")
+  message(FATAL_ERROR "Soci library not found, it is required for build.")
+endif()
+
+# ADHERE TO STANDARDS
+include(FindPackageHandleStandardArgs)
+find_package_handle_standard_args(Soci DEFAULT_MSG ${_SOCI_REQUIRED_VARS})
+
+if(SOCI_FOUND)
+  # Make library visible in source directory by setting global
+  add_library(Soci SHARED IMPORTED GLOBAL)
+  set_target_properties(Soci PROPERTIES IMPORTED_LOCATION ${SOCI_LIBRARY})
+  target_include_directories(Soci INTERFACE ${SOCI_INCLUDE_DIRS})
+else()
+  message(FATAL_ERROR "Soci is a required library")
 endif()
