@@ -34,7 +34,7 @@ Usage:
 `configure_and_make.sh build_dir`
 
 
-## cmake_format.sh
+## cmake_format.py
 
 Formats cmake files in the tracker project and makes them 
 look prettier. 
