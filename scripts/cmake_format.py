@@ -56,4 +56,7 @@ for file in cmake_files:
     with open(file, 'w') as f:
         f.write(process.stdout)
 
-print("Done")
+print("Done!\n"
+      "Please do a 'git diff' to make sure the files were formatted to your "
+      "liking.\nUse 'git checkout -- /path/to/file' to undo any changes or "
+      "'git add -p' to\ninteractively add the changes you do want to keep.")
