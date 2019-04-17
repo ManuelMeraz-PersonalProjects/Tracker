@@ -81,10 +81,10 @@ def execute_command(command, files):
     Example:
     cmake-format -i /path/to/file
     '''
-    print("Finding your " + command[0] + " files to format....")
+    print("\nFinding your " + command[0] + " files to format....")
     # Make sure we don't get any repeats with a set
 
-    print("\nFormatting the following files:")
+    print("Formatting the following files:")
     for file in files:
         print(file)
 
@@ -138,7 +138,7 @@ if __name__ == '__main__':
     if options.cmake_format:
         ignore_dirs = ['extern', 'include', 'scripts', 'build']
         command = ["cmake-format", "-i"]
-        cmake_files = get_files_if(cmake_filter)
+        cmake_files = get_files_if(cmake_filter, ignore_dirs)
         execute_command(command, cmake_files)
 
     if options.clang_format:
@@ -147,7 +147,7 @@ if __name__ == '__main__':
         cpp_files = get_files_if(cpp_filter, ignore_dirs)
         execute_command(command, cpp_files)
 
-    print("Done!\nPlease do a 'git diff' to make sure the files were "
+    print("\nDone!\nPlease do a 'git diff' to make sure the files were "
           "formatted to your liking.\nUse 'git checkout -- /path/to/file' "
           "to undo any changes or 'git add -p' to\ninteractively add the "
           "changes you do want to keep.")
