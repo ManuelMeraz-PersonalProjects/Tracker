@@ -69,38 +69,71 @@ def get_files_if(file_filter):
     return filtered_files
 
 
-# Grab the tracker project directory path
-# if it user called set_env.bash
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
+def execute_command(command, files):
+    '''
+    @brief execute the following command on the given files
+    @param command The following will be a list where the first
+                   item in the list is the command, followed by
+                   the arguments
+    @param files   A list of full paths to files to execute the
+                   command on, where the file is the last arg
 
-    parser.add_argument("-cmake-format",
-                        help="Run cmake-format on the code base",
-                        action="store_true")
-
-    parser.add_argument("-clang-format",
-                        help="Run clang-format on the code base",
-                        action="store_true")
-
-    cmake_files = get_files_if(cmake_filter)
-    print("Finding your cmake files to format....")
+    Example:
+    cmake-format -i /path/to/file
+    '''
+    print("Finding your " + command[0] + " files to format....")
     # Make sure we don't get any repeats with a set
 
     print("\nFormatting the following files:")
     for file in cmake_files:
         print(file)
-        command = ["cmake-format", "-i", file]
 
         try:
-            process = subprocess.run(command, stdout=subprocess.PIPE,
-                                     check=True,
-                                     universal_newlines=True)
+            subprocess.run(command,
+                           stdout=subprocess.PIPE,
+                           check=True,
+                           universal_newlines=True)
 
         except FileNotFoundError:
-            print("\nAttempted to use cmake-format, but it looks like it's "
-                  "not installed!\nPlease install with pip by entering the "
-                  "following command:\n\n    pip install cmake_format")
-            sys.exit(1)
+            print("\nAttempted to use " + command[0] + " , but it looks like"
+                  "it's not installed!\n")
+
+
+# Grab the tracker project directory path
+# if it user called set_env.bash
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("--all",
+                        help="Format cmake files, and run both clang-format"
+                        "and clang-tidy on files",
+                        action="store_true")
+
+    parser.add_argument("-cmake",
+                        "--cmake-format",
+                        help="Run cmake-format on cmake files in code base",
+                        action="store_true")
+
+    parser.add_argument("-cf",
+                        "-clang-format",
+                        help="Run clang-format on C++ files in code base",
+                        action="store_true")
+
+    parser.add_argument("-ct",
+                        "-clang-tidy",
+                        help="Run clang-tidy on C++ files in code base",
+                        action="store_true")
+
+    if len(sys.argv) < 2:
+        parser.print_help()
+        sys.exit(1)
+
+    options = parser.parse_args()
+
+    if options.cmake_format:
+        command = ["cmake-format", "-i"]
+        cmake_files = get_files_if(cmake_filter)
+        execute_command(command, cmake_files)
 
     print("Done!\nPlease do a 'git diff' to make sure the files were "
           "formatted to your liking.\nUse 'git checkout -- /path/to/file' "
