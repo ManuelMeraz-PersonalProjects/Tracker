@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.9.6...3.13)
 
 set(CMAKE_CXX_COMPILER clang++)
 
-#TODO(Manny): Use git tag to get version
+# TODO(Manny): Use git tag to get version
 project(tracker VERSION 0.0.1 LANGUAGES CXX)
 
 # Build Options
@@ -19,10 +19,10 @@ include(${CMAKE_MODULE_PATH}/SetupTracker.cmake)
 add_subdirectory(src)
 
 if(ENABLE_DOCUMENTATION)
-	add_subdirectory(docs)
+  add_subdirectory(docs)
 endif()
 
 if(ENABLE_TESTS)
-	include(CTest)
-	add_subdirectory(tests)
+  include(CTest)
+  add_subdirectory(tests)
 endif()
