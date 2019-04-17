@@ -39,8 +39,9 @@ for root, dirs, files in os.walk(project_dir):
     for file in files:
         cmake_files.add(root + '/' + file)
 
+print("\nFormatting the following files:")
 for file in cmake_files:
-    print("Formatting the file: " + file)
+    print(file)
     command = ["cmake-format", file]
 
     try:
@@ -60,3 +61,6 @@ print("Done!\n"
       "Please do a 'git diff' to make sure the files were formatted to your "
       "liking.\nUse 'git checkout -- /path/to/file' to undo any changes or "
       "'git add -p' to\ninteractively add the changes you do want to keep.")
+
+print("\nIf 'git diff' shows no changes then the cmake files were already "
+      "formatted correctly.")
