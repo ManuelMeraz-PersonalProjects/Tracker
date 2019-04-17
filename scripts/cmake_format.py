@@ -23,7 +23,7 @@ for root, dirs, files in os.walk(project_dir):
 
     # Ignore hidden directories and if it is an ignored directory
     if (os.path.basename(root).startswith('.')
-            or [dir for dir in ignore_dirs if dir in root]):
+            or [d for d in ignore_dirs if d in root]):
         continue
 
     # In place modify the directories we will explore
@@ -33,8 +33,8 @@ for root, dirs, files in os.walk(project_dir):
     dirs[:] = [d for ignore in ignore_dirs for d in dirs
                if ignore not in root + '/' + d]
 
-    files[:] = [file for file in files if 'CMakeLists.txt' in file
-                or file.endswith('.cmake')]
+    files[:] = [f for f in files if 'CMakeLists.txt' in f
+                or f.endswith('.cmake')]
 
     for file in files:
         cmake_files.add(root + '/' + file)
