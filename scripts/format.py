@@ -32,7 +32,7 @@ def cpp_filter(file):
     return [extension for extension in cpp_extensions if extension in file]
 
 
-def get_files_if(file_filter):
+def get_files_if(file_filter, ignore_dirs):
     '''
     @brief Searches for all files in tracker project and formats
            them if they pass through the filter
@@ -40,11 +40,11 @@ def get_files_if(file_filter):
     @param file_filter a function that returns true if file
                        name satisfies the requirements
 
+    @param ignore_dirs directories to ignore when searching
+                       for files
+
     @return A Set of full file paths that passed the filter
     '''
-
-    # Don't format the files in these directories
-    ignore_dirs = ['extern', 'include', 'scripts', 'build']
 
     filtered_files = set([])
     for root, dirs, files in os.walk(project_dir):
@@ -136,13 +136,15 @@ if __name__ == '__main__':
         options.clang_tidy = True
 
     if options.cmake_format:
+        ignore_dirs = ['extern', 'include', 'scripts', 'build']
         command = ["cmake-format", "-i"]
         cmake_files = get_files_if(cmake_filter)
         execute_command(command, cmake_files)
 
     if options.clang_format:
+        ignore_dirs = ['extern', 'scripts', 'build']
         command = ["clang-format", "-i", "-style=file"]
-        cpp_files = get_files_if(cpp_filter)
+        cpp_files = get_files_if(cpp_filter, ignore_dirs)
         execute_command(command, cpp_files)
 
     print("Done!\nPlease do a 'git diff' to make sure the files were "

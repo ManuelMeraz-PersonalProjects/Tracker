@@ -60,7 +60,7 @@ struct Carbohydrate {
    * @param total_carb The total carbohydrate in grams per 100g of food
    */
   explicit Carbohydrate(double total_carb);
-  
+
   /**
    * @param total_carb The total carbohydrate in grams per 100g of food
    * @param fiber The total fiber in grams per 100g of food
