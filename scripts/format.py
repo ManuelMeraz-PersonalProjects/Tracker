@@ -85,11 +85,11 @@ def execute_command(command, files):
     # Make sure we don't get any repeats with a set
 
     print("\nFormatting the following files:")
-    for file in cmake_files:
+    for file in files:
         print(file)
 
         try:
-            subprocess.run(command,
+            subprocess.run(command + [file],
                            stdout=subprocess.PIPE,
                            check=True,
                            universal_newlines=True)
@@ -115,12 +115,12 @@ if __name__ == '__main__':
                         action="store_true")
 
     parser.add_argument("-cf",
-                        "-clang-format",
+                        "--clang-format",
                         help="Run clang-format on C++ files in code base",
                         action="store_true")
 
     parser.add_argument("-ct",
-                        "-clang-tidy",
+                        "--clang-tidy",
                         help="Run clang-tidy on C++ files in code base",
                         action="store_true")
 
@@ -130,10 +130,20 @@ if __name__ == '__main__':
 
     options = parser.parse_args()
 
+    if options.all:
+        options.cmake_format = True
+        options.clang_format = True
+        options.clang_tidy = True
+
     if options.cmake_format:
         command = ["cmake-format", "-i"]
         cmake_files = get_files_if(cmake_filter)
         execute_command(command, cmake_files)
+
+    if options.clang_format:
+        command = ["clang-format", "-i", "-style=file"]
+        cpp_files = get_files_if(cpp_filter)
+        execute_command(command, cpp_files)
 
     print("Done!\nPlease do a 'git diff' to make sure the files were "
           "formatted to your liking.\nUse 'git checkout -- /path/to/file' "
