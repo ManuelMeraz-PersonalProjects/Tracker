@@ -14,7 +14,8 @@
 
 std::unique_ptr<soci::session> database::Database::sql_connection = nullptr;
 
-auto database::Database::get_connection() -> soci::session & {
+auto database::Database::get_connection() -> soci::session &
+{
   if (!sql_connection) {
     sql_connection = std::make_unique<soci::session>(
         "sqlite3", "db=tracker.db timeout=2 shared_cache=true");

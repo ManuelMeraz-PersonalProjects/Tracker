@@ -21,7 +21,8 @@ auto main() -> int
 
   std::cout << "Modifying food..." << std::endl;
   for (size_t i = 0; i < 100; ++i) {
-    Macronutrients macros(Fat(i*i), Carbohydrate(i*i, Fiber(i*i)), Protein(i*i));
+    Macronutrients macros(Fat(i * i), Carbohydrate(i * i, Fiber(i * i)),
+                          Protein(i * i));
     all_food[i].set_macronutrients(macros);
   }
 

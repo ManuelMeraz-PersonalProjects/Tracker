@@ -45,7 +45,8 @@ auto food::Macronutrients::fat() const -> double
   return fat_;
 }
 
-void food::Macronutrients::set_fat(double fat) {
+void food::Macronutrients::set_fat(double fat)
+{
   this->fat_ = fat;
 }
 
@@ -54,7 +55,8 @@ auto food::Macronutrients::carbohydrate() const -> double
   return carbohydrate_;
 }
 
-void food::Macronutrients::set_carbohydrate(double carbohydrate) {
+void food::Macronutrients::set_carbohydrate(double carbohydrate)
+{
   this->carbohydrate_ = carbohydrate;
 }
 
@@ -63,7 +65,8 @@ auto food::Macronutrients::fiber() const -> double
   return fiber_;
 }
 
-void food::Macronutrients::set_fiber(double fiber) {
+void food::Macronutrients::set_fiber(double fiber)
+{
   this->fiber_ = fiber;
 }
 
@@ -72,6 +75,7 @@ auto food::Macronutrients::protein() const -> double
   return protein_;
 }
 
-void food::Macronutrients::set_protein(double protein) {
+void food::Macronutrients::set_protein(double protein)
+{
   this->protein_ = protein;
 }

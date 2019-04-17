@@ -7,9 +7,9 @@
  *
  */
 
+#include "food/Food.hpp"
 #include "database/Data.hpp"
 #include "database/utils.hpp"
-#include "food/Food.hpp"
 
 #include <range/v3/all.hpp>
 
