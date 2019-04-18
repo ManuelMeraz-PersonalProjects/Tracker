@@ -41,8 +41,8 @@ look prettier. Clang format and cmake format work fantastic.
 
 Requires python 3.6 
 1. Requies`cmake-format` to format cmake files
-2. Requires clang-format to format C++ files
-3. Requires clang-tidy and clang-apply-replacements to fix C++ files (experimental)
+2. Requires `clang-format` to format C++ files
+3. Requires `clang-tidy` and `clang-apply-replacements` to fix C++ files (experimental)
 
 ```
 usage: format_code.py [-h] [-a] [-cmake] [-cf] [-ct] [-p BUILD_DIR]
