@@ -81,7 +81,8 @@ def execute_command(command, files):
     Example:
     cmake-format -i /path/to/file
     '''
-    print("\nFinding your " + command[0] + " files to format....")
+    print("\nRunning : " + command[0])
+    print("Finding your files to format....")
     # Make sure we don't get any repeats with a set
 
     print("Formatting the following files:")
@@ -125,7 +126,7 @@ if __name__ == '__main__':
                         action="store_true")
 
     parser.add_argument("-p",
-                        "-build-dir",
+                        "--build-dir",
                         help="Build dir name for clang tidy if not 'build'")
 
     if len(sys.argv) < 2:
@@ -138,6 +139,11 @@ if __name__ == '__main__':
         options.cmake_format = True
         options.clang_format = True
         options.clang_tidy = True
+
+    if options.build_dir:
+        build_dir = project_dir + "/" + options.build_dir
+    else:
+        build_dir = project_dir + "/build"
 
     if options.cmake_format:
         ignore_dirs = ['extern', 'include', 'scripts', 'build']
@@ -154,11 +160,6 @@ if __name__ == '__main__':
     if options.clang_tidy:
         ignore_dirs = ['extern', 'scripts', 'build']
         clang_tidy = project_dir + "/tools/clang-tools/run-clang-tidy.py"
-
-        if options.build_dir:
-            build_dir = project_dir + "/" + options.build_dir
-        else:
-            build_dir = project_dir + "/build"
 
         command = [clang_tidy, "-fix", "-p", build_dir]
         cpp_files = get_files_if(cpp_filter, ignore_dirs)

@@ -1,5 +1,6 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*'
+#Checks:          'clang-diagnostic-*,clang-analyzer-*'
+Checks:          '*'
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false
