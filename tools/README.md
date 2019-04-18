@@ -34,20 +34,31 @@ Usage:
 `configure_and_make.sh build_dir`
 
 
-## cmake_format.py
+## format_code.py
 
-Formats cmake files in the tracker project and makes them 
-look prettier. 
+Formats all files in the tracker project and makes them 
+look prettier. Clang format and cmake format work fantastic.
 
-Requires python 3.6 and `cmake-format` installed.
+Requires python 3.6 
+1. Requies`cmake-format` to format cmake files
+2. Requires clang-format to format C++ files
+3. Requires clang-tidy and clang-apply-replacements to fix C++ files (experimental)
 
-You may install with pip by entering the following command:
+```
+usage: format_code.py [-h] [-a] [-cmake] [-cf] [-ct] [-p BUILD_DIR]
 
-`sudo pip install cmake-format` 
+optional arguments:
+  -h, --help            show this help message and exit
+  -a, --all             Format cmake files, and run both clang-format and
+                        clang-tidy on files
+  -cmake, --cmake-format
+                        Run cmake-format on cmake files in code base
+  -cf, --clang-format   Run clang-format on C++ files in code base
+  -ct, --clang-tidy     Run clang-tidy on C++ files in code base
+  -p BUILD_DIR, --build-dir BUILD_DIR
+                        Build dir name for clang tidy if not 'build'
+                        
+```
+Example:
 
-Usage:
-
-`cmake_format.py`
-
-After running the script, do a `git diff` to see what changes were made.
-If no changes were made, then all the files were formatted correctly.
+`./tools/format_code.py -cf -cmake`
