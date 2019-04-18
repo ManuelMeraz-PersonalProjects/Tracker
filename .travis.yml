@@ -21,7 +21,7 @@ install:
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
 
 script:
-  - source ./scripts/set_env.bash
-  - ./scripts/configure_and_make.sh
+  - source ./tools/set_env.bash
+  - ./tools/configure_and_make.sh
   - cd build
   - make test

@@ -108,7 +108,7 @@ if __name__ == '__main__':
     parser.add_argument("-a",
                         "--all",
                         help="Format cmake files, and run both clang-format"
-                        "and clang-tidy on files",
+                        " and clang-tidy on files",
                         action="store_true")
 
     parser.add_argument("-cmake",
