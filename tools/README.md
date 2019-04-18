@@ -61,4 +61,4 @@ optional arguments:
 ```
 Example:
 
-`./tools/format_code.py -cf -cake`
+`./tools/format_code.py -cf -cmake`
