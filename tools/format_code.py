@@ -13,23 +13,23 @@ if not project_dir:
     sys.exit(1)
 
 
-def cmake_filter(file):
+def cmake_filter(cmake_file):
     '''
     @brief Used for checking if a file is a cmake file
     @param file A potential file to be filtered
     @return true if file is a cmake file
     '''
-    return 'CMakeLists.txt'in file or file.endswith('.cmake')
+    return 'CMakeLists.txt'in cmake_file or cmake_file.endswith('.cmake')
 
 
-def cpp_filter(file):
+def cpp_filter(cpp_file):
     '''
     @brief Used for checking if a file is a C++ file
     @param file A potential file to be filtered
     @return true if file is a C++ file
     '''
     cpp_extensions = ['.h', '.hpp', '.hh', '.hxx', '.cc', '.cpp', '.tpp']
-    return [extension for extension in cpp_extensions if extension in file]
+    return [extension for extension in cpp_extensions if extension in cpp_file]
 
 
 def get_files_if(file_filter, ignore_dirs):
@@ -63,8 +63,8 @@ def get_files_if(file_filter, ignore_dirs):
 
         files[:] = [f for f in files if file_filter(f)]
 
-        for file in files:
-            filtered_files.add(root + '/' + file)
+        for f in files:
+            filtered_files.add(root + '/' + f)
 
     return filtered_files
 
@@ -86,11 +86,11 @@ def execute_command(command, files):
     # Make sure we don't get any repeats with a set
 
     print("Formatting the following files:")
-    for file in files:
-        print(file)
+    for f in files:
+        print(f)
 
         try:
-            subprocess.run(command + [file],
+            subprocess.run(command + [f],
                            stdout=subprocess.PIPE,
                            check=True,
                            universal_newlines=True)
@@ -105,7 +105,8 @@ def execute_command(command, files):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--all",
+    parser.add_argument("-a",
+                        "--all",
                         help="Format cmake files, and run both clang-format"
                         "and clang-tidy on files",
                         action="store_true")
