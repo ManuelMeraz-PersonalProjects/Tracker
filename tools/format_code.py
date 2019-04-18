@@ -90,14 +90,23 @@ def execute_command(command, files):
         print(f)
 
         try:
-            subprocess.run(command + [f],
-                           stdout=subprocess.PIPE,
-                           check=True,
-                           universal_newlines=True)
+            process = subprocess.run(command + [f],
+                                     stdout=subprocess.PIPE,
+                                     stderr=subprocess.PIPE,
+                                     check=True,
+                                     universal_newlines=True)
 
         except FileNotFoundError:
             print("\nAttempted to use " + command[0] + " , but it looks like"
                   "it's not installed!\n")
+
+        if options.clang_tidy and 'warning' in process.stdout:
+            lines = process.stdout.splitlines()
+            start = lines.index([l for l in lines if "clang-apply" in l][0])
+            end = lines.index([l for l in lines if "Applying" in l][0])
+            lines = lines[start + 1:end]
+            output = "\n".join(lines)
+            print("\n" + output)
 
 
 # Grab the tracker project directory path
