@@ -8,8 +8,8 @@ project_dir = os.environ['TRACKER_PROJECT']
 
 if not project_dir:
     print("Please source the set_env.bash script in the scripts/ directory to "
-          "set the $TRACKER_PROJECT environment variable, which keep track of "
-          "the project directory.")
+          "set the $TRACKER_PROJECT environment variable, which keeps track of"
+          " the project directory.")
     sys.exit(1)
 
 
@@ -124,6 +124,10 @@ if __name__ == '__main__':
                         help="Run clang-tidy on C++ files in code base",
                         action="store_true")
 
+    parser.add_argument("-p",
+                        "-build-dir",
+                        help="Build dir name for clang tidy if not 'build'")
+
     if len(sys.argv) < 2:
         parser.print_help()
         sys.exit(1)
@@ -144,6 +148,19 @@ if __name__ == '__main__':
     if options.clang_format:
         ignore_dirs = ['extern', 'scripts', 'build']
         command = ["clang-format", "-i", "-style=file"]
+        cpp_files = get_files_if(cpp_filter, ignore_dirs)
+        execute_command(command, cpp_files)
+
+    if options.clang_tidy:
+        ignore_dirs = ['extern', 'scripts', 'build']
+        clang_tidy = project_dir + "/tools/clang-tools/run-clang-tidy.py"
+
+        if options.build_dir:
+            build_dir = project_dir + "/" + options.build_dir
+        else:
+            build_dir = project_dir + "/build"
+
+        command = [clang_tidy, "-fix", "-p", build_dir]
         cpp_files = get_files_if(cpp_filter, ignore_dirs)
         execute_command(command, cpp_files)
 
