@@ -2,6 +2,7 @@
 cmake_minimum_required(VERSION 3.9.6...3.13)
 
 set(CMAKE_CXX_COMPILER clang++)
+set(CMAKE_C_COMPILER clang)
 
 # TODO(Manny): Use git tag to get version
 project(tracker VERSION 0.0.1 LANGUAGES CXX)
@@ -14,6 +15,9 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 # Sets compiler standards(e.g. C++ 17) and checks cmake version
 include(${CMAKE_MODULE_PATH}/SetupTracker.cmake)
+
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
 
 # Creates libraries and creates main executable
 add_subdirectory(src)

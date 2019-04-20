@@ -7,5 +7,5 @@ target_include_directories(food
                            PUBLIC ${nameof_include}
                            PUBLIC ${ranges_include})
 
-target_link_libraries(food PUBLIC Soci)
+target_link_libraries(food ${CONAN_LIBS})
 cotire(food)

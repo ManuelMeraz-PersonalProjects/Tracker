@@ -26,11 +26,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Reduce compile time with cotire
 include(${CMAKE_MODULE_PATH}/thirdparty/cotire.cmake)
 
-# Find out where soci lib is based on the architecture
-include(${CMAKE_MODULE_PATH}/thirdparty/SociConfig.cmake)
-# Find soci lib. Look at file to see definitions. Sets SOCI_FOUND
-include(${CMAKE_MODULE_PATH}/thirdparty/FindSoci.cmake)
-
 # All header files for tracker application
 set(tracker_include ${PROJECT_SOURCE_DIR}/include/)
 

@@ -7,5 +7,5 @@ target_include_directories(database
                            PUBLIC ${nameof_include}
                            PUBLIC ${ranges_include})
 
-target_link_libraries(database PUBLIC Soci)
+target_link_libraries(database ${CONAN_LIBS})
 cotire(database)
