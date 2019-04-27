@@ -9,6 +9,7 @@ before_install:
   # Doxygen is used for documentation
   - sudo apt install -qq doxygen
   - sudo apt install -qq python3-pip
+  - sudo apt install -qq python3-setuptools
   - pip3 install conan
   - conan config install https://github.com/ManuelMeraz/conan-config.git
 
