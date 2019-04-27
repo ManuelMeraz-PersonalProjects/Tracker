@@ -17,7 +17,7 @@ install:
   # C++17
   - sudo apt install -qq g++-7
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
-  - sudo apt install -qq clang-6
+  - sudo apt install -qq clang-6.0
 
 script:
   - source ./tools/set_env.bash
