@@ -6,22 +6,19 @@ before_install:
   # C++17
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt update -qq
-  # soci lib depends on boost
-  - sudo apt install -qq libboost-all-dev
-  # Will be using sqlite3 with soci
-  - sudo apt install -qq libsqlite3-dev
-  # Using soci database access library to interface with db
-  - sudo apt install -qq libsoci-dev
   # Doxygen is used for documentation
   - sudo apt install -qq doxygen
+  - sudo apt install -qq pip3
+  - pip3 install conan
+  - conan config install https://github.com/ManuelMeraz/conan-config.git
 
 install:
   # C++17
   - sudo apt install -qq g++-7
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 90
+  - sudo apt install -qq clang-6
 
 script:
   - source ./tools/set_env.bash
-  - ./tools/configure_and_make.sh
-  - cd build
+  - ./tools/build.py
   - make test
