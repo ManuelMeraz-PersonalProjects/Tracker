@@ -7,7 +7,7 @@ import sys
 PROJECT_PATH = os.environ["TRACKER_PROJECT"]
 
 if not PROJECT_PATH:
-    print("Please source the set_env.bash script in the scripts/ directory to "
+    print("Please source the set_env script in the scripts/ directory to "
           "set the $TRACKER_PROJECT environment variable, which keeps track of"
           " the project directory.")
     sys.exit(1)

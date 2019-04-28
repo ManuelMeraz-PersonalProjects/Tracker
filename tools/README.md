@@ -1,6 +1,6 @@
 # Helper Scripts
 
-## set_env.bash
+## set_env
 
 Sets the environment variable for the location of this project. 
 This is a requirement to use any of the other scripts. 
@@ -8,7 +8,7 @@ All other scripts may be called from any location.
 
 From the root of the project directory use it like so:
 
-`source ./scripts/set_env.bash`
+`source ./scripts/set_env`
 
 ## configure_and_make.sh
 
@@ -25,7 +25,7 @@ Default script settings are:
 * `ENABLE_DOCUMENTATION=ON`
 * `ENABLE_TESTS=ON`
 
-Requires set_env.bash to have been sourced
+Requires set_env to have been sourced
 
 Usage:
 

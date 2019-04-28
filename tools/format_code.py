@@ -7,7 +7,7 @@ import sys
 project_dir = os.environ["TRACKER_PROJECT"]
 
 if not project_dir:
-    print("Please source the set_env.bash script in the scripts/ directory to "
+    print("Please source the set_env script in the scripts/ directory to "
           "set the $TRACKER_PROJECT environment variable, which keeps track of"
           " the project directory.")
     sys.exit(1)
@@ -120,9 +120,6 @@ def execute_command(command, files):
             print("\n" + output)
 
 
-# Grab the tracker project directory path
-# if it user called set_env.bash
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
@@ -157,6 +154,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-p",
                         "--build-dir",
+                        default="build",
                         help="Build dir name for clang tidy if not 'build'")
 
     if len(sys.argv) < 2:
@@ -164,16 +162,12 @@ if __name__ == "__main__":
         sys.exit(1)
 
     options = parser.parse_args()
+    build_dir = project_dir + "/" + options.build_dir
 
     if options.all:
         options.cmake_format = True
         options.clang_format = True
         options.clang_tidy = True
-
-    if options.build_dir:
-        build_dir = project_dir + "/" + options.build_dir
-    else:
-        build_dir = project_dir + "/build"
 
     if options.cmake_format:
         ignore_dirs = ["extern", "include", "scripts", "build"]

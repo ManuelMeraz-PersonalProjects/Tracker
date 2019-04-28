@@ -10,7 +10,9 @@ before_install:
   - sudo apt install -qq doxygen
   - sudo apt install -qq python3-pip
   - sudo apt install -qq python3-setuptools
-  - pip3 install conan
+  - sudo apt install -qq python3-venv
+  - source ./tools/set_env
+  - pip3 install --upgrade -r requirements.txt
   - conan config install https://github.com/ManuelMeraz/conan-config.git
 
 install:
@@ -20,5 +22,5 @@ install:
   - sudo apt install -qq clang-6.0
 
 script:
-  - source ./tools/set_env.bash
+  - source ./tools/activate_venv
   - ./tools/build.py
