@@ -22,4 +22,3 @@ install:
 script:
   - source ./tools/set_env.bash
   - ./tools/build.py
-  - make test
