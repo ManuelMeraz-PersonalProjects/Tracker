@@ -57,13 +57,7 @@ def execute_command(command):
     @param command A comand to build or configure a build
     """
     try:
-        process = subprocess.run(
-            command,
-            # stdout=subprocess.PIPE,
-            # stderr=subprocess.PIPE,
-            check=True,
-            universal_newlines=True,
-        )
+        process = subprocess.run(command, check=True, universal_newlines=True)
 
     except FileNotFoundError:
         print("\nAttempted to use " + command[0] + " , but it looks like"
@@ -89,12 +83,31 @@ if __name__ == "__main__":
 
     parser.add_argument("-c",
                         "--configure",
-                        help="Configure the build directory",
-                        action="store_true")
+                        action="store_true",
+                        help="Configure the build directory")
+
+    parser.add_argument(
+        "-d",
+        "--enable-documentation",
+        action="store_true",
+        help="Build tracker with documentation enabled.\nIn "
+        "the build directory type in 'make docs'.",
+    )
+
+    parser.add_argument(
+        "-t",
+        "--enable-tests",
+        action="store_true",
+        help="Build tracker with testing enabled enabled.\nIn "
+        "the build directory type in 'make test'.",
+    )
 
     options = parser.parse_args()
 
     build_path = os.path.join(PROJECT_PATH, options.build_folder)
+
+    if options.enable_tests or options.enable_documentation:
+        options.configure = True
 
     if should_configure(options):
         command = [
@@ -103,10 +116,14 @@ if __name__ == "__main__":
             PROJECT_PATH,
             "--install-folder",
             build_path,
-            "--profile",
-            options.profile,
             "--build=missing",
             "--build=outdated",
+            "--profile",
+            options.profile,
+            "--options",
+            "enable_documentation=" + str(options.enable_documentation),
+            "--options",
+            "enable_tests=" + str(options.enable_tests),
         ]
         execute_command(command)
 
