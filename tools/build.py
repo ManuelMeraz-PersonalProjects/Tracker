@@ -120,11 +120,20 @@ if __name__ == "__main__":
             "--build=outdated",
             "--profile",
             options.profile,
-            "--options",
-            "enable_documentation=" + str(options.enable_documentation),
-            "--options",
-            "enable_tests=" + str(options.enable_tests),
         ]
+
+        if options.enable_documentation:
+            command = command + [
+                "--options",
+                "enable_documentation=" + str(options.enable_documentation),
+            ]
+
+        if options.enable_tests:
+            command = command + [
+                "--options",
+                "enable_tests=" + str(options.enable_tests),
+            ]
+
         execute_command(command)
 
     command = ["conan", "build", PROJECT_PATH, "--build-folder", build_path]

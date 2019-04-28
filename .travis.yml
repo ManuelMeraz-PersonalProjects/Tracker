@@ -24,3 +24,4 @@ install:
 script:
   - source ./tools/activate_venv
   - ./tools/build.py
+  - make test
