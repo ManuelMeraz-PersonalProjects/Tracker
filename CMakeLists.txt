@@ -1,9 +1,6 @@
 # 3.9.6 for C++ 17
 cmake_minimum_required(VERSION 3.9.6...3.13)
 
-set(CMAKE_CXX_COMPILER clang++)
-set(CMAKE_C_COMPILER clang)
-
 # TODO(Manny): Use git tag to get version
 project(tracker VERSION 0.0.1 LANGUAGES CXX)
 
