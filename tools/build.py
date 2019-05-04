@@ -63,7 +63,6 @@ def execute_command(command):
         print("\nAttempted to use " + command[0] + " , but it looks like"
               "it's not installed!\n")
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
