@@ -21,7 +21,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # replacing -std=c++11
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 # Set up third party libraries #
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
 
 # Reduce compile time with cotire
 include(${CMAKE_MODULE_PATH}/thirdparty/cotire.cmake)

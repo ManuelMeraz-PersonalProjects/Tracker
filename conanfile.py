@@ -5,7 +5,9 @@ from conans import CMake, ConanFile, tools
 
 class SociTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    requires = "soci/4.0@soci/stable"
+    requires = ("soci/4.0@soci/stable",
+                "doxygen_installer/1.8.15@bincrafters/stable")
+
     generators = "cmake"
 
     options = {
@@ -13,18 +15,21 @@ class SociTestConan(ConanFile):
         "enable_tests": [True, False]
     }
 
-    default_options = {"soci:sqlite3": True,
-                       "enable_documentation": False,
-                       "enable_tests": False}
+    default_options = {
+        "soci:sqlite3": True,
+        "enable_documentation": False,
+        "enable_tests": False,
+    }
 
     def build(self):
         cmake = CMake(self)
         # Current dir is "test_package/build/<build_id>" and CMakeLists.txt is
         # in "test_package"
-        cmake.configure(defs={
-            "ENABLE_DOCUMENTATION": self.options.enable_documentation,
-            "ENABLE_TESTS": self.options.enable_tests
-        })
+        cmake.configure(
+            defs={
+                "ENABLE_DOCUMENTATION": self.options.enable_documentation,
+                "ENABLE_TESTS": self.options.enable_tests,
+            })
 
         cmake.build()
 
