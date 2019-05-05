@@ -30,6 +30,3 @@ include(${CMAKE_MODULE_PATH}/thirdparty/cotire.cmake)
 
 # All header files for tracker application
 set(tracker_include ${PROJECT_SOURCE_DIR}/include/)
-
-# nameof is a library that converts names of variables, types, etc into strings
-set(nameof_include ${PROJECT_SOURCE_DIR}/extern/nameof/include/)
