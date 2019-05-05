@@ -5,8 +5,11 @@ from conans import CMake, ConanFile, tools
 
 class SociTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    requires = ("soci/4.0@soci/stable",
-                "doxygen_installer/1.8.15@bincrafters/stable")
+    requires = (
+        "soci/4.0@soci/stable",
+        "doxygen_installer/1.8.15@bincrafters/stable",
+        "nameof/0.8.2@nameof/stable",
+    )
 
     generators = "cmake"
 
