@@ -9,6 +9,7 @@ class SociTestConan(ConanFile):
         "soci/4.0@soci/stable",
         "doxygen_installer/1.8.15@bincrafters/stable",
         "nameof/0.8.2@nameof/stable",
+        "range-v3/0.5.0@ericniebler/stable",
     )
 
     generators = "cmake"
