@@ -22,4 +22,4 @@ install:
 
 script:
   - source ./tools/activate_venv
-  - ./tools/build.py 
+  - ./tools/build.py -pr clang60-debug
