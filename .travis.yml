@@ -3,8 +3,8 @@ compiler: gcc
 dist: xenial
 
 before_install:
+  - sudo apt update -qq 
   - sudo add-apt-repository ppa:jonathonf/gcc-9.0 -y
-  - sudo apt update -qq -y
   - sudo apt install -qq python3-pip python3-setuptools python3-venv -y
   - source ./tools/set_env
   - pip3 install --upgrade -r requirements.txt
