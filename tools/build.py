@@ -69,7 +69,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-pr",
         "--profile",
-        default="clang60-debug",
+        default="gcc90-debug",
         help="Recongfigure project with new profile and rebuild project",
     )
 
