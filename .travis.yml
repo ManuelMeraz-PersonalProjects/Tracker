@@ -3,18 +3,16 @@ compiler: gcc
 dist: xenial
 
 before_install:
-  - sudo add-apt-repository ppa:jonathonf/gcc-9.0 
-  - sudo apt update -qq
-  - sudo apt install -qq python3-pip
-  - sudo apt install -qq python3-setuptools
-  - sudo apt install -qq python3-venv
+  - sudo add-apt-repository ppa:jonathonf/gcc-9.0 -y
+  - sudo apt update -qq -y
+  - sudo apt install -qq python3-pip python3-setuptools python3-venv -y
   - source ./tools/set_env
   - pip3 install --upgrade -r requirements.txt
   - conan config install https://github.com/ManuelMeraz/conan-config.git
 
 install:
   # C++17
-  - sudo apt install -qq g++-9
+  - sudo apt install -qq g++-9 -y
 
 script:
   - source ./tools/activate_venv
