@@ -22,12 +22,26 @@ doxygen $DOXYFILE 2>&1 | tee doxygen.log
 
 if [ -d "html" ] && [ -f "html/index.html" ]; then
 
+cat > index.html <<'endmsg'
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="1;url=html/index.html">
+        <title>Page Redirection</title>
+    </head>
+    <body>
+        If you are not redirected automatically, 
+        follow the <a href="html/index.html">link to the documentation</a>
+    </body>
+</html>
+endmsg
+
     echo 'Uploading documentation to the gh-pages branch...'
 
     git add --all
 
     git commit -m "Deploy code docs to GitHub Pages Travis build: ${TRAVIS_BUILD_NUMBER}" -m "Commit: ${TRAVIS_COMMIT}"
-
    
     git push --force "https://${GH_REPO_TOKEN}@github.com/${TRAVIS_REPO_SLUG}"
 else
