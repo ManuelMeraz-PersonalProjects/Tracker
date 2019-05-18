@@ -6,7 +6,7 @@ dist: xenial
 env:
   global:
     - GH_REPO_NAME: Tracker
-    - DOXYFILE: $TRAVIS_BUILD_DIR/docs/doxygen/Doxyfile.in
+    - DOXYFILE: $TRAVIS_BUILD_DIR/docs/doxygen/Doxyfile.travis
     - GH_REPO_REF: github.com/manuelmeraz/Tracker.git
 
 before_install:
