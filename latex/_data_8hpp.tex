@@ -1,0 +1,70 @@
+\hypertarget{_data_8hpp}{}\section{/home/travis/build/\+Manuel\+Meraz/\+Tracker/include/database/\+Data.hpp File Reference}
+\label{_data_8hpp}\index{/home/travis/build/\+Manuel\+Meraz/\+Tracker/include/database/\+Data.\+hpp@{/home/travis/build/\+Manuel\+Meraz/\+Tracker/include/database/\+Data.\+hpp}}
+
+
+The container for all data to be stored into a database.  
+
+
+{\ttfamily \#include $<$ctime$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include $<$variant$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+Include dependency graph for Data.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{_data_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{_data_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structdatabase_1_1_column_properties}{database\+::\+Column\+Properties}
+\begin{DoxyCompactList}\small\item\em The column properties for a column in a table. A group of these represents a schema. \end{DoxyCompactList}\item 
+struct \hyperlink{structdatabase_1_1_row}{database\+::\+Row}
+\begin{DoxyCompactList}\small\item\em A row of variant data. \end{DoxyCompactList}\item 
+struct \hyperlink{structdatabase_1_1_data}{database\+::\+Data}
+\begin{DoxyCompactList}\small\item\em The data to be stored into a database. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacedatabase}{database}
+\begin{DoxyCompactList}\small\item\em Organizes all databasing related classes and functions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fd}{database\+::\+Data\+Type} \{ \\*
+\hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda8cf125b0e31559ba75a9d9b4f818a554}{database\+::\+Data\+Type\+::\+R\+E\+AL}, 
+\hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda5d5cd46919fa987731fb2edefe0f2a0c}{database\+::\+Data\+Type\+::\+I\+N\+T\+E\+G\+ER}, 
+\hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda61a96ffcb251bb9bf0abf8fec19d0ea8}{database\+::\+Data\+Type\+::\+T\+E\+XT}, 
+\hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda6d67bdfe4ae19f38aff8f363bca42892}{database\+::\+Data\+Type\+::\+N\+U\+L\+L\+\_\+}, 
+\\*
+\hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda1649cff06611a6025da3dd511a97fb43}{database\+::\+Data\+Type\+::\+B\+L\+OB}
+ \}\begin{DoxyCompactList}\small\item\em S\+QL datatypes that could be stored into a database. \end{DoxyCompactList}
+\item 
+enum \hyperlink{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5b}{database\+::\+Constraint} \{ \hyperlink{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba5e0276ef8ae59ebb9aae19348ad173d5}{database\+::\+Constraint\+::\+P\+R\+I\+M\+A\+R\+Y\+\_\+\+K\+EY}, 
+\hyperlink{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba88e3e8040c7cd11b9faffdf34372fa2a}{database\+::\+Constraint\+::\+U\+N\+I\+Q\+UE}, 
+\hyperlink{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5baeed1de8e53bda49dda97e42841cfe6c5}{database\+::\+Constraint\+::\+N\+O\+T\+\_\+\+N\+U\+LL}, 
+\hyperlink{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba8c46d8d9d3402788403e2f6911153089}{database\+::\+Constraint\+::\+C\+H\+E\+CK}
+ \}\begin{DoxyCompactList}\small\item\em The S\+QL constraint for column of data when creating a table schema. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The container for all data to be stored into a database. 
+
+\begin{DoxyAuthor}{Author}
+Manuel G. Meraz 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+03/29/2019 
+\end{DoxyDate}

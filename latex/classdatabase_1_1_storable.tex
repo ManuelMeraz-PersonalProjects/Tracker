@@ -1,0 +1,146 @@
+\hypertarget{classdatabase_1_1_storable}{}\section{database\+:\+:Storable Class Reference}
+\label{classdatabase_1_1_storable}\index{database\+::\+Storable@{database\+::\+Storable}}
+
+
+{\ttfamily \#include $<$Storable.\+hpp$>$}
+
+
+
+Inheritance diagram for database\+:\+:Storable\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classdatabase_1_1_storable__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual auto \hyperlink{classdatabase_1_1_storable_aafaf8ff3b7a854488ae6d4ab3e39f2af}{id} () const -\/$>$ int=0
+\item 
+virtual auto \hyperlink{classdatabase_1_1_storable_a404fc104e41b9f1e52090a817c7d317e}{name} () const -\/$>$ std\+::string const =0
+\item 
+virtual void \hyperlink{classdatabase_1_1_storable_afa3a3acb030d9e33064c2f6e34f8bbcf}{set\+\_\+name} (std\+::string\+\_\+view \hyperlink{classdatabase_1_1_storable_a404fc104e41b9f1e52090a817c7d317e}{name})=0
+\item 
+virtual std\+::string \hyperlink{classdatabase_1_1_storable_a3502dee26cdad8b8e3b0bf1ebc619dc4}{str} () const =0
+\item 
+virtual auto \hyperlink{classdatabase_1_1_storable_afb1b1572e1147943227794f8abc0d0b0}{get\+\_\+data} () const -\/$>$ \hyperlink{structdatabase_1_1_data}{Data} const =0
+\begin{DoxyCompactList}\small\item\em All data will be retrieved from a storable object using this function. \end{DoxyCompactList}\item 
+virtual void \hyperlink{classdatabase_1_1_storable_ae554f871860368677cdb3ba5a490c533}{set\+\_\+data} (std\+::vector$<$ \hyperlink{structdatabase_1_1_column_properties}{Column\+Properties} $>$ const \&schema, \hyperlink{structdatabase_1_1_row}{Row} const \&row)=0
+\begin{DoxyCompactList}\small\item\em When creating new food objects from data retrieved from the database, this function will be used to set the data for the \hyperlink{classdatabase_1_1_storable}{Storable} object. \end{DoxyCompactList}\item 
+virtual \hyperlink{classdatabase_1_1_storable_a9733fea1c4c7070c915444bd924b0975}{$\sim$\+Storable} ()=default
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{database\+::\+Storable@{database\+::\+Storable}!````~Storable@{$\sim$\+Storable}}
+\index{````~Storable@{$\sim$\+Storable}!database\+::\+Storable@{database\+::\+Storable}}
+\subsubsection[{\texorpdfstring{$\sim$\+Storable()=default}{~Storable()=default}}]{\setlength{\rightskip}{0pt plus 5cm}virtual database\+::\+Storable\+::$\sim$\+Storable (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [default]}}\hypertarget{classdatabase_1_1_storable_a9733fea1c4c7070c915444bd924b0975}{}\label{classdatabase_1_1_storable_a9733fea1c4c7070c915444bd924b0975}
+
+
+\subsection{Member Function Documentation}
+\index{database\+::\+Storable@{database\+::\+Storable}!get\+\_\+data@{get\+\_\+data}}
+\index{get\+\_\+data@{get\+\_\+data}!database\+::\+Storable@{database\+::\+Storable}}
+\subsubsection[{\texorpdfstring{get\+\_\+data() const -\/$>$ Data const =0}{get_data() const -> Data const =0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual auto database\+::\+Storable\+::get\+\_\+data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$  {\bf Data} const \hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classdatabase_1_1_storable_afb1b1572e1147943227794f8abc0d0b0}{}\label{classdatabase_1_1_storable_afb1b1572e1147943227794f8abc0d0b0}
+
+
+All data will be retrieved from a storable object using this function. 
+
+\begin{DoxyReturn}{Returns}
+This A pair containing the column where the data will be store and the data itself. 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classfood_1_1_food_ac3aefc08b78fa521b4317348463e5a5f}{food\+::\+Food}.
+
+\index{database\+::\+Storable@{database\+::\+Storable}!id@{id}}
+\index{id@{id}!database\+::\+Storable@{database\+::\+Storable}}
+\subsubsection[{\texorpdfstring{id() const -\/$>$ int=0}{id() const -> int=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual auto database\+::\+Storable\+::id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$  int\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classdatabase_1_1_storable_aafaf8ff3b7a854488ae6d4ab3e39f2af}{}\label{classdatabase_1_1_storable_aafaf8ff3b7a854488ae6d4ab3e39f2af}
+\begin{DoxyReturn}{Returns}
+The unique ID of the \hyperlink{classdatabase_1_1_storable}{Storable} object 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classfood_1_1_food_a76d21be86ff4500225e593205fc305c5}{food\+::\+Food}.
+
+\index{database\+::\+Storable@{database\+::\+Storable}!name@{name}}
+\index{name@{name}!database\+::\+Storable@{database\+::\+Storable}}
+\subsubsection[{\texorpdfstring{name() const -\/$>$ std\+::string const =0}{name() const -> std::string const =0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual auto database\+::\+Storable\+::name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$  std\+::string const \hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classdatabase_1_1_storable_a404fc104e41b9f1e52090a817c7d317e}{}\label{classdatabase_1_1_storable_a404fc104e41b9f1e52090a817c7d317e}
+\begin{DoxyReturn}{Returns}
+The name of the food 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classfood_1_1_food_a29ccb0bdf6b74e6073b87bc71c70df04}{food\+::\+Food}.
+
+\index{database\+::\+Storable@{database\+::\+Storable}!set\+\_\+data@{set\+\_\+data}}
+\index{set\+\_\+data@{set\+\_\+data}!database\+::\+Storable@{database\+::\+Storable}}
+\subsubsection[{\texorpdfstring{set\+\_\+data(std\+::vector$<$ Column\+Properties $>$ const \&schema, Row const \&row)=0}{set_data(std::vector< ColumnProperties > const &schema, Row const &row)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void database\+::\+Storable\+::set\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ {\bf Column\+Properties} $>$ const \&}]{schema, }
+\item[{{\bf Row} const \&}]{row}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classdatabase_1_1_storable_ae554f871860368677cdb3ba5a490c533}{}\label{classdatabase_1_1_storable_ae554f871860368677cdb3ba5a490c533}
+
+
+When creating new food objects from data retrieved from the database, this function will be used to set the data for the \hyperlink{classdatabase_1_1_storable}{Storable} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em schema} & A vector containing the properties of each column that make up a schema\\
+\hline
+{\em data} & A row of data to set the object data \\
+\hline
+\end{DoxyParams}
+\index{database\+::\+Storable@{database\+::\+Storable}!set\+\_\+name@{set\+\_\+name}}
+\index{set\+\_\+name@{set\+\_\+name}!database\+::\+Storable@{database\+::\+Storable}}
+\subsubsection[{\texorpdfstring{set\+\_\+name(std\+::string\+\_\+view name)=0}{set_name(std::string_view name)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void database\+::\+Storable\+::set\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{std\+::string\+\_\+view}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classdatabase_1_1_storable_afa3a3acb030d9e33064c2f6e34f8bbcf}{}\label{classdatabase_1_1_storable_afa3a3acb030d9e33064c2f6e34f8bbcf}
+
+\begin{DoxyParams}{Parameters}
+{\em A} & new name for the food \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \hyperlink{classfood_1_1_food_ac717bda45254fd555b4de00004423041}{food\+::\+Food}.
+
+\index{database\+::\+Storable@{database\+::\+Storable}!str@{str}}
+\index{str@{str}!database\+::\+Storable@{database\+::\+Storable}}
+\subsubsection[{\texorpdfstring{str() const =0}{str() const =0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual std\+::string database\+::\+Storable\+::str (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{classdatabase_1_1_storable_a3502dee26cdad8b8e3b0bf1ebc619dc4}{}\label{classdatabase_1_1_storable_a3502dee26cdad8b8e3b0bf1ebc619dc4}
+\begin{DoxyReturn}{Returns}
+string representation of the name and data, the same way sqlite displays table data 
+\end{DoxyReturn}
+
+
+Implemented in \hyperlink{classfood_1_1_food_a2ac3b444a1ef09dbcec63370f2c8f554}{food\+::\+Food}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/travis/build/\+Manuel\+Meraz/\+Tracker/include/database/\hyperlink{_storable_8hpp}{Storable.\+hpp}\end{DoxyCompactItemize}

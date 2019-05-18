@@ -1,0 +1,39 @@
+warning: ignoring unsupported tag `TOC_INCLUDE_HEADINGS   =' at line 313, file /home/travis/build/ManuelMeraz/Tracker/docs/doxygen/Doxyfile.travis
+warning: ignoring unsupported tag `PLANTUML_CFG_FILE      =' at line 2429, file /home/travis/build/ManuelMeraz/Tracker/docs/doxygen/Doxyfile.travis
+/home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:2: warning: the name `macronutrients.hpp' supplied as the second argument in the \file statement is not an input file
+/home/travis/build/ManuelMeraz/Tracker/include/database/Database.hpp:18: warning: documented symbol `void soci::register_factory_sqlite3' was not declared or defined.
+/home/travis/build/ManuelMeraz/Tracker/README.md:3: warning: Unexpected html tag <img> found within <a href=...> context
+/home/travis/build/ManuelMeraz/Tracker/README.md:5: warning: Unexpected html tag <img> found within <a href=...> context
+/home/travis/build/ManuelMeraz/Tracker/include/database/Storable.hpp:55: warning: argument 'data' of command @param is not found in the argument list of database::Storable::set_data(std::vector< ColumnProperties > const &schema, Row const &row)=0
+/home/travis/build/ManuelMeraz/Tracker/include/database/Storable.hpp:64: warning: The following parameters of database::Storable::set_data(std::vector< ColumnProperties > const &schema, Row const &row)=0 are not documented:
+  parameter 'row'
+/home/travis/build/ManuelMeraz/Tracker/include/database/Storable.hpp:35: warning: argument 'A' of command @param is not found in the argument list of database::Storable::set_name(std::string_view name)=0
+/home/travis/build/ManuelMeraz/Tracker/include/database/Storable.hpp:37: warning: The following parameters of database::Storable::set_name(std::string_view name)=0 are not documented:
+  parameter 'name'
+/home/travis/build/ManuelMeraz/Tracker/include/database/utils.hpp:58: warning: The following parameters of database::utils::binary_find(ForwardIt first, ForwardIt last, const T &value, Compare comp) ->-> ForwardIt are not documented:
+  parameter 'value'
+/home/travis/build/ManuelMeraz/Tracker/include/database/utils.hpp:62: warning: argument 'Storable' of command @param is not found in the argument list of database::utils::count_rows() ->-> size_t
+/home/travis/build/ManuelMeraz/Tracker/include/database/utils.hpp:79: warning: argument 'Storable' of command @param is not found in the argument list of database::utils::create_table(std::vector< ColumnProperties > const &schema)
+/home/travis/build/ManuelMeraz/Tracker/include/database/utils.hpp:123: warning: argument 'Storable' of command @param is not found in the argument list of database::utils::drop_table()
+/home/travis/build/ManuelMeraz/Tracker/include/database/utils.hpp:154: warning: argument 'Storable' of command @param is not found in the argument list of database::utils::get_new_id() ->-> int
+/home/travis/build/ManuelMeraz/Tracker/include/database/utils.hpp:195: warning: argument 'The' of command @param is not found in the argument list of database::utils::make(Args &&...args) ->-> Storable &
+/home/travis/build/ManuelMeraz/Tracker/include/database/utils.hpp:208: warning: The following parameters of database::utils::make(Args &&...args) ->-> Storable & are not documented:
+  parameter 'args'
+/home/travis/build/ManuelMeraz/Tracker/include/database/utils.hpp:211: warning: argument 'Storable' of command @param is not found in the argument list of database::utils::retrieve_all() ->-> std::vector< Storable, struct Storable::Allocator > &
+/home/travis/build/ManuelMeraz/Tracker/include/database/utils.hpp:237: warning: argument 'Storable' of command @param is not found in the argument list of database::utils::table_exists() ->-> bool
+/home/travis/build/ManuelMeraz/Tracker/include/database/utils.hpp:256: warning: argument 'T' of command @param is not found in the argument list of database::utils::type_to_string() ->-> std::string
+/home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:161: warning: argument 'A' of command @param is not found in the argument list of food::Macronutrients::set_carbohydrate(double carbohydrate)
+/home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:163: warning: The following parameters of food::Macronutrients::set_carbohydrate(double carbohydrate) are not documented:
+  parameter 'carbohydrate'
+/home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:151: warning: argument 'A' of command @param is not found in the argument list of food::Macronutrients::set_fat(double fat)
+/home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:153: warning: The following parameters of food::Macronutrients::set_fat(double fat) are not documented:
+  parameter 'fat'
+/home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:171: warning: argument 'A' of command @param is not found in the argument list of food::Macronutrients::set_fiber(double fiber)
+/home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:173: warning: The following parameters of food::Macronutrients::set_fiber(double fiber) are not documented:
+  parameter 'fiber'
+/home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:181: warning: argument 'A' of command @param is not found in the argument list of food::Macronutrients::set_protein(double protein)
+/home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:183: warning: The following parameters of food::Macronutrients::set_protein(double protein) are not documented:
+  parameter 'protein'
+/home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:88: warning: argument 'protein' of command @param is not found in the argument list of food::Protein::Protein(double quantity)
+/home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:90: warning: The following parameters of food::Protein::Protein(double quantity) are not documented:
+  parameter 'quantity'

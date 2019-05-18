@@ -1,0 +1,209 @@
+\hypertarget{classfood_1_1_food}{}\section{food\+:\+:Food Class Reference}
+\label{classfood_1_1_food}\index{food\+::\+Food@{food\+::\+Food}}
+
+
+The food class stores all macronutrient and micronutrient data for any food.  
+
+
+
+
+{\ttfamily \#include $<$Food.\+hpp$>$}
+
+
+
+Inheritance diagram for food\+:\+:Food\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classfood_1_1_food__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for food\+:\+:Food\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classfood_1_1_food__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structfood_1_1_food_1_1_allocator}{Allocator}
+\begin{DoxyCompactList}\small\item\em Custom allocator that allows database utils to own a vector of storable objects with private constructors. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classfood_1_1_food_ad3ba5861593fb753085ba502ca5d844a}{Food} (\hyperlink{classfood_1_1_food}{Food} \&\&f)=default
+\item 
+\hyperlink{classfood_1_1_food}{Food} \& \hyperlink{classfood_1_1_food_ae0ef42fe8425b35b39b1ea88e2dea27a}{operator=} (\hyperlink{classfood_1_1_food}{Food} const \&f)=default
+\item 
+\hyperlink{classfood_1_1_food}{Food} \& \hyperlink{classfood_1_1_food_a76b0691a40c6b412e04001af5a9af8e3}{operator=} (\hyperlink{classfood_1_1_food}{Food} \&\&f)=default
+\item 
+auto \hyperlink{classfood_1_1_food_ac3aefc08b78fa521b4317348463e5a5f}{get\+\_\+data} () const -\/$>$ \hyperlink{structdatabase_1_1_data}{database\+::\+Data} const override
+\begin{DoxyCompactList}\small\item\em All data will be retrieved from a storable object using this function. \end{DoxyCompactList}\item 
+auto \hyperlink{classfood_1_1_food_a76d21be86ff4500225e593205fc305c5}{id} () const -\/$>$ int override
+\item 
+auto \hyperlink{classfood_1_1_food_a29ccb0bdf6b74e6073b87bc71c70df04}{name} () const -\/$>$ std\+::string const override
+\item 
+void \hyperlink{classfood_1_1_food_ac717bda45254fd555b4de00004423041}{set\+\_\+name} (std\+::string\+\_\+view \hyperlink{classfood_1_1_food_a29ccb0bdf6b74e6073b87bc71c70df04}{name}) override
+\item 
+auto \hyperlink{classfood_1_1_food_a2ac3b444a1ef09dbcec63370f2c8f554}{str} () const -\/$>$ std\+::string override
+\item 
+auto \hyperlink{classfood_1_1_food_abea955fedfefd84254d7b788451a2a61}{macronutrients} () const -\/$>$ \hyperlink{classfood_1_1_macronutrients}{Macronutrients} const
+\item 
+void \hyperlink{classfood_1_1_food_a0df55be446b9dae80026bec62b2c1c5c}{set\+\_\+macronutrients} (\hyperlink{classfood_1_1_macronutrients}{Macronutrients} const \&macros)
+\item 
+\hyperlink{classfood_1_1_food_a065b75e0736ec60104419b9076db67c5}{$\sim$\+Food} () override=default
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{classfood_1_1_food_ab18b852895cb6c78b137d008ac39d642}{Allocator}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The food class stores all macronutrient and micronutrient data for any food. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{food\+::\+Food@{food\+::\+Food}!Food@{Food}}
+\index{Food@{Food}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{Food(\+Food \&\&f)=default}{Food(Food &&f)=default}}]{\setlength{\rightskip}{0pt plus 5cm}food\+::\+Food\+::\+Food (
+\begin{DoxyParamCaption}
+\item[{{\bf Food} \&\&}]{f}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}}\hypertarget{classfood_1_1_food_ad3ba5861593fb753085ba502ca5d844a}{}\label{classfood_1_1_food_ad3ba5861593fb753085ba502ca5d844a}
+\index{food\+::\+Food@{food\+::\+Food}!````~Food@{$\sim$\+Food}}
+\index{````~Food@{$\sim$\+Food}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{$\sim$\+Food() override=default}{~Food() override=default}}]{\setlength{\rightskip}{0pt plus 5cm}food\+::\+Food\+::$\sim$\+Food (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [default]}}\hypertarget{classfood_1_1_food_a065b75e0736ec60104419b9076db67c5}{}\label{classfood_1_1_food_a065b75e0736ec60104419b9076db67c5}
+
+
+\subsection{Member Function Documentation}
+\index{food\+::\+Food@{food\+::\+Food}!get\+\_\+data@{get\+\_\+data}}
+\index{get\+\_\+data@{get\+\_\+data}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{get\+\_\+data() const -\/$>$ database\+::\+Data const override}{get_data() const -> database::Data const override}}]{\setlength{\rightskip}{0pt plus 5cm}auto food\+::\+Food\+::get\+\_\+data (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$ {\bf database\+::\+Data} const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classfood_1_1_food_ac3aefc08b78fa521b4317348463e5a5f}{}\label{classfood_1_1_food_ac3aefc08b78fa521b4317348463e5a5f}
+
+
+All data will be retrieved from a storable object using this function. 
+
+\begin{DoxyReturn}{Returns}
+A struct containing the name of the table to store this data and a vector of column info. See \hyperlink{_data_8hpp}{Data.\+hpp} for more info. 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classdatabase_1_1_storable_afb1b1572e1147943227794f8abc0d0b0}{database\+::\+Storable}.
+
+\index{food\+::\+Food@{food\+::\+Food}!id@{id}}
+\index{id@{id}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{id() const -\/$>$ int override}{id() const -> int override}}]{\setlength{\rightskip}{0pt plus 5cm}auto food\+::\+Food\+::id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$ int\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classfood_1_1_food_a76d21be86ff4500225e593205fc305c5}{}\label{classfood_1_1_food_a76d21be86ff4500225e593205fc305c5}
+\begin{DoxyReturn}{Returns}
+The unique ID of this food in the database 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classdatabase_1_1_storable_aafaf8ff3b7a854488ae6d4ab3e39f2af}{database\+::\+Storable}.
+
+\index{food\+::\+Food@{food\+::\+Food}!macronutrients@{macronutrients}}
+\index{macronutrients@{macronutrients}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{macronutrients() const -\/$>$ Macronutrients const}{macronutrients() const -> Macronutrients const}}]{\setlength{\rightskip}{0pt plus 5cm}auto food\+::\+Food\+::macronutrients (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$ {\bf Macronutrients} const}\hypertarget{classfood_1_1_food_abea955fedfefd84254d7b788451a2a61}{}\label{classfood_1_1_food_abea955fedfefd84254d7b788451a2a61}
+\begin{DoxyReturn}{Returns}
+The macronutrients of the food 
+\end{DoxyReturn}
+\index{food\+::\+Food@{food\+::\+Food}!name@{name}}
+\index{name@{name}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{name() const -\/$>$ std\+::string const override}{name() const -> std::string const override}}]{\setlength{\rightskip}{0pt plus 5cm}auto food\+::\+Food\+::name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$ std\+::string const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classfood_1_1_food_a29ccb0bdf6b74e6073b87bc71c70df04}{}\label{classfood_1_1_food_a29ccb0bdf6b74e6073b87bc71c70df04}
+\begin{DoxyReturn}{Returns}
+The name of the food 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classdatabase_1_1_storable_a404fc104e41b9f1e52090a817c7d317e}{database\+::\+Storable}.
+
+\index{food\+::\+Food@{food\+::\+Food}!operator=@{operator=}}
+\index{operator=@{operator=}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{operator=(\+Food const \&f)=default}{operator=(Food const &f)=default}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Food}\& food\+::\+Food\+::operator= (
+\begin{DoxyParamCaption}
+\item[{{\bf Food} const \&}]{f}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}}\hypertarget{classfood_1_1_food_ae0ef42fe8425b35b39b1ea88e2dea27a}{}\label{classfood_1_1_food_ae0ef42fe8425b35b39b1ea88e2dea27a}
+\index{food\+::\+Food@{food\+::\+Food}!operator=@{operator=}}
+\index{operator=@{operator=}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{operator=(\+Food \&\&f)=default}{operator=(Food &&f)=default}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Food}\& food\+::\+Food\+::operator= (
+\begin{DoxyParamCaption}
+\item[{{\bf Food} \&\&}]{f}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}}\hypertarget{classfood_1_1_food_a76b0691a40c6b412e04001af5a9af8e3}{}\label{classfood_1_1_food_a76b0691a40c6b412e04001af5a9af8e3}
+\index{food\+::\+Food@{food\+::\+Food}!set\+\_\+macronutrients@{set\+\_\+macronutrients}}
+\index{set\+\_\+macronutrients@{set\+\_\+macronutrients}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{set\+\_\+macronutrients(\+Macronutrients const \&macros)}{set_macronutrients(Macronutrients const &macros)}}]{\setlength{\rightskip}{0pt plus 5cm}void food\+::\+Food\+::set\+\_\+macronutrients (
+\begin{DoxyParamCaption}
+\item[{{\bf Macronutrients} const \&}]{macros}
+\end{DoxyParamCaption}
+)}\hypertarget{classfood_1_1_food_a0df55be446b9dae80026bec62b2c1c5c}{}\label{classfood_1_1_food_a0df55be446b9dae80026bec62b2c1c5c}
+\begin{DoxyReturn}{Returns}
+The macronutrients of the food 
+\end{DoxyReturn}
+\index{food\+::\+Food@{food\+::\+Food}!set\+\_\+name@{set\+\_\+name}}
+\index{set\+\_\+name@{set\+\_\+name}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{set\+\_\+name(std\+::string\+\_\+view name) override}{set_name(std::string_view name) override}}]{\setlength{\rightskip}{0pt plus 5cm}void food\+::\+Food\+::set\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{std\+::string\+\_\+view}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classfood_1_1_food_ac717bda45254fd555b4de00004423041}{}\label{classfood_1_1_food_ac717bda45254fd555b4de00004423041}
+\begin{DoxyReturn}{Returns}
+The name of the food 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classdatabase_1_1_storable_afa3a3acb030d9e33064c2f6e34f8bbcf}{database\+::\+Storable}.
+
+\index{food\+::\+Food@{food\+::\+Food}!str@{str}}
+\index{str@{str}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{str() const -\/$>$ std\+::string override}{str() const -> std::string override}}]{\setlength{\rightskip}{0pt plus 5cm}auto food\+::\+Food\+::str (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$ std\+::string\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\hypertarget{classfood_1_1_food_a2ac3b444a1ef09dbcec63370f2c8f554}{}\label{classfood_1_1_food_a2ac3b444a1ef09dbcec63370f2c8f554}
+\begin{DoxyReturn}{Returns}
+string representation of the name and data, the same way sqlite displays table data 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classdatabase_1_1_storable_a3502dee26cdad8b8e3b0bf1ebc619dc4}{database\+::\+Storable}.
+
+
+
+\subsection{Friends And Related Function Documentation}
+\index{food\+::\+Food@{food\+::\+Food}!Allocator@{Allocator}}
+\index{Allocator@{Allocator}!food\+::\+Food@{food\+::\+Food}}
+\subsubsection[{\texorpdfstring{Allocator}{Allocator}}]{\setlength{\rightskip}{0pt plus 5cm}friend struct {\bf Allocator}\hspace{0.3cm}{\ttfamily [friend]}}\hypertarget{classfood_1_1_food_ab18b852895cb6c78b137d008ac39d642}{}\label{classfood_1_1_food_ab18b852895cb6c78b137d008ac39d642}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/travis/build/\+Manuel\+Meraz/\+Tracker/include/food/\hyperlink{_food_8hpp}{Food.\+hpp}\item 
+/home/travis/build/\+Manuel\+Meraz/\+Tracker/src/food/\hyperlink{_food_8cpp}{Food.\+cpp}\end{DoxyCompactItemize}

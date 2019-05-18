@@ -1,0 +1,93 @@
+\hypertarget{classdatabase_1_1_database}{}\section{database\+:\+:Database Class Reference}
+\label{classdatabase_1_1_database}\index{database\+::\+Database@{database\+::\+Database}}
+
+
+The database singleton class is in charge all database queries.  
+
+
+
+
+{\ttfamily \#include $<$Database.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classdatabase_1_1_database_af32a0bd3a5a492d478a215ef50f6ed14}{Database} (const \hyperlink{classdatabase_1_1_database}{Database} \&)=delete
+\begin{DoxyCompactList}\small\item\em Deleted functions. \end{DoxyCompactList}\item 
+\hyperlink{classdatabase_1_1_database_af23c97c26b274d8d32eaa9c7af5ee8f4}{Database} (\hyperlink{classdatabase_1_1_database}{Database} \&\&)=delete
+\item 
+\hyperlink{classdatabase_1_1_database}{Database} \& \hyperlink{classdatabase_1_1_database_afb30d33ce289a82f9f41ac59df63ec68}{operator=} (const \hyperlink{classdatabase_1_1_database}{Database} \&)=delete
+\item 
+\hyperlink{classdatabase_1_1_database}{Database} \& \hyperlink{classdatabase_1_1_database_a6652af8e150bdc26c786869efde743c0}{operator=} (\hyperlink{classdatabase_1_1_database}{Database} \&\&)=delete
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static auto \hyperlink{classdatabase_1_1_database_a9de5cff42e2434006824d5f98a1e7492}{get\+\_\+connection} () -\/$>$ soci\+::session \&
+\begin{DoxyCompactList}\small\item\em Returns a reference to the current database connection;. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The database singleton class is in charge all database queries. 
+
+Due to the way S\+Q\+Lite works, we want a single connection to the database up and running at all times. This class keeps the connection maintained. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{database\+::\+Database@{database\+::\+Database}!Database@{Database}}
+\index{Database@{Database}!database\+::\+Database@{database\+::\+Database}}
+\subsubsection[{\texorpdfstring{Database(const Database \&)=delete}{Database(const Database &)=delete}}]{\setlength{\rightskip}{0pt plus 5cm}database\+::\+Database\+::\+Database (
+\begin{DoxyParamCaption}
+\item[{const {\bf Database} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [delete]}}\hypertarget{classdatabase_1_1_database_af32a0bd3a5a492d478a215ef50f6ed14}{}\label{classdatabase_1_1_database_af32a0bd3a5a492d478a215ef50f6ed14}
+
+
+Deleted functions. 
+
+\index{database\+::\+Database@{database\+::\+Database}!Database@{Database}}
+\index{Database@{Database}!database\+::\+Database@{database\+::\+Database}}
+\subsubsection[{\texorpdfstring{Database(\+Database \&\&)=delete}{Database(Database &&)=delete}}]{\setlength{\rightskip}{0pt plus 5cm}database\+::\+Database\+::\+Database (
+\begin{DoxyParamCaption}
+\item[{{\bf Database} \&\&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [delete]}}\hypertarget{classdatabase_1_1_database_af23c97c26b274d8d32eaa9c7af5ee8f4}{}\label{classdatabase_1_1_database_af23c97c26b274d8d32eaa9c7af5ee8f4}
+
+
+\subsection{Member Function Documentation}
+\index{database\+::\+Database@{database\+::\+Database}!get\+\_\+connection@{get\+\_\+connection}}
+\index{get\+\_\+connection@{get\+\_\+connection}!database\+::\+Database@{database\+::\+Database}}
+\subsubsection[{\texorpdfstring{get\+\_\+connection() -\/$>$ soci\+::session \&}{get_connection() -> soci::session &}}]{\setlength{\rightskip}{0pt plus 5cm}auto database\+::\+Database\+::get\+\_\+connection (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) -\/$>$ soci\+::session \&\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{classdatabase_1_1_database_a9de5cff42e2434006824d5f98a1e7492}{}\label{classdatabase_1_1_database_a9de5cff42e2434006824d5f98a1e7492}
+
+
+Returns a reference to the current database connection;. 
+
+Need to return a reference explicitly because this item is uncopyable. Attempts to copy the connection will try to call a private constructor and fail.
+
+Usage\+: ~\newline
+ auto\& sql\+\_\+connection = \hyperlink{classdatabase_1_1_database_a9de5cff42e2434006824d5f98a1e7492}{database\+::\+Database\+::get\+\_\+connection()}; ~\newline
+ sql\+\_\+connection $<$$<$ \char`\"{}some sql command here\char`\"{};
+
+Will throw a soci\+::sqlite3\+\_\+soci\+\_\+error if the command fails \index{database\+::\+Database@{database\+::\+Database}!operator=@{operator=}}
+\index{operator=@{operator=}!database\+::\+Database@{database\+::\+Database}}
+\subsubsection[{\texorpdfstring{operator=(const Database \&)=delete}{operator=(const Database &)=delete}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Database}\& database\+::\+Database\+::operator= (
+\begin{DoxyParamCaption}
+\item[{const {\bf Database} \&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [delete]}}\hypertarget{classdatabase_1_1_database_afb30d33ce289a82f9f41ac59df63ec68}{}\label{classdatabase_1_1_database_afb30d33ce289a82f9f41ac59df63ec68}
+\index{database\+::\+Database@{database\+::\+Database}!operator=@{operator=}}
+\index{operator=@{operator=}!database\+::\+Database@{database\+::\+Database}}
+\subsubsection[{\texorpdfstring{operator=(\+Database \&\&)=delete}{operator=(Database &&)=delete}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Database}\& database\+::\+Database\+::operator= (
+\begin{DoxyParamCaption}
+\item[{{\bf Database} \&\&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [delete]}}\hypertarget{classdatabase_1_1_database_a6652af8e150bdc26c786869efde743c0}{}\label{classdatabase_1_1_database_a6652af8e150bdc26c786869efde743c0}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/travis/build/\+Manuel\+Meraz/\+Tracker/include/database/\hyperlink{_database_8hpp}{Database.\+hpp}\item 
+/home/travis/build/\+Manuel\+Meraz/\+Tracker/src/database/\hyperlink{_database_8cpp}{Database.\+cpp}\end{DoxyCompactItemize}

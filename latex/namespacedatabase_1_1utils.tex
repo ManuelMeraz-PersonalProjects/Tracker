@@ -1,0 +1,401 @@
+\hypertarget{namespacedatabase_1_1utils}{}\section{database\+:\+:utils Namespace Reference}
+\label{namespacedatabase_1_1utils}\index{database\+::utils@{database\+::utils}}
+
+
+Utility functions to insert, retrieve, and manipulate objects in database.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Forward\+It , class T , class Compare  = std\+::less$<$$>$$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_a0dd569af49c9913a5090b71c86690fe5}{binary\+\_\+find} (Forward\+It first, Forward\+It last, const T \&value, Compare comp) -\/$>$ Forward\+It
+\begin{DoxyCompactList}\small\item\em Finds and returns the object if it exists in the stl container. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_adae24cb18f62390528243ff3218d8626}{count\+\_\+rows} () -\/$>$ size\+\_\+t
+\begin{DoxyCompactList}\small\item\em Count the number of \hyperlink{classdatabase_1_1_storable}{Storable} type in the database. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\void \hyperlink{namespacedatabase_1_1utils_a303b59245b11befd59f3fd0e838ef80b}{create\+\_\+table} (std\+::vector$<$ \hyperlink{structdatabase_1_1_column_properties}{Column\+Properties} $>$ const \&schema)
+\begin{DoxyCompactList}\small\item\em Create table of \hyperlink{classdatabase_1_1_storable}{Storable} if not exists. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\void \hyperlink{namespacedatabase_1_1utils_ac56bf4b6fc7b1481c84e42e6bb6db57b}{delete\+\_\+storable} (\hyperlink{classdatabase_1_1_storable}{Storable} const \&storable)
+\begin{DoxyCompactList}\small\item\em Delete \hyperlink{classdatabase_1_1_storable}{Storable} object from datbase and cache of storables. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\void \hyperlink{namespacedatabase_1_1utils_abfc70aa38436efb787b6c9f62941856d}{drop\+\_\+table} ()
+\begin{DoxyCompactList}\small\item\em Deletes the \hyperlink{classdatabase_1_1_storable}{Storable} table from the database. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Data\+Enum , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+enum\+\_\+v$<$ Data\+Enum $>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_a84e6b2503f6453631d2238ff3f9bc9e3}{enum\+\_\+to\+\_\+string} (Data\+Enum const \&data\+\_\+enum) -\/$>$ std\+::string\+\_\+view
+\begin{DoxyCompactList}\small\item\em to\+\_\+string function for data enum types \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_acab03452308a27ee3e8e5f30842d8ca8}{get\+\_\+new\+\_\+id} () -\/$>$ int
+\begin{DoxyCompactList}\small\item\em Generates new unique ID for the type being asked for. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\void \hyperlink{namespacedatabase_1_1utils_ab9b80f05cca7a094baf577ec5b62108c}{insert} (\hyperlink{classdatabase_1_1_storable}{Storable} const \&storable)
+\begin{DoxyCompactList}\small\item\em Gets data from any storable object and inserts it into relevant database. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename... Args, typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_a8d10f5dbf82b7d8008d8d82865c5a19a}{make} (Args \&\&...args) -\/$>$ \hyperlink{classdatabase_1_1_storable}{Storable} \&
+\begin{DoxyCompactList}\small\item\em Generates a new \hyperlink{classdatabase_1_1_storable}{Storable} object stores it in the cache, inserts it into the database, and returns a reference to tht new object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_a41142b70272ad4b4ec442a28dc5c8ce3}{retrieve\+\_\+all} () -\/$>$ std\+::vector$<$ \hyperlink{classdatabase_1_1_storable}{Storable}, struct Storable\+::\+Allocator $>$ \&
+\begin{DoxyCompactList}\small\item\em Retrieves all database objects that match the \hyperlink{classdatabase_1_1_storable}{Storable} that is passed in. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_a3c5ce09d7fc593c4395d40fe5c1a0630}{table\+\_\+exists} () -\/$>$ bool
+\begin{DoxyCompactList}\small\item\em Check if \hyperlink{classdatabase_1_1_storable}{Storable} table exists in database. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\auto \hyperlink{namespacedatabase_1_1utils_acb264e8826f50ae828a9c89c2906b049}{type\+\_\+to\+\_\+string} () -\/$>$ std\+::string
+\begin{DoxyCompactList}\small\item\em Converts a type to a string and trims the namespaces off. (e.\+g. namespace\+::other\+\_\+namespace\+::\+Class\+Name -\/$>$ \char`\"{}\+Class\+Name\char`\"{}) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\void \hyperlink{namespacedatabase_1_1utils_ad7fc4b4d352c7b947fc48ac8c1d666a6}{update} (\hyperlink{classdatabase_1_1_storable}{Storable} const \&storable)
+\begin{DoxyCompactList}\small\item\em Updates the \hyperlink{classdatabase_1_1_storable}{Storable} objects data within the database. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Lambda $>$ }\\void \hyperlink{namespacedatabase_1_1utils_a974d01a6dbb387b033f627d846630b92}{visit\+\_\+row\+\_\+data} (Lambda const \&handler, \hyperlink{structdatabase_1_1_row_a29c16186778c974af723db03751f3aa3}{Row\+::row\+\_\+data\+\_\+t} const \&row\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Updates the \hyperlink{classdatabase_1_1_storable}{Storable} objects data within the database. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Utility functions to insert, retrieve, and manipulate objects in database. 
+
+\subsection{Function Documentation}
+\index{database\+::utils@{database\+::utils}!binary\+\_\+find@{binary\+\_\+find}}
+\index{binary\+\_\+find@{binary\+\_\+find}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{binary\+\_\+find(\+Forward\+It first, Forward\+It last, const T \&value, Compare comp) -\/$>$ Forward\+It}{binary_find(ForwardIt first, ForwardIt last, const T &value, Compare comp) -> ForwardIt}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Forward\+It , class T , class Compare  = std\+::less$<$$>$$>$ auto database\+::utils\+::binary\+\_\+find (
+\begin{DoxyParamCaption}
+\item[{Forward\+It}]{first, }
+\item[{Forward\+It}]{last, }
+\item[{const T \&}]{value, }
+\item[{Compare}]{comp}
+\end{DoxyParamCaption}
+) -\/$>$ Forward\+It}\hypertarget{namespacedatabase_1_1utils_a0dd569af49c9913a5090b71c86690fe5}{}\label{namespacedatabase_1_1utils_a0dd569af49c9913a5090b71c86690fe5}
+
+
+Finds and returns the object if it exists in the stl container. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em first} & A forward iterator for the start of the search \\
+\hline
+{\em last} & A forward iterator for the end of the search \\
+\hline
+{\em comp} & A less than comparison function for the object to be found \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An iterator to the found object, will be the end iterator if now found
+\end{DoxyReturn}
+Source\+: \href{https://en.cppreference.com/w/cpp/algorithm/lower_bound}{\tt https\+://en.\+cppreference.\+com/w/cpp/algorithm/lower\+\_\+bound}
+
+Requirements\+: Container must be sorted in relation to the comparison function
+
+Usage\+: ~\newline
+ auto const compare = \mbox{[}\mbox{]}(\hyperlink{classdatabase_1_1_storable}{Storable} const \&lhs, \hyperlink{classdatabase_1_1_storable}{Storable} const \&rhs) \{ ~\newline
+ return lhs.\+id() $<$ rhs.\+id(); ~\newline
+ \};
+
+~\newline
+ auto found = \hyperlink{namespacedatabase_1_1utils_a0dd569af49c9913a5090b71c86690fe5}{utils\+::binary\+\_\+find}(begin(storables), end(storables)); ~\newline
+ if(found != end(storables) \{ ~\newline
+ // Do something with found object ~\newline
+ \} \index{database\+::utils@{database\+::utils}!count\+\_\+rows@{count\+\_\+rows}}
+\index{count\+\_\+rows@{count\+\_\+rows}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{count\+\_\+rows() -\/$>$ size\+\_\+t}{count_rows() -> size_t}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ auto database\+::utils\+::count\+\_\+rows (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) -\/$>$ size\+\_\+t\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{namespacedatabase_1_1utils_adae24cb18f62390528243ff3218d8626}{}\label{namespacedatabase_1_1utils_adae24cb18f62390528243ff3218d8626}
+
+
+Count the number of \hyperlink{classdatabase_1_1_storable}{Storable} type in the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classdatabase_1_1_storable}{Storable}} & Any type that is a base of \hyperlink{classdatabase_1_1_storable}{Storable} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of rows in the table, 0 if table does not exist
+\end{DoxyReturn}
+Creates the following S\+Q\+Lite3 command\+: ~\newline
+ S\+E\+L\+E\+CT count($\ast$) from table\+\_\+name;
+
+Usage\+: ~\newline
+ size\+\_\+t quantity = \hyperlink{namespacedatabase_1_1utils_adae24cb18f62390528243ff3218d8626}{database\+::utils\+::count\+\_\+rows$<$food\+::\+Food$>$()}; \index{database\+::utils@{database\+::utils}!create\+\_\+table@{create\+\_\+table}}
+\index{create\+\_\+table@{create\+\_\+table}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{create\+\_\+table(std\+::vector$<$ Column\+Properties $>$ const \&schema)}{create_table(std::vector< ColumnProperties > const &schema)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ void database\+::utils\+::create\+\_\+table (
+\begin{DoxyParamCaption}
+\item[{std\+::vector$<$ {\bf Column\+Properties} $>$ const \&}]{schema}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{namespacedatabase_1_1utils_a303b59245b11befd59f3fd0e838ef80b}{}\label{namespacedatabase_1_1utils_a303b59245b11befd59f3fd0e838ef80b}
+
+
+Create table of \hyperlink{classdatabase_1_1_storable}{Storable} if not exists. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classdatabase_1_1_storable}{Storable}} & Any type that is a base of \hyperlink{classdatabase_1_1_storable}{Storable} \\
+\hline
+{\em schema} & The schema to be used to create the table\\
+\hline
+\end{DoxyParams}
+Creates the following S\+Q\+Lite3 command\+: ~\newline
+ C\+R\+E\+A\+TE T\+A\+B\+LE IF N\+OT E\+X\+I\+S\+TS table\+\_\+name ( ~\newline
+ column\+\_\+1 data\+\_\+type P\+R\+I\+M\+A\+RY K\+EY, ~\newline
+ column\+\_\+2 data\+\_\+type N\+OT N\+U\+LL, ~\newline
+ column\+\_\+3 data\+\_\+type D\+E\+F\+A\+U\+LT 0, ~\newline
+ ... ~\newline
+ );
+
+Usage\+: ~\newline
+ \hyperlink{namespacedatabase_1_1utils_a303b59245b11befd59f3fd0e838ef80b}{database\+::utils\+::create\+\_\+table$<$food\+::\+Food$>$()}; \index{database\+::utils@{database\+::utils}!delete\+\_\+storable@{delete\+\_\+storable}}
+\index{delete\+\_\+storable@{delete\+\_\+storable}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{delete\+\_\+storable(\+Storable const \&storable)}{delete_storable(Storable const &storable)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ void database\+::utils\+::delete\+\_\+storable (
+\begin{DoxyParamCaption}
+\item[{{\bf Storable} const \&}]{storable}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacedatabase_1_1utils_ac56bf4b6fc7b1481c84e42e6bb6db57b}{}\label{namespacedatabase_1_1utils_ac56bf4b6fc7b1481c84e42e6bb6db57b}
+
+
+Delete \hyperlink{classdatabase_1_1_storable}{Storable} object from datbase and cache of storables. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em storable} & Any type that is a base of \hyperlink{classdatabase_1_1_storable}{Storable}\\
+\hline
+\end{DoxyParams}
+Creates the following S\+Q\+Lite3 command\+: ~\newline
+ D\+E\+L\+E\+TE ~\newline
+ F\+R\+OM ~\newline
+ table ~\newline
+ W\+H\+E\+RE ~\newline
+ search\+\_\+condition;
+
+Usage\+: ~\newline
+ database\+::utils\+::delete\+\_\+storable(food);
+
+Note\+: delete is a keyword, could not use that. \index{database\+::utils@{database\+::utils}!drop\+\_\+table@{drop\+\_\+table}}
+\index{drop\+\_\+table@{drop\+\_\+table}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{drop\+\_\+table()}{drop_table()}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ void database\+::utils\+::drop\+\_\+table (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{namespacedatabase_1_1utils_abfc70aa38436efb787b6c9f62941856d}{}\label{namespacedatabase_1_1utils_abfc70aa38436efb787b6c9f62941856d}
+
+
+Deletes the \hyperlink{classdatabase_1_1_storable}{Storable} table from the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classdatabase_1_1_storable}{Storable}} & Any type that is a base of \hyperlink{classdatabase_1_1_storable}{Storable}\\
+\hline
+\end{DoxyParams}
+Creates the following S\+Q\+Lite3 command\+: D\+R\+OP T\+A\+B\+LE table\+\_\+name;
+
+Usage\+: ~\newline
+ \hyperlink{namespacedatabase_1_1utils_abfc70aa38436efb787b6c9f62941856d}{drop\+\_\+table$<$food\+::\+Food$>$()}; \index{database\+::utils@{database\+::utils}!enum\+\_\+to\+\_\+string@{enum\+\_\+to\+\_\+string}}
+\index{enum\+\_\+to\+\_\+string@{enum\+\_\+to\+\_\+string}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{enum\+\_\+to\+\_\+string(\+Data\+Enum const \&data\+\_\+enum) -\/$>$ std\+::string\+\_\+view}{enum_to_string(DataEnum const &data_enum) -> std::string_view}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Data\+Enum , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+enum\+\_\+v$<$ Data\+Enum $>$, int $>$  = 0$>$ auto database\+::utils\+::enum\+\_\+to\+\_\+string (
+\begin{DoxyParamCaption}
+\item[{Data\+Enum const \&}]{data\+\_\+enum}
+\end{DoxyParamCaption}
+) -\/$>$ std\+::string\+\_\+view\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{namespacedatabase_1_1utils_a84e6b2503f6453631d2238ff3f9bc9e3}{}\label{namespacedatabase_1_1utils_a84e6b2503f6453631d2238ff3f9bc9e3}
+
+
+to\+\_\+string function for data enum types 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data\+\_\+enum} & Data\+Enum type that is either a constraint type or sql type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a string view of the string version of the enum appropriate for a database
+\end{DoxyReturn}
+Does not convert to exam string value, it converts to the the string that will be used by the database.
+
+e.\+g. N\+U\+L\+L\+\_\+ -\/$>$ \char`\"{}\+N\+U\+L\+L\char`\"{}, P\+R\+I\+M\+A\+R\+Y\+\_\+\+K\+EY -\/$>$ \char`\"{}\+P\+R\+I\+M\+A\+R\+Y K\+E\+Y\char`\"{} \index{database\+::utils@{database\+::utils}!get\+\_\+new\+\_\+id@{get\+\_\+new\+\_\+id}}
+\index{get\+\_\+new\+\_\+id@{get\+\_\+new\+\_\+id}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{get\+\_\+new\+\_\+id() -\/$>$ int}{get_new_id() -> int}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ auto database\+::utils\+::get\+\_\+new\+\_\+id (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) -\/$>$ int}\hypertarget{namespacedatabase_1_1utils_acab03452308a27ee3e8e5f30842d8ca8}{}\label{namespacedatabase_1_1utils_acab03452308a27ee3e8e5f30842d8ca8}
+
+
+Generates new unique ID for the type being asked for. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classdatabase_1_1_storable}{Storable}} & Any type that is a base of \hyperlink{classdatabase_1_1_storable}{Storable} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A new id that is not being used by the database for this \hyperlink{classdatabase_1_1_storable}{Storable} type
+\end{DoxyReturn}
+Usage\+: ~\newline
+ int new\+\_\+id = \hyperlink{namespacedatabase_1_1utils_acab03452308a27ee3e8e5f30842d8ca8}{database\+::utils\+::get\+\_\+new\+\_\+id$<$food\+::\+Food$>$()}; \index{database\+::utils@{database\+::utils}!insert@{insert}}
+\index{insert@{insert}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{insert(\+Storable const \&storable)}{insert(Storable const &storable)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ void database\+::utils\+::insert (
+\begin{DoxyParamCaption}
+\item[{{\bf Storable} const \&}]{storable}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{namespacedatabase_1_1utils_ab9b80f05cca7a094baf577ec5b62108c}{}\label{namespacedatabase_1_1utils_ab9b80f05cca7a094baf577ec5b62108c}
+
+
+Gets data from any storable object and inserts it into relevant database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em storable} & The object containing data to be stored in a database. Must inherit from \hyperlink{classdatabase_1_1_storable}{Storable}.\\
+\hline
+\end{DoxyParams}
+Creates the following S\+Q\+Lite3 command\+: ~\newline
+ I\+N\+S\+E\+RT I\+N\+TO table1 ( ~\newline
+ column1, ~\newline
+ column2 ,..) ~\newline
+ V\+A\+L\+U\+ES ~\newline
+ ( ~\newline
+ value1, ~\newline
+ value2 ,...);
+
+Usage\+: ~\newline
+ \hyperlink{classfood_1_1_food}{food\+::\+Food} taco(\char`\"{}taco\char`\"{}, macros); ~\newline
+ database\+::utils\+::insert(taco); \index{database\+::utils@{database\+::utils}!make@{make}}
+\index{make@{make}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{make(\+Args \&\&...\+args) -\/$>$ Storable \&}{make(Args &&...args) -> Storable &}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Storable , typename... Args, typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ auto database\+::utils\+::make (
+\begin{DoxyParamCaption}
+\item[{Args \&\&...}]{args}
+\end{DoxyParamCaption}
+) -\/$>$ {\bf Storable} \&}\hypertarget{namespacedatabase_1_1utils_a8d10f5dbf82b7d8008d8d82865c5a19a}{}\label{namespacedatabase_1_1utils_a8d10f5dbf82b7d8008d8d82865c5a19a}
+
+
+Generates a new \hyperlink{classdatabase_1_1_storable}{Storable} object stores it in the cache, inserts it into the database, and returns a reference to tht new object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em The} & arguments to construct the storable object. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the new object, copies are not allowed.
+\end{DoxyReturn}
+Usage\+: ~\newline
+ auto \&some\+\_\+food = \hyperlink{namespacedatabase_1_1utils_a8d10f5dbf82b7d8008d8d82865c5a19a}{database\+::utils\+::make$<$food\+::\+Food$>$}(\char`\"{}taco\char`\"{}, macros); \index{database\+::utils@{database\+::utils}!retrieve\+\_\+all@{retrieve\+\_\+all}}
+\index{retrieve\+\_\+all@{retrieve\+\_\+all}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{retrieve\+\_\+all() -\/$>$ std\+::vector$<$ Storable, struct Storable\+::\+Allocator $>$ \&}{retrieve_all() -> std::vector< Storable, struct Storable::Allocator > &}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ auto database\+::utils\+::retrieve\+\_\+all (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) -\/$>$ std\+::vector$<${\bf Storable}, struct Storable\+::\+Allocator$>$ \&\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{namespacedatabase_1_1utils_a41142b70272ad4b4ec442a28dc5c8ce3}{}\label{namespacedatabase_1_1utils_a41142b70272ad4b4ec442a28dc5c8ce3}
+
+
+Retrieves all database objects that match the \hyperlink{classdatabase_1_1_storable}{Storable} that is passed in. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classdatabase_1_1_storable}{Storable}} & The type of storable object being retrieved \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the vector containing all the storable objects of tht type
+\end{DoxyReturn}
+Retrieves all objects of the type requested that contain that name.
+
+Creates the following S\+Q\+Lite3 command\+: ~\newline
+ S\+E\+L\+E\+CT $\ast$ from \hyperlink{classdatabase_1_1_storable}{Storable};
+
+Note\+: Copies of storable objects not allowed
+
+Usage\+: ~\newline
+ auto all\+\_\+food = \hyperlink{namespacedatabase_1_1utils_a41142b70272ad4b4ec442a28dc5c8ce3}{database\+::utils\+::retrieve\+\_\+all$<$food\+::\+Food$>$()}; ~\newline
+ for(auto const \&food\+: all\+\_\+food) \{ ~\newline
+ // do something ~\newline
+ \} \index{database\+::utils@{database\+::utils}!table\+\_\+exists@{table\+\_\+exists}}
+\index{table\+\_\+exists@{table\+\_\+exists}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{table\+\_\+exists() -\/$>$ bool}{table_exists() -> bool}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ auto database\+::utils\+::table\+\_\+exists (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) -\/$>$ bool}\hypertarget{namespacedatabase_1_1utils_a3c5ce09d7fc593c4395d40fe5c1a0630}{}\label{namespacedatabase_1_1utils_a3c5ce09d7fc593c4395d40fe5c1a0630}
+
+
+Check if \hyperlink{classdatabase_1_1_storable}{Storable} table exists in database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em \hyperlink{classdatabase_1_1_storable}{Storable}} & Any type that is a base of \hyperlink{classdatabase_1_1_storable}{Storable} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the table exists, false otherwise
+\end{DoxyReturn}
+Creates the following S\+Q\+Lite3 command\+: ~\newline
+ S\+E\+L\+E\+CT name F\+R\+OM sqlite\+\_\+master W\+H\+E\+RE type=\textquotesingle{}table\textquotesingle{} A\+ND name=\textquotesingle{}table\+\_\+name\textquotesingle{};
+
+Usage\+: ~\newline
+ if(table\+\_\+exists$<$food\+::\+Food$>$()) \{ ~\newline
+ // do something ~\newline
+ \} \index{database\+::utils@{database\+::utils}!type\+\_\+to\+\_\+string@{type\+\_\+to\+\_\+string}}
+\index{type\+\_\+to\+\_\+string@{type\+\_\+to\+\_\+string}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{type\+\_\+to\+\_\+string() -\/$>$ std\+::string}{type_to_string() -> std::string}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ auto database\+::utils\+::type\+\_\+to\+\_\+string (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) -\/$>$ std\+::string\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{namespacedatabase_1_1utils_acb264e8826f50ae828a9c89c2906b049}{}\label{namespacedatabase_1_1utils_acb264e8826f50ae828a9c89c2906b049}
+
+
+Converts a type to a string and trims the namespaces off. (e.\+g. namespace\+::other\+\_\+namespace\+::\+Class\+Name -\/$>$ \char`\"{}\+Class\+Name\char`\"{}) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em T} & The template parameter T could be any possible type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A std\+::string of that type passed in as a template parameter
+\end{DoxyReturn}
+Usage\+: ~\newline
+ std\+::string type\+\_\+string = \hyperlink{namespacedatabase_1_1utils_acb264e8826f50ae828a9c89c2906b049}{database\+::utils\+::type\+\_\+to\+\_\+string$<$food\+::\+Food$>$()}; ~\newline
+ type\+\_\+string == \char`\"{}\+Food\char`\"{} // true \index{database\+::utils@{database\+::utils}!update@{update}}
+\index{update@{update}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{update(\+Storable const \&storable)}{update(Storable const &storable)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ void database\+::utils\+::update (
+\begin{DoxyParamCaption}
+\item[{{\bf Storable} const \&}]{storable}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacedatabase_1_1utils_ad7fc4b4d352c7b947fc48ac8c1d666a6}{}\label{namespacedatabase_1_1utils_ad7fc4b4d352c7b947fc48ac8c1d666a6}
+
+
+Updates the \hyperlink{classdatabase_1_1_storable}{Storable} objects data within the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em storable} & A storable object that already exists within the database and will update the data\\
+\hline
+\end{DoxyParams}
+Creates the following S\+Q\+Lite3 command\+: ~\newline
+ U\+P\+D\+A\+TE \hyperlink{classdatabase_1_1_storable}{Storable} ~\newline
+ S\+ET column\+\_\+1 = new\+\_\+value\+\_\+1, ~\newline
+ colimn\+\_\+2 = new\+\_\+value\+\_\+2, ~\newline
+ ... ~\newline
+ W\+H\+E\+RE Storable\+\_\+id = Storable\+\_\+id\+\_\+value;
+
+Usage\+: ~\newline
+ auto all\+\_\+food = \hyperlink{namespacedatabase_1_1utils_a41142b70272ad4b4ec442a28dc5c8ce3}{database\+::utils\+::retrieve\+\_\+all$<$food\+::\+Food$>$()}; ~\newline
+ if(all\+\_\+food \&\& all\+\_\+food.\+size() $>$ 0) \{ ~\newline
+ auto my\+\_\+food = all\+\_\+food.\+back(); ~\newline
+ food.\+set\+\_\+protein(100); ~\newline
+ database\+::utils\+::update(my\+\_\+food); ~\newline
+ \}
+
+Will throw a runtime error if food is not in the database! \index{database\+::utils@{database\+::utils}!visit\+\_\+row\+\_\+data@{visit\+\_\+row\+\_\+data}}
+\index{visit\+\_\+row\+\_\+data@{visit\+\_\+row\+\_\+data}!database\+::utils@{database\+::utils}}
+\subsubsection[{\texorpdfstring{visit\+\_\+row\+\_\+data(\+Lambda const \&handler, Row\+::row\+\_\+data\+\_\+t const \&row\+\_\+data)}{visit_row_data(Lambda const &handler, Row::row_data_t const &row_data)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename Lambda $>$ void database\+::utils\+::visit\+\_\+row\+\_\+data (
+\begin{DoxyParamCaption}
+\item[{Lambda const \&}]{handler, }
+\item[{{\bf Row\+::row\+\_\+data\+\_\+t} const \&}]{row\+\_\+data}
+\end{DoxyParamCaption}
+)}\hypertarget{namespacedatabase_1_1utils_a974d01a6dbb387b033f627d846630b92}{}\label{namespacedatabase_1_1utils_a974d01a6dbb387b033f627d846630b92}
+
+
+Updates the \hyperlink{classdatabase_1_1_storable}{Storable} objects data within the database. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em handler} & A handler that will handle for the row\+\_\+data\+\_\+t once it passes the data into it.\\
+\hline
+{\em row\+\_\+data} & A std\+::variant containing multiple data types. See \hyperlink{structdatabase_1_1_row}{Row} implementation or the implementation of this function for all the types it contains.\\
+\hline
+\end{DoxyParams}
+Usage\+: ~\newline
+ std\+::stringstream column\+\_\+values; ~\newline
+ \hyperlink{namespacedatabase_1_1utils_a974d01a6dbb387b033f627d846630b92}{utils\+::visit\+\_\+row\+\_\+data}( ~\newline
+ \mbox{[}\&column\+\_\+values = column\+\_\+values\mbox{]}(auto const \&row\+\_\+data) \{ ~\newline
+ column\+\_\+values $<$$<$ row\+\_\+data; ~\newline
+ \}, ~\newline
+ row\+\_\+data);
+
+In this example we\textquotesingle{}re using a capture initializer to prevent a dangling reference. 

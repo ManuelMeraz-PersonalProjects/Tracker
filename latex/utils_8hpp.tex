@@ -1,0 +1,83 @@
+\hypertarget{utils_8hpp}{}\section{/home/travis/build/\+Manuel\+Meraz/\+Tracker/include/database/utils.hpp File Reference}
+\label{utils_8hpp}\index{/home/travis/build/\+Manuel\+Meraz/\+Tracker/include/database/utils.\+hpp@{/home/travis/build/\+Manuel\+Meraz/\+Tracker/include/database/utils.\+hpp}}
+
+
+Utility functions and objects for databasing.  
+
+
+{\ttfamily \#include \char`\"{}database/\+Data.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}database/\+Database.\+hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}database/\+Storable.\+hpp\char`\"{}}\\*
+{\ttfamily \#include $<$nameof.\+hpp$>$}\\*
+{\ttfamily \#include $<$range/v3/all.\+hpp$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$sstream$>$}\\*
+{\ttfamily \#include $<$string\+\_\+view$>$}\\*
+{\ttfamily \#include $<$type\+\_\+traits$>$}\\*
+{\ttfamily \#include $<$unordered\+\_\+map$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+Include dependency graph for utils.\+hpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{utils_8hpp__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{utils_8hpp__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacedatabase}{database}
+\begin{DoxyCompactList}\small\item\em Organizes all databasing related classes and functions. \end{DoxyCompactList}\item 
+ \hyperlink{namespacedatabase_1_1utils}{database\+::utils}
+\begin{DoxyCompactList}\small\item\em Utility functions to insert, retrieve, and manipulate objects in database. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Forward\+It , class T , class Compare  = std\+::less$<$$>$$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_a0dd569af49c9913a5090b71c86690fe5}{database\+::utils\+::binary\+\_\+find} (Forward\+It first, Forward\+It last, const T \&value, Compare comp) -\/$>$ Forward\+It
+\begin{DoxyCompactList}\small\item\em Finds and returns the object if it exists in the stl container. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_adae24cb18f62390528243ff3218d8626}{database\+::utils\+::count\+\_\+rows} () -\/$>$ size\+\_\+t
+\begin{DoxyCompactList}\small\item\em Count the number of \hyperlink{classdatabase_1_1_storable}{Storable} type in the database. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\void \hyperlink{namespacedatabase_1_1utils_a303b59245b11befd59f3fd0e838ef80b}{database\+::utils\+::create\+\_\+table} (std\+::vector$<$ Column\+Properties $>$ const \&schema)
+\begin{DoxyCompactList}\small\item\em Create table of \hyperlink{classdatabase_1_1_storable}{Storable} if not exists. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\void \hyperlink{namespacedatabase_1_1utils_ac56bf4b6fc7b1481c84e42e6bb6db57b}{database\+::utils\+::delete\+\_\+storable} (Storable const \&storable)
+\begin{DoxyCompactList}\small\item\em Delete \hyperlink{classdatabase_1_1_storable}{Storable} object from datbase and cache of storables. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\void \hyperlink{namespacedatabase_1_1utils_abfc70aa38436efb787b6c9f62941856d}{database\+::utils\+::drop\+\_\+table} ()
+\begin{DoxyCompactList}\small\item\em Deletes the \hyperlink{classdatabase_1_1_storable}{Storable} table from the database. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Data\+Enum , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+enum\+\_\+v$<$ Data\+Enum $>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_a84e6b2503f6453631d2238ff3f9bc9e3}{database\+::utils\+::enum\+\_\+to\+\_\+string} (Data\+Enum const \&data\+\_\+enum) -\/$>$ std\+::string\+\_\+view
+\begin{DoxyCompactList}\small\item\em to\+\_\+string function for data enum types \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_acab03452308a27ee3e8e5f30842d8ca8}{database\+::utils\+::get\+\_\+new\+\_\+id} () -\/$>$ int
+\begin{DoxyCompactList}\small\item\em Generates new unique ID for the type being asked for. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\void \hyperlink{namespacedatabase_1_1utils_ab9b80f05cca7a094baf577ec5b62108c}{database\+::utils\+::insert} (Storable const \&storable)
+\begin{DoxyCompactList}\small\item\em Gets data from any storable object and inserts it into relevant database. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename... Args, typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_a8d10f5dbf82b7d8008d8d82865c5a19a}{database\+::utils\+::make} (Args \&\&...args) -\/$>$ Storable \&
+\begin{DoxyCompactList}\small\item\em Generates a new \hyperlink{classdatabase_1_1_storable}{Storable} object stores it in the cache, inserts it into the database, and returns a reference to tht new object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_a41142b70272ad4b4ec442a28dc5c8ce3}{database\+::utils\+::retrieve\+\_\+all} () -\/$>$ std\+::vector$<$ Storable, struct Storable\+::\+Allocator $>$ \&
+\begin{DoxyCompactList}\small\item\em Retrieves all database objects that match the \hyperlink{classdatabase_1_1_storable}{Storable} that is passed in. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\auto \hyperlink{namespacedatabase_1_1utils_a3c5ce09d7fc593c4395d40fe5c1a0630}{database\+::utils\+::table\+\_\+exists} () -\/$>$ bool
+\begin{DoxyCompactList}\small\item\em Check if \hyperlink{classdatabase_1_1_storable}{Storable} table exists in database. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\auto \hyperlink{namespacedatabase_1_1utils_acb264e8826f50ae828a9c89c2906b049}{database\+::utils\+::type\+\_\+to\+\_\+string} () -\/$>$ std\+::string
+\begin{DoxyCompactList}\small\item\em Converts a type to a string and trims the namespaces off. (e.\+g. namespace\+::other\+\_\+namespace\+::\+Class\+Name -\/$>$ \char`\"{}\+Class\+Name\char`\"{}) \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Storable , typename std\+::enable\+\_\+if\+\_\+t$<$ std\+::is\+\_\+base\+\_\+of\+\_\+v$<$ database\+::\+Storable, std\+::decay\+\_\+t$<$ Storable $>$$>$, int $>$  = 0$>$ }\\void \hyperlink{namespacedatabase_1_1utils_ad7fc4b4d352c7b947fc48ac8c1d666a6}{database\+::utils\+::update} (Storable const \&storable)
+\begin{DoxyCompactList}\small\item\em Updates the \hyperlink{classdatabase_1_1_storable}{Storable} objects data within the database. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename Lambda $>$ }\\void \hyperlink{namespacedatabase_1_1utils_a974d01a6dbb387b033f627d846630b92}{database\+::utils\+::visit\+\_\+row\+\_\+data} (Lambda const \&handler, Row\+::row\+\_\+data\+\_\+t const \&row\+\_\+data)
+\begin{DoxyCompactList}\small\item\em Updates the \hyperlink{classdatabase_1_1_storable}{Storable} objects data within the database. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Utility functions and objects for databasing. 
+
+\begin{DoxyAuthor}{Author}
+Manuel G. Meraz 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+03/30/2019 
+\end{DoxyDate}

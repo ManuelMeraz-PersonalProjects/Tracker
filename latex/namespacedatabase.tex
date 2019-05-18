@@ -1,0 +1,91 @@
+\hypertarget{namespacedatabase}{}\section{database Namespace Reference}
+\label{namespacedatabase}\index{database@{database}}
+
+
+Organizes all databasing related classes and functions.  
+
+
+\subsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespacedatabase_1_1utils}{utils}
+\begin{DoxyCompactList}\small\item\em Utility functions to insert, retrieve, and manipulate objects in database. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structdatabase_1_1_column_properties}{Column\+Properties}
+\begin{DoxyCompactList}\small\item\em The column properties for a column in a table. A group of these represents a schema. \end{DoxyCompactList}\item 
+struct \hyperlink{structdatabase_1_1_data}{Data}
+\begin{DoxyCompactList}\small\item\em The data to be stored into a database. \end{DoxyCompactList}\item 
+class \hyperlink{classdatabase_1_1_database}{Database}
+\begin{DoxyCompactList}\small\item\em The database singleton class is in charge all database queries. \end{DoxyCompactList}\item 
+struct \hyperlink{structdatabase_1_1_row}{Row}
+\begin{DoxyCompactList}\small\item\em A row of variant data. \end{DoxyCompactList}\item 
+class \hyperlink{classdatabase_1_1_storable}{Storable}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fd}{Data\+Type} \{ \\*
+\hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda8cf125b0e31559ba75a9d9b4f818a554}{Data\+Type\+::\+R\+E\+AL}, 
+\hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda5d5cd46919fa987731fb2edefe0f2a0c}{Data\+Type\+::\+I\+N\+T\+E\+G\+ER}, 
+\hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda61a96ffcb251bb9bf0abf8fec19d0ea8}{Data\+Type\+::\+T\+E\+XT}, 
+\hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda6d67bdfe4ae19f38aff8f363bca42892}{Data\+Type\+::\+N\+U\+L\+L\+\_\+}, 
+\\*
+\hyperlink{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda1649cff06611a6025da3dd511a97fb43}{Data\+Type\+::\+B\+L\+OB}
+ \}\begin{DoxyCompactList}\small\item\em S\+QL datatypes that could be stored into a database. \end{DoxyCompactList}
+\item 
+enum \hyperlink{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5b}{Constraint} \{ \hyperlink{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba5e0276ef8ae59ebb9aae19348ad173d5}{Constraint\+::\+P\+R\+I\+M\+A\+R\+Y\+\_\+\+K\+EY}, 
+\hyperlink{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba88e3e8040c7cd11b9faffdf34372fa2a}{Constraint\+::\+U\+N\+I\+Q\+UE}, 
+\hyperlink{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5baeed1de8e53bda49dda97e42841cfe6c5}{Constraint\+::\+N\+O\+T\+\_\+\+N\+U\+LL}, 
+\hyperlink{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba8c46d8d9d3402788403e2f6911153089}{Constraint\+::\+C\+H\+E\+CK}
+ \}\begin{DoxyCompactList}\small\item\em The S\+QL constraint for column of data when creating a table schema. \end{DoxyCompactList}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Organizes all databasing related classes and functions. 
+
+\subsection{Enumeration Type Documentation}
+\index{database@{database}!Constraint@{Constraint}}
+\index{Constraint@{Constraint}!database@{database}}
+\subsubsection[{\texorpdfstring{Constraint}{Constraint}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf database\+::\+Constraint}\hspace{0.3cm}{\ttfamily [strong]}}\hypertarget{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5b}{}\label{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5b}
+
+
+The S\+QL constraint for column of data when creating a table schema. 
+
+\begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{P\+R\+I\+M\+A\+R\+Y\+\_\+\+K\+EY@{P\+R\+I\+M\+A\+R\+Y\+\_\+\+K\+EY}!database@{database}}\index{database@{database}!P\+R\+I\+M\+A\+R\+Y\+\_\+\+K\+EY@{P\+R\+I\+M\+A\+R\+Y\+\_\+\+K\+EY}}\item[{\em 
+P\+R\+I\+M\+A\+R\+Y\+\_\+\+K\+EY\hypertarget{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba5e0276ef8ae59ebb9aae19348ad173d5}{}\label{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba5e0276ef8ae59ebb9aae19348ad173d5}
+}]\index{U\+N\+I\+Q\+UE@{U\+N\+I\+Q\+UE}!database@{database}}\index{database@{database}!U\+N\+I\+Q\+UE@{U\+N\+I\+Q\+UE}}\item[{\em 
+U\+N\+I\+Q\+UE\hypertarget{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba88e3e8040c7cd11b9faffdf34372fa2a}{}\label{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba88e3e8040c7cd11b9faffdf34372fa2a}
+}]\index{N\+O\+T\+\_\+\+N\+U\+LL@{N\+O\+T\+\_\+\+N\+U\+LL}!database@{database}}\index{database@{database}!N\+O\+T\+\_\+\+N\+U\+LL@{N\+O\+T\+\_\+\+N\+U\+LL}}\item[{\em 
+N\+O\+T\+\_\+\+N\+U\+LL\hypertarget{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5baeed1de8e53bda49dda97e42841cfe6c5}{}\label{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5baeed1de8e53bda49dda97e42841cfe6c5}
+}]\index{C\+H\+E\+CK@{C\+H\+E\+CK}!database@{database}}\index{database@{database}!C\+H\+E\+CK@{C\+H\+E\+CK}}\item[{\em 
+C\+H\+E\+CK\hypertarget{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba8c46d8d9d3402788403e2f6911153089}{}\label{namespacedatabase_a77defe1118948f64f1e32f4b78c04f5ba8c46d8d9d3402788403e2f6911153089}
+}]\end{description}
+\end{Desc}
+\index{database@{database}!Data\+Type@{Data\+Type}}
+\index{Data\+Type@{Data\+Type}!database@{database}}
+\subsubsection[{\texorpdfstring{Data\+Type}{DataType}}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf database\+::\+Data\+Type}\hspace{0.3cm}{\ttfamily [strong]}}\hypertarget{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fd}{}\label{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fd}
+
+
+S\+QL datatypes that could be stored into a database. 
+
+Types with the underscore \+\_\+ suffix were special keywords that could not be defined. \begin{Desc}
+\item[Enumerator]\par
+\begin{description}
+\index{R\+E\+AL@{R\+E\+AL}!database@{database}}\index{database@{database}!R\+E\+AL@{R\+E\+AL}}\item[{\em 
+R\+E\+AL\hypertarget{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda8cf125b0e31559ba75a9d9b4f818a554}{}\label{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda8cf125b0e31559ba75a9d9b4f818a554}
+}]\index{I\+N\+T\+E\+G\+ER@{I\+N\+T\+E\+G\+ER}!database@{database}}\index{database@{database}!I\+N\+T\+E\+G\+ER@{I\+N\+T\+E\+G\+ER}}\item[{\em 
+I\+N\+T\+E\+G\+ER\hypertarget{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda5d5cd46919fa987731fb2edefe0f2a0c}{}\label{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda5d5cd46919fa987731fb2edefe0f2a0c}
+}]\index{T\+E\+XT@{T\+E\+XT}!database@{database}}\index{database@{database}!T\+E\+XT@{T\+E\+XT}}\item[{\em 
+T\+E\+XT\hypertarget{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda61a96ffcb251bb9bf0abf8fec19d0ea8}{}\label{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda61a96ffcb251bb9bf0abf8fec19d0ea8}
+}]\index{N\+U\+L\+L\+\_\+@{N\+U\+L\+L\+\_\+}!database@{database}}\index{database@{database}!N\+U\+L\+L\+\_\+@{N\+U\+L\+L\+\_\+}}\item[{\em 
+N\+U\+L\+L\+\_\+\hypertarget{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda6d67bdfe4ae19f38aff8f363bca42892}{}\label{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda6d67bdfe4ae19f38aff8f363bca42892}
+}]\index{B\+L\+OB@{B\+L\+OB}!database@{database}}\index{database@{database}!B\+L\+OB@{B\+L\+OB}}\item[{\em 
+B\+L\+OB\hypertarget{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda1649cff06611a6025da3dd511a97fb43}{}\label{namespacedatabase_a596cea80c57ec5a9b3b4018f733a43fda1649cff06611a6025da3dd511a97fb43}
+}]\end{description}
+\end{Desc}

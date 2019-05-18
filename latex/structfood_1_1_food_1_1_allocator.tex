@@ -1,0 +1,60 @@
+\hypertarget{structfood_1_1_food_1_1_allocator}{}\section{food\+:\+:Food\+:\+:Allocator Struct Reference}
+\label{structfood_1_1_food_1_1_allocator}\index{food\+::\+Food\+::\+Allocator@{food\+::\+Food\+::\+Allocator}}
+
+
+Custom allocator that allows database utils to own a vector of storable objects with private constructors.  
+
+
+
+
+{\ttfamily \#include $<$Food.\+hpp$>$}
+
+
+
+Inheritance diagram for food\+:\+:Food\+:\+:Allocator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{structfood_1_1_food_1_1_allocator__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for food\+:\+:Food\+:\+:Allocator\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{structfood_1_1_food_1_1_allocator__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \hyperlink{structfood_1_1_food_1_1_allocator_1_1rebind}{rebind}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$class Food , typename... Args$>$ }\\void \hyperlink{structfood_1_1_food_1_1_allocator_a1e2f18e58bb04189eaf7b56dccca818c}{construct} (\hyperlink{classfood_1_1_food}{Food} $\ast$buffer, Args \&\&...args)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Custom allocator that allows database utils to own a vector of storable objects with private constructors. 
+
+\subsection{Member Function Documentation}
+\index{food\+::\+Food\+::\+Allocator@{food\+::\+Food\+::\+Allocator}!construct@{construct}}
+\index{construct@{construct}!food\+::\+Food\+::\+Allocator@{food\+::\+Food\+::\+Allocator}}
+\subsubsection[{\texorpdfstring{construct(\+Food $\ast$buffer, Args \&\&...\+args)}{construct(Food *buffer, Args &&...args)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$class Food , typename... Args$>$ void food\+::\+Food\+::\+Allocator\+::construct (
+\begin{DoxyParamCaption}
+\item[{{\bf Food} $\ast$}]{buffer, }
+\item[{Args \&\&...}]{args}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\hypertarget{structfood_1_1_food_1_1_allocator_a1e2f18e58bb04189eaf7b56dccca818c}{}\label{structfood_1_1_food_1_1_allocator_a1e2f18e58bb04189eaf7b56dccca818c}
+In place new construction of storable by memory pool that is given
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/travis/build/\+Manuel\+Meraz/\+Tracker/include/food/\hyperlink{_food_8hpp}{Food.\+hpp}\end{DoxyCompactItemize}

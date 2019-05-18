@@ -1,0 +1,245 @@
+\hypertarget{classfood_1_1_macronutrients}{}\section{food\+:\+:Macronutrients Class Reference}
+\label{classfood_1_1_macronutrients}\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+
+
+The macronutrients class stores all macronutrient data to be stored in a \hyperlink{classfood_1_1_food}{Food} object.  
+
+
+
+
+{\ttfamily \#include $<$Macronutrients.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classfood_1_1_macronutrients_a41f7d2c1979da282b67824493d0905a6}{Macronutrients} ()
+\item 
+\hyperlink{classfood_1_1_macronutrients_afcb1c5e5380fbf25d1d0f9d3de17b335}{Macronutrients} (\hyperlink{structfood_1_1_fat}{Fat} const \&\hyperlink{classfood_1_1_macronutrients_aaf5c0f28fd6e7883c1536b44a415bb37}{fat}, \hyperlink{structfood_1_1_carbohydrate}{Carbohydrate} const \&carb, \hyperlink{structfood_1_1_protein}{Protein} const \&\hyperlink{classfood_1_1_macronutrients_a15a4120772455818fd7c088b99a2fae4}{protein})
+\begin{DoxyCompactList}\small\item\em The classes passed in to this class are strongly typed classes to help illustrate the data being passed in. \end{DoxyCompactList}\item 
+\hyperlink{classfood_1_1_macronutrients_adb6aeeac945e8dbd94734e967a6efc31}{Macronutrients} (\hyperlink{classfood_1_1_macronutrients}{Macronutrients} const \&macros)=default
+\begin{DoxyCompactList}\small\item\em Copy constructor for lvalues reference. \end{DoxyCompactList}\item 
+\hyperlink{classfood_1_1_macronutrients_af206f675652b58baa694078f9ad6ac27}{Macronutrients} (\hyperlink{classfood_1_1_macronutrients}{Macronutrients} \&\&macros) noexcept=default
+\begin{DoxyCompactList}\small\item\em Move constructor for rvalue reference. \end{DoxyCompactList}\item 
+\hyperlink{classfood_1_1_macronutrients}{Macronutrients} \& \hyperlink{classfood_1_1_macronutrients_a1da73b21a418ab85e806fdd83ec16316}{operator=} (\hyperlink{classfood_1_1_macronutrients}{Macronutrients} const \&macros)=default
+\item 
+\hyperlink{classfood_1_1_macronutrients}{Macronutrients} \& \hyperlink{classfood_1_1_macronutrients_a7c38fa08bff5787139cac7561cd902fd}{operator=} (\hyperlink{classfood_1_1_macronutrients}{Macronutrients} \&\&macros) noexcept=default
+\begin{DoxyCompactList}\small\item\em Move assignment operator. \end{DoxyCompactList}\item 
+auto \hyperlink{classfood_1_1_macronutrients_aaf5c0f28fd6e7883c1536b44a415bb37}{fat} () const -\/$>$ double
+\item 
+void \hyperlink{classfood_1_1_macronutrients_ab8c80226ba0243279d1c9852de4af504}{set\+\_\+fat} (double \hyperlink{classfood_1_1_macronutrients_aaf5c0f28fd6e7883c1536b44a415bb37}{fat})
+\item 
+auto \hyperlink{classfood_1_1_macronutrients_a40c64d630c1d964e858afe34ab313b8d}{carbohydrate} () const -\/$>$ double
+\item 
+void \hyperlink{classfood_1_1_macronutrients_a6c91ea66ab1bf9a67dfa63e46a8faf15}{set\+\_\+carbohydrate} (double \hyperlink{classfood_1_1_macronutrients_a40c64d630c1d964e858afe34ab313b8d}{carbohydrate})
+\item 
+auto \hyperlink{classfood_1_1_macronutrients_a623291db656bdfc2adc4f5e87d60e94a}{fiber} () const -\/$>$ double
+\item 
+void \hyperlink{classfood_1_1_macronutrients_a0a4c0bf9c8a75b985cab2770bb697169}{set\+\_\+fiber} (double \hyperlink{classfood_1_1_macronutrients_a623291db656bdfc2adc4f5e87d60e94a}{fiber})
+\item 
+auto \hyperlink{classfood_1_1_macronutrients_a15a4120772455818fd7c088b99a2fae4}{protein} () const -\/$>$ double
+\item 
+void \hyperlink{classfood_1_1_macronutrients_ae6c68d50351573c91105d59a23cab169}{set\+\_\+protein} (double \hyperlink{classfood_1_1_macronutrients_a15a4120772455818fd7c088b99a2fae4}{protein})
+\item 
+\hyperlink{classfood_1_1_macronutrients_aadc0948970a2105fcf53dbcc731a0697}{$\sim$\+Macronutrients} ()=default
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+The macronutrients class stores all macronutrient data to be stored in a \hyperlink{classfood_1_1_food}{Food} object. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!Macronutrients@{Macronutrients}}
+\index{Macronutrients@{Macronutrients}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{Macronutrients()}{Macronutrients()}}]{\setlength{\rightskip}{0pt plus 5cm}food\+::\+Macronutrients\+::\+Macronutrients (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classfood_1_1_macronutrients_a41f7d2c1979da282b67824493d0905a6}{}\label{classfood_1_1_macronutrients_a41f7d2c1979da282b67824493d0905a6}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!Macronutrients@{Macronutrients}}
+\index{Macronutrients@{Macronutrients}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{Macronutrients(\+Fat const \&fat, Carbohydrate const \&carb, Protein const \&protein)}{Macronutrients(Fat const &fat, Carbohydrate const &carb, Protein const &protein)}}]{\setlength{\rightskip}{0pt plus 5cm}food\+::\+Macronutrients\+::\+Macronutrients (
+\begin{DoxyParamCaption}
+\item[{{\bf Fat} const \&}]{fat, }
+\item[{{\bf Carbohydrate} const \&}]{carb, }
+\item[{{\bf Protein} const \&}]{protein}
+\end{DoxyParamCaption}
+)}\hypertarget{classfood_1_1_macronutrients_afcb1c5e5380fbf25d1d0f9d3de17b335}{}\label{classfood_1_1_macronutrients_afcb1c5e5380fbf25d1d0f9d3de17b335}
+
+
+The classes passed in to this class are strongly typed classes to help illustrate the data being passed in. 
+
+The classes passed in to this class are strongly typed classes to help illustrate the data being passed in. All data passed in is in gramss per 100g of the food
+
+
+\begin{DoxyParams}{Parameters}
+{\em fat} & The fat content of the food \\
+\hline
+{\em carb} & The carbohydrate content of the food. Pass by value. \\
+\hline
+{\em protein} & The protein content of the food \\
+\hline
+\end{DoxyParams}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!Macronutrients@{Macronutrients}}
+\index{Macronutrients@{Macronutrients}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{Macronutrients(\+Macronutrients const \&macros)=default}{Macronutrients(Macronutrients const &macros)=default}}]{\setlength{\rightskip}{0pt plus 5cm}food\+::\+Macronutrients\+::\+Macronutrients (
+\begin{DoxyParamCaption}
+\item[{{\bf Macronutrients} const \&}]{macros}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}}\hypertarget{classfood_1_1_macronutrients_adb6aeeac945e8dbd94734e967a6efc31}{}\label{classfood_1_1_macronutrients_adb6aeeac945e8dbd94734e967a6efc31}
+
+
+Copy constructor for lvalues reference. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em macros} & The macros to be copied \\
+\hline
+\end{DoxyParams}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!Macronutrients@{Macronutrients}}
+\index{Macronutrients@{Macronutrients}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{Macronutrients(\+Macronutrients \&\&macros) noexcept=default}{Macronutrients(Macronutrients &&macros) noexcept=default}}]{\setlength{\rightskip}{0pt plus 5cm}food\+::\+Macronutrients\+::\+Macronutrients (
+\begin{DoxyParamCaption}
+\item[{{\bf Macronutrients} \&\&}]{macros}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}\hypertarget{classfood_1_1_macronutrients_af206f675652b58baa694078f9ad6ac27}{}\label{classfood_1_1_macronutrients_af206f675652b58baa694078f9ad6ac27}
+
+
+Move constructor for rvalue reference. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em macros} & The macros to be moved \\
+\hline
+\end{DoxyParams}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!````~Macronutrients@{$\sim$\+Macronutrients}}
+\index{````~Macronutrients@{$\sim$\+Macronutrients}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{$\sim$\+Macronutrients()=default}{~Macronutrients()=default}}]{\setlength{\rightskip}{0pt plus 5cm}food\+::\+Macronutrients\+::$\sim$\+Macronutrients (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}}\hypertarget{classfood_1_1_macronutrients_aadc0948970a2105fcf53dbcc731a0697}{}\label{classfood_1_1_macronutrients_aadc0948970a2105fcf53dbcc731a0697}
+
+
+\subsection{Member Function Documentation}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!carbohydrate@{carbohydrate}}
+\index{carbohydrate@{carbohydrate}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{carbohydrate() const -\/$>$ double}{carbohydrate() const -> double}}]{\setlength{\rightskip}{0pt plus 5cm}auto food\+::\+Macronutrients\+::carbohydrate (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$ double}\hypertarget{classfood_1_1_macronutrients_a40c64d630c1d964e858afe34ab313b8d}{}\label{classfood_1_1_macronutrients_a40c64d630c1d964e858afe34ab313b8d}
+\begin{DoxyReturn}{Returns}
+The quantity of carbohydrate 
+\end{DoxyReturn}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!fat@{fat}}
+\index{fat@{fat}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{fat() const -\/$>$ double}{fat() const -> double}}]{\setlength{\rightskip}{0pt plus 5cm}auto food\+::\+Macronutrients\+::fat (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$ double}\hypertarget{classfood_1_1_macronutrients_aaf5c0f28fd6e7883c1536b44a415bb37}{}\label{classfood_1_1_macronutrients_aaf5c0f28fd6e7883c1536b44a415bb37}
+\begin{DoxyReturn}{Returns}
+The quantity of fat 
+\end{DoxyReturn}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!fiber@{fiber}}
+\index{fiber@{fiber}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{fiber() const -\/$>$ double}{fiber() const -> double}}]{\setlength{\rightskip}{0pt plus 5cm}auto food\+::\+Macronutrients\+::fiber (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$ double}\hypertarget{classfood_1_1_macronutrients_a623291db656bdfc2adc4f5e87d60e94a}{}\label{classfood_1_1_macronutrients_a623291db656bdfc2adc4f5e87d60e94a}
+\begin{DoxyReturn}{Returns}
+The quantity of fiber 
+\end{DoxyReturn}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!operator=@{operator=}}
+\index{operator=@{operator=}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{operator=(\+Macronutrients const \&macros)=default}{operator=(Macronutrients const &macros)=default}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Macronutrients}\& food\+::\+Macronutrients\+::operator= (
+\begin{DoxyParamCaption}
+\item[{{\bf Macronutrients} const \&}]{macros}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}}\hypertarget{classfood_1_1_macronutrients_a1da73b21a418ab85e806fdd83ec16316}{}\label{classfood_1_1_macronutrients_a1da73b21a418ab85e806fdd83ec16316}
+Copy assignment operator 
+\begin{DoxyParams}{Parameters}
+{\em macros} & The macros to be copied \\
+\hline
+\end{DoxyParams}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!operator=@{operator=}}
+\index{operator=@{operator=}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{operator=(\+Macronutrients \&\&macros) noexcept=default}{operator=(Macronutrients &&macros) noexcept=default}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Macronutrients}\& food\+::\+Macronutrients\+::operator= (
+\begin{DoxyParamCaption}
+\item[{{\bf Macronutrients} \&\&}]{macros}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [default]}, {\ttfamily [noexcept]}}\hypertarget{classfood_1_1_macronutrients_a7c38fa08bff5787139cac7561cd902fd}{}\label{classfood_1_1_macronutrients_a7c38fa08bff5787139cac7561cd902fd}
+
+
+Move assignment operator. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em macros} & The macros to be moved \\
+\hline
+\end{DoxyParams}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!protein@{protein}}
+\index{protein@{protein}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{protein() const -\/$>$ double}{protein() const -> double}}]{\setlength{\rightskip}{0pt plus 5cm}auto food\+::\+Macronutrients\+::protein (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const -\/$>$ double}\hypertarget{classfood_1_1_macronutrients_a15a4120772455818fd7c088b99a2fae4}{}\label{classfood_1_1_macronutrients_a15a4120772455818fd7c088b99a2fae4}
+\begin{DoxyReturn}{Returns}
+The quantity of protein 
+\end{DoxyReturn}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!set\+\_\+carbohydrate@{set\+\_\+carbohydrate}}
+\index{set\+\_\+carbohydrate@{set\+\_\+carbohydrate}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{set\+\_\+carbohydrate(double carbohydrate)}{set_carbohydrate(double carbohydrate)}}]{\setlength{\rightskip}{0pt plus 5cm}void food\+::\+Macronutrients\+::set\+\_\+carbohydrate (
+\begin{DoxyParamCaption}
+\item[{double}]{carbohydrate}
+\end{DoxyParamCaption}
+)}\hypertarget{classfood_1_1_macronutrients_a6c91ea66ab1bf9a67dfa63e46a8faf15}{}\label{classfood_1_1_macronutrients_a6c91ea66ab1bf9a67dfa63e46a8faf15}
+
+\begin{DoxyParams}{Parameters}
+{\em A} & new quantity of carbohydrate in grams per 100g of food \\
+\hline
+\end{DoxyParams}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!set\+\_\+fat@{set\+\_\+fat}}
+\index{set\+\_\+fat@{set\+\_\+fat}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{set\+\_\+fat(double fat)}{set_fat(double fat)}}]{\setlength{\rightskip}{0pt plus 5cm}void food\+::\+Macronutrients\+::set\+\_\+fat (
+\begin{DoxyParamCaption}
+\item[{double}]{fat}
+\end{DoxyParamCaption}
+)}\hypertarget{classfood_1_1_macronutrients_ab8c80226ba0243279d1c9852de4af504}{}\label{classfood_1_1_macronutrients_ab8c80226ba0243279d1c9852de4af504}
+
+\begin{DoxyParams}{Parameters}
+{\em A} & new quantity of fat in grams per 100g of food \\
+\hline
+\end{DoxyParams}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!set\+\_\+fiber@{set\+\_\+fiber}}
+\index{set\+\_\+fiber@{set\+\_\+fiber}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{set\+\_\+fiber(double fiber)}{set_fiber(double fiber)}}]{\setlength{\rightskip}{0pt plus 5cm}void food\+::\+Macronutrients\+::set\+\_\+fiber (
+\begin{DoxyParamCaption}
+\item[{double}]{fiber}
+\end{DoxyParamCaption}
+)}\hypertarget{classfood_1_1_macronutrients_a0a4c0bf9c8a75b985cab2770bb697169}{}\label{classfood_1_1_macronutrients_a0a4c0bf9c8a75b985cab2770bb697169}
+
+\begin{DoxyParams}{Parameters}
+{\em A} & new quantity of fiber in grams per 100g of food \\
+\hline
+\end{DoxyParams}
+\index{food\+::\+Macronutrients@{food\+::\+Macronutrients}!set\+\_\+protein@{set\+\_\+protein}}
+\index{set\+\_\+protein@{set\+\_\+protein}!food\+::\+Macronutrients@{food\+::\+Macronutrients}}
+\subsubsection[{\texorpdfstring{set\+\_\+protein(double protein)}{set_protein(double protein)}}]{\setlength{\rightskip}{0pt plus 5cm}void food\+::\+Macronutrients\+::set\+\_\+protein (
+\begin{DoxyParamCaption}
+\item[{double}]{protein}
+\end{DoxyParamCaption}
+)}\hypertarget{classfood_1_1_macronutrients_ae6c68d50351573c91105d59a23cab169}{}\label{classfood_1_1_macronutrients_ae6c68d50351573c91105d59a23cab169}
+
+\begin{DoxyParams}{Parameters}
+{\em A} & new quantity of protein in grams per 100g of food \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/travis/build/\+Manuel\+Meraz/\+Tracker/include/food/\hyperlink{_macronutrients_8hpp}{Macronutrients.\+hpp}\item 
+/home/travis/build/\+Manuel\+Meraz/\+Tracker/src/food/\hyperlink{_macronutrients_8cpp}{Macronutrients.\+cpp}\end{DoxyCompactItemize}
