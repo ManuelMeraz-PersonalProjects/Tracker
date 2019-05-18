@@ -19,3 +19,6 @@ install:
 
 script:
   - ./tools/build.py -pr clang60-debug
+
+after_success:
+- $TRAVIS_BUILD_DIR/tools/generateDocumentationAndDeploy.sh
