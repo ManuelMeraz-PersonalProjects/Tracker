@@ -34,7 +34,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_dart_configuration_8tcl.html"
+"_data_8hpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

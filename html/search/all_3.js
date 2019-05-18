@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['dartconfiguration_2etcl',['DartConfiguration.tcl',['../_dart_configuration_8tcl.html',1,'']]],
   ['data',['Data',['../structdatabase_1_1_data.html',1,'database']]],
   ['data_2ehpp',['Data.hpp',['../_data_8hpp.html',1,'']]],
   ['data_5ftype',['data_type',['../structdatabase_1_1_column_properties.html#a34af986257f79a7b2c9ad2e01013f99e',1,'database::ColumnProperties']]],
