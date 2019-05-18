@@ -1,4 +1,5 @@
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
+#include "database/utils.hpp"
 
 TEST(TestSuite, Test)
 {
