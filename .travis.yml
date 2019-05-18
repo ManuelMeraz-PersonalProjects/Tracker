@@ -6,7 +6,7 @@ dist: xenial
 env:
   global:
     - GH_REPO_NAME: Tracker
-    - DOXYFILE: $TRAVIS_BUILD_DIR/docs/doxygen/Doxyfile.in
+    - DOXYFILE: $TRAVIS_BUILD_DIR/docs/doxygen/Doxyfile.travis
     - GH_REPO_REF: github.com/manuelmeraz/Tracker.git
 
 before_install:
@@ -27,6 +27,3 @@ install:
 script:
   - ./tools/build.py -pr clang60-debug
   - cd build && make test
-
-after_success:
-- $TRAVIS_BUILD_DIR/tools/generateDocumentationAndDeploy.sh

@@ -14,7 +14,7 @@ git config user.email "travis@travis-ci.org"
 
 rm -rf *
 
-echo "" > .nojekyll
+echo "" >.nojekyll
 
 echo 'Generating Doxygen code documentation...'
 
@@ -22,17 +22,31 @@ doxygen $DOXYFILE 2>&1 | tee doxygen.log
 
 if [ -d "html" ] && [ -f "html/index.html" ]; then
 
-    echo 'Uploading documentation to the gh-pages branch...'
+  cat >index.html <<'endmsg'
+<!DOCTYPE HTML>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="refresh" content="1;url=html/index.html">
+        <title>Page Redirection</title>
+    </head>
+    <body>
+        If you are not redirected automatically,
+        follow the <a href="html/index.html">link to the documentation</a>
+    </body>
+</html>
+endmsg
 
-    git add --all
+  echo 'Uploading documentation to the gh-pages branch...'
 
-    git commit -m "Deploy code docs to GitHub Pages Travis build: ${TRAVIS_BUILD_NUMBER}" -m "Commit: ${TRAVIS_COMMIT}"
+  git add --all
 
-   
-    git push --force "https://${GH_REPO_TOKEN}@github.com/${TRAVIS_REPO_SLUG}"
+  git commit -m "Deploy code docs to GitHub Pages Travis build: ${TRAVIS_BUILD_NUMBER}" -m "Commit: ${TRAVIS_COMMIT}"
+
+  git push --force "https://${GH_REPO_TOKEN}@github.com/${TRAVIS_REPO_SLUG}"
 else
-    echo '' >&2
-    echo 'Warning: No documentation (html) files have been found!' >&2
-    echo 'Warning: Not going to push the documentation to GitHub!' >&2
-    exit 1
+  echo '' >&2
+  echo 'Warning: No documentation (html) files have been found!' >&2
+  echo 'Warning: Not going to push the documentation to GitHub!' >&2
+  exit 1
 fi
