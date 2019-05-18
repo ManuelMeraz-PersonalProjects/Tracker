@@ -1,7 +1,6 @@
 var NAVTREE =
 [
   [ "tracker", "index.html", [
-    [ "Contains all configuration files and setup files for Cmake", "md__home_travis_build_ManuelMeraz_Tracker_cmake_README.html", null ],
     [ "Tracker", "md__home_travis_build_ManuelMeraz_Tracker_README.html", null ],
     [ "Namespaces", null, [
       [ "Namespace List", "namespaces.html", "namespaces" ],

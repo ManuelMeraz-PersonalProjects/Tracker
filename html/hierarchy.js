@@ -15,8 +15,5 @@ var hierarchy =
     [ "database::Row", "structdatabase_1_1_row.html", null ],
     [ "database::Storable", "classdatabase_1_1_storable.html", [
       [ "food::Food", "classfood_1_1_food.html", null ]
-    ] ],
-    [ "ConanFile", null, [
-      [ "conanfile.SociTestConan", "classconanfile_1_1_soci_test_conan.html", null ]
     ] ]
 ];

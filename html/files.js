@@ -5,8 +5,5 @@ var files =
     [ "src", "dir_68267d1309a1af8e8297ef4c3efbcdba.html", "dir_68267d1309a1af8e8297ef4c3efbcdba" ],
     [ "src", "dir_4e7c8c4fc0d923782da8a23d70a9725b.html", "dir_4e7c8c4fc0d923782da8a23d70a9725b" ],
     [ "tests", "dir_59425e443f801f1f2fd8bbe4959a3ccf.html", "dir_59425e443f801f1f2fd8bbe4959a3ccf" ],
-    [ "DartConfiguration.tcl", "_dart_configuration_8tcl.html", null ],
-    [ "conanfile.py", "conanfile_8py.html", [
-      [ "SociTestConan", "classconanfile_1_1_soci_test_conan.html", "classconanfile_1_1_soci_test_conan" ]
-    ] ]
+    [ "DartConfiguration.tcl", "_dart_configuration_8tcl.html", null ]
 ];
