@@ -877,6 +877,7 @@ EXCLUDE                = $(TRAVIS_BUILD_DIR)/tracker_venv/ \
                          $(TRAVIS_BUILD_DIR)/tools/ \
                          $(TRAVIS_BUILD_DIR)/build/ \
                          $(TRAVIS_BUILD_DIR)/cmake/ \
+                         $(TRAVIS_BUILD_DIR)/tests/ \
                          $(TRAVIS_BUILD_DIR)/conanfile.py \
  
 
