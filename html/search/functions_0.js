@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['apply_5ffixes',['apply_fixes',['../namespacerun-clang-tidy.html#aae1fd407c48d69133cc1122940aa86ac',1,'run-clang-tidy']]]
+  ['binary_5ffind',['binary_find',['../namespacedatabase_1_1utils.html#a0dd569af49c9913a5090b71c86690fe5',1,'database::utils']]],
+  ['build',['build',['../classconanfile_1_1_soci_test_conan.html#af3b03984b8ebb78ebe74bd950c1bf4c0',1,'conanfile::SociTestConan']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['update',['update',['../namespacedatabase_1_1utils.html#ad7fc4b4d352c7b947fc48ac8c1d666a6',1,'database::utils']]]
+  ['visit_5frow_5fdata',['visit_row_data',['../namespacedatabase_1_1utils.html#a974d01a6dbb387b033f627d846630b92',1,'database::utils']]]
 ];

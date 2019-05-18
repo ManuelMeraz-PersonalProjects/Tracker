@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['help',['help',['../namespacebuild.html#a37faf92853bd92811229cdc279a452ee',1,'build.help()'],['../namespaceformat__code.html#abb33d640082c99fb15f9b734df4b4e7f',1,'format_code.help()']]]
+  ['options',['options',['../classconanfile_1_1_soci_test_conan.html#ab781692f9ac51676c406468e630c2c94',1,'conanfile::SociTestConan']]]
 ];

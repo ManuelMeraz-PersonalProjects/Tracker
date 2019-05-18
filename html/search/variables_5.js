@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['generators',['generators',['../classconanfile_1_1_soci_test_conan.html#a933f9dafa4a03298388b2657918b3a2d',1,'conanfile::SociTestConan']]]
+  ['name',['name',['../structdatabase_1_1_column_properties.html#a69a1e887784799661e9345b0f4d88256',1,'database::ColumnProperties']]]
 ];

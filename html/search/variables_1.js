@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['build_5fdir',['build_dir',['../namespaceformat__code.html#a19bf4f28a88a3baab38d399765075e36',1,'format_code']]],
-  ['build_5fpath',['build_path',['../namespacebuild.html#a4771056e413a68ffa01e4a3549c8981c',1,'build']]]
+  ['data_5ftype',['data_type',['../structdatabase_1_1_column_properties.html#a34af986257f79a7b2c9ad2e01013f99e',1,'database::ColumnProperties']]],
+  ['default_5foptions',['default_options',['../classconanfile_1_1_soci_test_conan.html#a434807738e566e07a1159062d69ed9da',1,'conanfile::SociTestConan']]]
 ];

@@ -10,7 +10,6 @@ var searchData=
   ['database_2ehpp',['Database.hpp',['../_database_8hpp.html',1,'']]],
   ['datatype',['DataType',['../namespacedatabase.html#a596cea80c57ec5a9b3b4018f733a43fd',1,'database']]],
   ['dec',['DEC',['../_c_make_c_x_x_compiler_id_8cpp.html#ad1280362da42492bbc11aa78cbf776ad',1,'CMakeCXXCompilerId.cpp']]],
-  ['default',['default',['../namespacebuild.html#a66bfdb2cf96ab264fd9961f440b210f7',1,'build.default()'],['../namespaceformat__code.html#a97023d650e97528eaf4498d8e9dd74dc',1,'format_code.default()']]],
   ['default_5foptions',['default_options',['../classconanfile_1_1_soci_test_conan.html#a434807738e566e07a1159062d69ed9da',1,'conanfile::SociTestConan']]],
   ['delete_5fstorable',['delete_storable',['../namespacedatabase_1_1utils.html#ac56bf4b6fc7b1481c84e42e6bb6db57b',1,'database::utils']]],
   ['drop_5ftable',['drop_table',['../namespacedatabase_1_1utils.html#abfc70aa38436efb787b6c9f62941856d',1,'database::utils']]],

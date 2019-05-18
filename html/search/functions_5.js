@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['fat',['Fat',['../structfood_1_1_fat.html#ac3a105ffc2e83809f6f074d8d7ad7484',1,'food::Fat::Fat()'],['../structfood_1_1_fat.html#af32185aa0bb436f1dfdafe8e6f95d463',1,'food::Fat::Fat(double quantity)'],['../classfood_1_1_macronutrients.html#aaf5c0f28fd6e7883c1536b44a415bb37',1,'food::Macronutrients::fat()']]],
-  ['fiber',['Fiber',['../structfood_1_1_fiber.html#a8db0bd1ded433301bb0a26457bc427f3',1,'food::Fiber::Fiber()'],['../structfood_1_1_fiber.html#a0b44bfb41f5e63369f42e5b8008d9d4e',1,'food::Fiber::Fiber(double quantity)'],['../classfood_1_1_macronutrients.html#a623291db656bdfc2adc4f5e87d60e94a',1,'food::Macronutrients::fiber()']]],
-  ['find_5fcompilation_5fdatabase',['find_compilation_database',['../namespacerun-clang-tidy.html#a6ac4a700cc424f234d870957b05abb6e',1,'run-clang-tidy']]],
-  ['food',['Food',['../classfood_1_1_food.html#ad3ba5861593fb753085ba502ca5d844a',1,'food::Food']]]
+  ['get_5fconnection',['get_connection',['../classdatabase_1_1_database.html#a9de5cff42e2434006824d5f98a1e7492',1,'database::Database']]],
+  ['get_5fdata',['get_data',['../classdatabase_1_1_storable.html#afb1b1572e1147943227794f8abc0d0b0',1,'database::Storable::get_data()'],['../classfood_1_1_food.html#ac3aefc08b78fa521b4317348463e5a5f',1,'food::Food::get_data()']]],
+  ['get_5fnew_5fid',['get_new_id',['../namespacedatabase_1_1utils.html#acab03452308a27ee3e8e5f30842d8ca8',1,'database::utils']]]
 ];

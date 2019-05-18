@@ -1,5 +1,5 @@
 warning: ignoring unsupported tag `TOC_INCLUDE_HEADINGS   =' at line 313, file /home/travis/build/ManuelMeraz/Tracker/docs/doxygen/Doxyfile.travis
-warning: ignoring unsupported tag `PLANTUML_CFG_FILE      =' at line 2429, file /home/travis/build/ManuelMeraz/Tracker/docs/doxygen/Doxyfile.travis
+warning: ignoring unsupported tag `PLANTUML_CFG_FILE      =' at line 2432, file /home/travis/build/ManuelMeraz/Tracker/docs/doxygen/Doxyfile.travis
 /home/travis/build/ManuelMeraz/Tracker/include/food/Macronutrients.hpp:2: warning: the name `macronutrients.hpp' supplied as the second argument in the \file statement is not an input file
 /home/travis/build/ManuelMeraz/Tracker/include/database/Database.hpp:18: warning: documented symbol `void soci::register_factory_sqlite3' was not declared or defined.
 /home/travis/build/ManuelMeraz/Tracker/README.md:3: warning: Unexpected html tag <img> found within <a href=...> context
