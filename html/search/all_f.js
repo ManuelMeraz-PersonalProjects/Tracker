@@ -1,16 +1,10 @@
 var searchData=
 [
-  ['schema',['schema',['../structdatabase_1_1_data.html#ae674b19f66a2cdfafa134304121ebbe2',1,'database::Data']]],
-  ['set_5fcarbohydrate',['set_carbohydrate',['../classfood_1_1_macronutrients.html#a6c91ea66ab1bf9a67dfa63e46a8faf15',1,'food::Macronutrients']]],
-  ['set_5fdata',['set_data',['../classdatabase_1_1_storable.html#ae554f871860368677cdb3ba5a490c533',1,'database::Storable']]],
-  ['set_5ffat',['set_fat',['../classfood_1_1_macronutrients.html#ab8c80226ba0243279d1c9852de4af504',1,'food::Macronutrients']]],
-  ['set_5ffiber',['set_fiber',['../classfood_1_1_macronutrients.html#a0a4c0bf9c8a75b985cab2770bb697169',1,'food::Macronutrients']]],
-  ['set_5fmacronutrients',['set_macronutrients',['../classfood_1_1_food.html#a0df55be446b9dae80026bec62b2c1c5c',1,'food::Food']]],
-  ['set_5fname',['set_name',['../classdatabase_1_1_storable.html#afa3a3acb030d9e33064c2f6e34f8bbcf',1,'database::Storable::set_name()'],['../classfood_1_1_food.html#ac717bda45254fd555b4de00004423041',1,'food::Food::set_name()']]],
-  ['set_5fprotein',['set_protein',['../classfood_1_1_macronutrients.html#ae6c68d50351573c91105d59a23cab169',1,'food::Macronutrients']]],
-  ['storable',['Storable',['../classdatabase_1_1_storable.html',1,'database']]],
-  ['storable_2ehpp',['Storable.hpp',['../_storable_8hpp.html',1,'']]],
-  ['str',['str',['../classdatabase_1_1_storable.html#a3502dee26cdad8b8e3b0bf1ebc619dc4',1,'database::Storable::str()'],['../classfood_1_1_food.html#a2ac3b444a1ef09dbcec63370f2c8f554',1,'food::Food::str()']]],
-  ['stringify',['STRINGIFY',['../_c_make_c_x_x_compiler_id_8cpp.html#a43e1cad902b6477bec893cb6430bd6c8',1,'CMakeCXXCompilerId.cpp']]],
-  ['stringify_5fhelper',['STRINGIFY_HELPER',['../_c_make_c_x_x_compiler_id_8cpp.html#a2ae9b72bb13abaabfcf2ee0ba7d3fa1d',1,'CMakeCXXCompilerId.cpp']]]
+  ['tracker',['Tracker',['../md__home_travis_build_ManuelMeraz_Tracker_README.html',1,'']]],
+  ['table_5fexists',['table_exists',['../namespacedatabase_1_1utils.html#a3c5ce09d7fc593c4395d40fe5c1a0630',1,'database::utils']]],
+  ['table_5fname',['table_name',['../structdatabase_1_1_data.html#a1a24b475b6698376a166ff80ef0a8fe8',1,'database::Data']]],
+  ['test',['TEST',['../test-food_8cpp.html#a954e68bbfbfc207bc80d6ae782a35f28',1,'test-food.cpp']]],
+  ['test_2dfood_2ecpp',['test-food.cpp',['../test-food_8cpp.html',1,'']]],
+  ['text',['TEXT',['../namespacedatabase.html#a596cea80c57ec5a9b3b4018f733a43fda61a96ffcb251bb9bf0abf8fec19d0ea8',1,'database']]],
+  ['type_5fto_5fstring',['type_to_string',['../namespacedatabase_1_1utils.html#acb264e8826f50ae828a9c89c2906b049',1,'database::utils']]]
 ];

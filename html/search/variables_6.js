@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['row_5fdata',['row_data',['../structdatabase_1_1_row.html#ae49f50c19ad3f4ec793c63b18623f1d7',1,'database::Row']]],
-  ['rows',['rows',['../structdatabase_1_1_data.html#ae45d84ed5b3ce80a7683df0c3f40d518',1,'database::Data']]]
+  ['table_5fname',['table_name',['../structdatabase_1_1_data.html#a1a24b475b6698376a166ff80ef0a8fe8',1,'database::Data']]]
 ];

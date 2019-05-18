@@ -9,7 +9,6 @@ var searchData=
   ['database_2ecpp',['Database.cpp',['../_database_8cpp.html',1,'']]],
   ['database_2ehpp',['Database.hpp',['../_database_8hpp.html',1,'']]],
   ['datatype',['DataType',['../namespacedatabase.html#a596cea80c57ec5a9b3b4018f733a43fd',1,'database']]],
-  ['dec',['DEC',['../_c_make_c_x_x_compiler_id_8cpp.html#ad1280362da42492bbc11aa78cbf776ad',1,'CMakeCXXCompilerId.cpp']]],
   ['delete_5fstorable',['delete_storable',['../namespacedatabase_1_1utils.html#ac56bf4b6fc7b1481c84e42e6bb6db57b',1,'database::utils']]],
   ['drop_5ftable',['drop_table',['../namespacedatabase_1_1utils.html#abfc70aa38436efb787b6c9f62941856d',1,'database::utils']]],
   ['utils',['utils',['../namespacedatabase_1_1utils.html',1,'database']]]

@@ -26,9 +26,7 @@ var NAVTREE =
       [ "File List", "files.html", "files" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ],
-        [ "Macros", "globals_defs.html", null ]
+        [ "Functions", "globals_func.html", null ]
       ] ]
     ] ]
   ] ]
@@ -36,7 +34,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_c_make_c_x_x_compiler_id_8cpp.html"
+"_dart_configuration_8tcl.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

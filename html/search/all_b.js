@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['operator_3d',['operator=',['../classdatabase_1_1_database.html#afb30d33ce289a82f9f41ac59df63ec68',1,'database::Database::operator=(const Database &amp;)=delete'],['../classdatabase_1_1_database.html#a6652af8e150bdc26c786869efde743c0',1,'database::Database::operator=(Database &amp;&amp;)=delete'],['../classfood_1_1_food.html#ae0ef42fe8425b35b39b1ea88e2dea27a',1,'food::Food::operator=(Food const &amp;f)=default'],['../classfood_1_1_food.html#a76b0691a40c6b412e04001af5a9af8e3',1,'food::Food::operator=(Food &amp;&amp;f)=default'],['../classfood_1_1_macronutrients.html#a1da73b21a418ab85e806fdd83ec16316',1,'food::Macronutrients::operator=(Macronutrients const &amp;macros)=default'],['../classfood_1_1_macronutrients.html#a7c38fa08bff5787139cac7561cd902fd',1,'food::Macronutrients::operator=(Macronutrients &amp;&amp;macros) noexcept=default']]],
-  ['other',['other',['../structfood_1_1_food_1_1_allocator_1_1rebind.html#a6393dfb2b28b3c0e63cbe6c97c8d879c',1,'food::Food::Allocator::rebind']]]
+  ['primary_5fkey',['PRIMARY_KEY',['../namespacedatabase.html#a77defe1118948f64f1e32f4b78c04f5ba5e0276ef8ae59ebb9aae19348ad173d5',1,'database']]],
+  ['protein',['Protein',['../structfood_1_1_protein.html',1,'food']]],
+  ['protein',['Protein',['../structfood_1_1_protein.html#a28af1d6f334d113b672e77ce1eb39859',1,'food::Protein::Protein()'],['../structfood_1_1_protein.html#addb09a716bdbd37f393a0e2faa44d1c2',1,'food::Protein::Protein(double quantity)'],['../classfood_1_1_macronutrients.html#a15a4120772455818fd7c088b99a2fae4',1,'food::Macronutrients::protein()']]]
 ];

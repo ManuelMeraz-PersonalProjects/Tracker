@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['unique',['UNIQUE',['../namespacedatabase.html#a77defe1118948f64f1e32f4b78c04f5ba88e3e8040c7cd11b9faffdf34372fa2a',1,'database']]],
-  ['update',['update',['../namespacedatabase_1_1utils.html#ad7fc4b4d352c7b947fc48ac8c1d666a6',1,'database::utils']]],
-  ['utils_2ehpp',['utils.hpp',['../utils_8hpp.html',1,'']]]
+  ['visit_5frow_5fdata',['visit_row_data',['../namespacedatabase_1_1utils.html#a974d01a6dbb387b033f627d846630b92',1,'database::utils']]]
 ];

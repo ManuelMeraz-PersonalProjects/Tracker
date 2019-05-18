@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['features',['features',['../feature__tests_8cxx.html#a1582568e32f689337602a16bf8a5bff0',1,'feature_tests.cxx']]]
+  ['name',['name',['../structdatabase_1_1_column_properties.html#a69a1e887784799661e9345b0f4d88256',1,'database::ColumnProperties']]]
 ];

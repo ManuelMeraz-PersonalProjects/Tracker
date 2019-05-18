@@ -1,11 +1,14 @@
 var searchData=
 [
-  ['readme_2emd',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
-  ['real',['REAL',['../namespacedatabase.html#a596cea80c57ec5a9b3b4018f733a43fda8cf125b0e31559ba75a9d9b4f818a554',1,'database']]],
-  ['rebind',['rebind',['../structfood_1_1_food_1_1_allocator_1_1rebind.html',1,'food::Food::Allocator']]],
-  ['retrieve_5fall',['retrieve_all',['../namespacedatabase_1_1utils.html#a41142b70272ad4b4ec442a28dc5c8ce3',1,'database::utils']]],
-  ['row',['Row',['../structdatabase_1_1_row.html',1,'database']]],
-  ['row_5fdata',['row_data',['../structdatabase_1_1_row.html#ae49f50c19ad3f4ec793c63b18623f1d7',1,'database::Row']]],
-  ['row_5fdata_5ft',['row_data_t',['../structdatabase_1_1_row.html#a29c16186778c974af723db03751f3aa3',1,'database::Row']]],
-  ['rows',['rows',['../structdatabase_1_1_data.html#ae45d84ed5b3ce80a7683df0c3f40d518',1,'database::Data']]]
+  ['schema',['schema',['../structdatabase_1_1_data.html#ae674b19f66a2cdfafa134304121ebbe2',1,'database::Data']]],
+  ['set_5fcarbohydrate',['set_carbohydrate',['../classfood_1_1_macronutrients.html#a6c91ea66ab1bf9a67dfa63e46a8faf15',1,'food::Macronutrients']]],
+  ['set_5fdata',['set_data',['../classdatabase_1_1_storable.html#ae554f871860368677cdb3ba5a490c533',1,'database::Storable']]],
+  ['set_5ffat',['set_fat',['../classfood_1_1_macronutrients.html#ab8c80226ba0243279d1c9852de4af504',1,'food::Macronutrients']]],
+  ['set_5ffiber',['set_fiber',['../classfood_1_1_macronutrients.html#a0a4c0bf9c8a75b985cab2770bb697169',1,'food::Macronutrients']]],
+  ['set_5fmacronutrients',['set_macronutrients',['../classfood_1_1_food.html#a0df55be446b9dae80026bec62b2c1c5c',1,'food::Food']]],
+  ['set_5fname',['set_name',['../classdatabase_1_1_storable.html#afa3a3acb030d9e33064c2f6e34f8bbcf',1,'database::Storable::set_name()'],['../classfood_1_1_food.html#ac717bda45254fd555b4de00004423041',1,'food::Food::set_name()']]],
+  ['set_5fprotein',['set_protein',['../classfood_1_1_macronutrients.html#ae6c68d50351573c91105d59a23cab169',1,'food::Macronutrients']]],
+  ['storable',['Storable',['../classdatabase_1_1_storable.html',1,'database']]],
+  ['storable_2ehpp',['Storable.hpp',['../_storable_8hpp.html',1,'']]],
+  ['str',['str',['../classdatabase_1_1_storable.html#a3502dee26cdad8b8e3b0bf1ebc619dc4',1,'database::Storable::str()'],['../classfood_1_1_food.html#a2ac3b444a1ef09dbcec63370f2c8f554',1,'food::Food::str()']]]
 ];

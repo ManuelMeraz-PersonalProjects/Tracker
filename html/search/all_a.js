@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['name',['name',['../structdatabase_1_1_column_properties.html#a69a1e887784799661e9345b0f4d88256',1,'database::ColumnProperties::name()'],['../classdatabase_1_1_storable.html#a404fc104e41b9f1e52090a817c7d317e',1,'database::Storable::name()'],['../classfood_1_1_food.html#a29ccb0bdf6b74e6073b87bc71c70df04',1,'food::Food::name()']]],
-  ['not_5fnull',['NOT_NULL',['../namespacedatabase.html#a77defe1118948f64f1e32f4b78c04f5baeed1de8e53bda49dda97e42841cfe6c5',1,'database']]],
-  ['null_5f',['NULL_',['../namespacedatabase.html#a596cea80c57ec5a9b3b4018f733a43fda6d67bdfe4ae19f38aff8f363bca42892',1,'database']]]
+  ['operator_3d',['operator=',['../classdatabase_1_1_database.html#afb30d33ce289a82f9f41ac59df63ec68',1,'database::Database::operator=(const Database &amp;)=delete'],['../classdatabase_1_1_database.html#a6652af8e150bdc26c786869efde743c0',1,'database::Database::operator=(Database &amp;&amp;)=delete'],['../classfood_1_1_food.html#ae0ef42fe8425b35b39b1ea88e2dea27a',1,'food::Food::operator=(Food const &amp;f)=default'],['../classfood_1_1_food.html#a76b0691a40c6b412e04001af5a9af8e3',1,'food::Food::operator=(Food &amp;&amp;f)=default'],['../classfood_1_1_macronutrients.html#a1da73b21a418ab85e806fdd83ec16316',1,'food::Macronutrients::operator=(Macronutrients const &amp;macros)=default'],['../classfood_1_1_macronutrients.html#a7c38fa08bff5787139cac7561cd902fd',1,'food::Macronutrients::operator=(Macronutrients &amp;&amp;macros) noexcept=default']]],
+  ['other',['other',['../structfood_1_1_food_1_1_allocator_1_1rebind.html#a6393dfb2b28b3c0e63cbe6c97c8d879c',1,'food::Food::Allocator::rebind']]]
 ];

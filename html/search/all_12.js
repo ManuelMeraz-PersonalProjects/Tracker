@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['visit_5frow_5fdata',['visit_row_data',['../namespacedatabase_1_1utils.html#a974d01a6dbb387b033f627d846630b92',1,'database::utils']]]
+  ['_7efood',['~Food',['../classfood_1_1_food.html#a065b75e0736ec60104419b9076db67c5',1,'food::Food']]],
+  ['_7emacronutrients',['~Macronutrients',['../classfood_1_1_macronutrients.html#aadc0948970a2105fcf53dbcc731a0697',1,'food::Macronutrients']]],
+  ['_7estorable',['~Storable',['../classdatabase_1_1_storable.html#a9733fea1c4c7070c915444bd924b0975',1,'database::Storable']]]
 ];
