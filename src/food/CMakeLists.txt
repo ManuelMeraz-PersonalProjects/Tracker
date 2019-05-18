@@ -1,4 +1,5 @@
 add_library(food STATIC Food.cpp Macronutrients.cpp)
+add_library(tracker::food ALIAS food)
 
 target_include_directories(food
                            PUBLIC ${CONAN_INCLUDE_DIRS}
