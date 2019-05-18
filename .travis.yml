@@ -2,6 +2,13 @@ language: cpp
 compiler: clang
 dist: xenial
 
+# Environment variables
+env:
+  global:
+    - GH_REPO_NAME: Tracker
+    - DOXYFILE: $TRAVIS_BUILD_DIR/docs/doxygen/Doxyfile.in
+    - GH_REPO_REF: github.com/manuelmeraz/Tracker.git
+
 before_install:
   # C++17
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
