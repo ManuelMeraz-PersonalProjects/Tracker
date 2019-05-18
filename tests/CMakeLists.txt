@@ -26,6 +26,4 @@ macro(package_add_test TESTNAME)
   cotire(${TESTNAME})
 endmacro()
 
-package_add_test(test-food test-food.cpp)
-target_link_libraries(test-food PRIVATE tracker::food)
-target_link_libraries(test-food PRIVATE tracker::database)
+add_subdirectory(database)
