@@ -13,8 +13,9 @@ DummyStorable::DummyStorable(int id, std::string name)
     : id_{id}, name_{std::move(name)}
 {}
 
-DummyStorable::DummyStorable(std::vector<database::ColumnProperties> const &schema,
-                 database::Row const &data)
+DummyStorable::DummyStorable(
+    std::vector<database::ColumnProperties> const &schema,
+    database::Row const &data)
 {
   this->set_data(schema, data);
 }
@@ -79,8 +80,9 @@ auto DummyStorable::get_data() const -> database::Data const
   return data;
 }
 
-void DummyStorable::set_data(std::vector<database::ColumnProperties> const &schema,
-                          database::Row const &row)
+void DummyStorable::set_data(
+    std::vector<database::ColumnProperties> const &schema,
+    database::Row const &row)
 {
   std::unordered_map<std::string_view, database::Row::row_data_t>
       organized_data;
