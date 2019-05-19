@@ -69,14 +69,14 @@ TEST_F(Utils, CountDelete)
   size_t count = utils::count_rows<DummyStorable>();
   EXPECT_EQ(count, 0) << "Expected to count 0 rows. count: " << count;
 
-  for (size_t i = 0; i < 100; ++i) {
+  for (size_t i = 0; i < 20; ++i) {
     auto &storable = utils::make<DummyStorable>("dummy");
     EXPECT_EQ(storable.id(), i + 1)
         << "Expected id: " << i + 1 << " actual: " << storable.id();
   }
 
   count = utils::count_rows<DummyStorable>();
-  EXPECT_EQ(count, 100) << "Expected to count 100 rows. count: " << count;
+  EXPECT_EQ(count, 20) << "Expected to count 20 rows. count: " << count;
 
   auto &all_storables = utils::retrieve_all<DummyStorable>();
   while (!all_storables.empty()) {
@@ -93,14 +93,14 @@ TEST_F(Utils, Count)
   size_t count = utils::count_rows<DummyStorable>();
   EXPECT_EQ(count, 0) << "Expected to count 0 rows. count: " << count;
 
-  for (size_t i = 0; i < 100; ++i) {
+  for (size_t i = 0; i < 20; ++i) {
     auto &storable = utils::make<DummyStorable>("dummy");
     EXPECT_EQ(storable.id(), i + 1)
         << "Expected id: " << i + 1 << " actual: " << storable.id();
   }
 
   count = utils::count_rows<DummyStorable>();
-  EXPECT_EQ(count, 100) << "Expected to count 100 rows. count: " << count;
+  EXPECT_EQ(count, 20) << "Expected to count 20 rows. count: " << count;
 
   auto &all_storables = utils::retrieve_all<DummyStorable>();
   while (!all_storables.empty()) {
@@ -142,6 +142,24 @@ TEST_F(Utils, TypeToString)
   std::string type_string = utils::type_to_string<DummyStorable>();
   EXPECT_EQ(type_string, "DummyStorable")
       << "expected: DummyStorable type_to_string: " << type_string;
+}
+
+TEST_F(Utils, Update)
+{
+  auto &all_storables = utils::retrieve_all<DummyStorable>();
+  for (size_t i = 0; i < 20; ++i) {
+    utils::make<DummyStorable>("dummy");
+  }
+
+  for (auto &storable : all_storables) {
+    storable.set_name("updated");
+  }
+
+  all_storables = utils::retrieve_all<DummyStorable>();
+  for (auto &storable : all_storables) {
+    std::string const name = storable.name();
+    EXPECT_EQ(name, "updated") << "expected: updated  actual: " << name;
+  }
 }
 
 auto main(int argc, char **argv) -> int
