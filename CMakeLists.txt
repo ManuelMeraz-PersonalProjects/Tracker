@@ -14,7 +14,7 @@ set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 include(${CMAKE_MODULE_PATH}/SetupTracker.cmake)
 
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
-conan_basic_setup()
+conan_basic_setup(TARGETS)
 
 # Creates libraries and creates main executable
 add_subdirectory(src)

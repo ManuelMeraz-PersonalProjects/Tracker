@@ -21,5 +21,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # replacing -std=c++11
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# All static libs will be placed here
+link_directories(${PROJECT_BINARY_DIR}/lib)
+
 # Reduce compile time with cotire
 include(${CMAKE_MODULE_PATH}/thirdparty/cotire.cmake)

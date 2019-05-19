@@ -20,7 +20,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/tests)
 # macro to easily add tests
 macro(package_add_test TESTNAME)
   add_executable(${TESTNAME} ${ARGN})
-  target_link_libraries(${TESTNAME} PRIVATE ${CONAN_LIBS})
+  target_link_libraries(${TESTNAME} PRIVATE CONAN_PKG::gtest)
   add_test(NAME ${TESTNAME} COMMAND ${TESTNAME})
   set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
   cotire(${TESTNAME})
