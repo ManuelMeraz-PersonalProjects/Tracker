@@ -49,7 +49,8 @@ namespace utils {
  * @n  return lhs.id() < rhs.id();
  * @n };
  *
- * @n auto found = utils::binary_find(begin(storables), end(storables));
+ * @n auto found = utils::binary_find(begin(storables), end(storables),
+ * @n                                compare);
  * @n if(found != end(storables) {
  * @n   // Do something with found object
  * @n }
@@ -449,6 +450,9 @@ inline void database::utils::drop_table()
 {
   // Table doesn't exist, already 'dropped'
   if (!utils::table_exists<Storable>()) { return; }
+
+  auto &all_storables = utils::retrieve_all<Storable>();
+  all_storables.clear();
 
   auto &sql_connection = Database::get_connection();
   auto const table_name = utils::type_to_string<Storable>();
