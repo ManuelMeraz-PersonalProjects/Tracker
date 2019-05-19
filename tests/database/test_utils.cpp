@@ -1,7 +1,11 @@
 #include "DummyStorable.hpp"
+#include "database/Data.hpp"
 #include "database/utils.hpp"
 
 #include <gtest/gtest.h>
+#include <range/v3/all.hpp>
+
+#include <vector>
 
 namespace utils = database::utils;
 
@@ -22,7 +26,7 @@ protected:
 
 } // namespace
 
-TEST_F(Utils, Table)
+TEST_F(Utils, CreateAndDropTable)
 {
   EXPECT_EQ(utils::table_exists<DummyStorable>(), false)
       << "Table should not exist at beginning of test.";
@@ -60,6 +64,30 @@ TEST_F(Utils, BinaryFind)
   EXPECT_EQ(found, end(nums)) << "Binary find failed to find a value";
 }
 
+TEST_F(Utils, CountDelete)
+{
+  size_t count = utils::count_rows<DummyStorable>();
+  EXPECT_EQ(count, 0) << "Expected to count 0 rows. count: " << count;
+
+  for (size_t i = 0; i < 100; ++i) {
+    auto &storable = utils::make<DummyStorable>("dummy");
+    EXPECT_EQ(storable.id(), i + 1)
+        << "Expected id: " << i + 1 << " actual: " << storable.id();
+  }
+
+  count = utils::count_rows<DummyStorable>();
+  EXPECT_EQ(count, 100) << "Expected to count 100 rows. count: " << count;
+
+  auto &all_storables = utils::retrieve_all<DummyStorable>();
+  while (!all_storables.empty()) {
+    utils::delete_storable(all_storables.back());
+  }
+
+  count = utils::count_rows<DummyStorable>();
+  EXPECT_EQ(count, 0)
+      << "Expected to count 0 rows after deleting everything. count: " << count;
+}
+
 TEST_F(Utils, Count)
 {
   size_t count = utils::count_rows<DummyStorable>();
@@ -82,6 +110,31 @@ TEST_F(Utils, Count)
   count = utils::count_rows<DummyStorable>();
   EXPECT_EQ(count, 0)
       << "Expected to count 0 rows after deleting everything. count: " << count;
+}
+
+TEST_F(Utils, Enums)
+{
+  std::vector<std::string_view> enum_strings = {
+      utils::enum_to_string(database::DataType::REAL),
+      utils::enum_to_string(database::DataType::INTEGER),
+      utils::enum_to_string(database::DataType::TEXT),
+      utils::enum_to_string(database::DataType::NULL_),
+      utils::enum_to_string(database::DataType::BLOB),
+      utils::enum_to_string(database::Constraint::PRIMARY_KEY),
+      utils::enum_to_string(database::Constraint::UNIQUE),
+      utils::enum_to_string(database::Constraint::NOT_NULL),
+      utils::enum_to_string(database::Constraint::CHECK),
+  };
+
+  std::vector<std::string_view> expected_values = {
+      "REAL",        "INTEGER", "TEXT",     "NULL", "BLOB",
+      "PRIMARY KEY", "UNIQUE",  "NOT NULL", "CHECK"};
+
+  for (auto const &[enum_string, expected] :
+       ranges::view::zip(enum_strings, expected_values)) {
+    EXPECT_EQ(enum_string, expected)
+        << "expected: " << expected << " enum string: " << enum_string;
+  }
 }
 
 auto main(int argc, char **argv) -> int
