@@ -1,4 +1,4 @@
-list(APPEND database_tests test_utils)
+list(APPEND database_tests test_utils test_connection)
 
 add_library(dummy_storable STATIC DummyStorable.cpp)
 target_link_libraries(dummy_storable PUBLIC tracker::database)
