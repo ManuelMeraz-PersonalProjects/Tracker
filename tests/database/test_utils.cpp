@@ -137,6 +137,13 @@ TEST_F(Utils, Enums)
   }
 }
 
+TEST_F(Utils, TypeToString)
+{
+  std::string type_string = utils::type_to_string<DummyStorable>();
+  EXPECT_EQ(type_string, "DummyStorable")
+      << "expected: DummyStorable type_to_string: " << type_string;
+}
+
 auto main(int argc, char **argv) -> int
 {
   ::testing::InitGoogleTest(&argc, argv);
