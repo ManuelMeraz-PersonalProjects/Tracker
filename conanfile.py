@@ -5,15 +5,17 @@ from conans import CMake, ConanFile, tools
 
 class SociTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
+
     requires = (
-        "soci/4.0@soci/stable",
         "doxygen_installer/1.8.15@bincrafters/stable",
+        "soci/4.0@soci/stable",
         "nameof/0.8.2@nameof/stable",
         "range-v3/0.5.0@ericniebler/stable",
         "gtest/1.8.1@bincrafters/stable",
+        # "Qt/5.11.2@bincrafters/stable",
     )
 
-    generators = "cmake"
+    generators = "cmake", "txt"
 
     options = {
         "enable_documentation": [True, False],
@@ -22,6 +24,7 @@ class SociTestConan(ConanFile):
 
     default_options = {
         "soci:sqlite3": True,
+        # "qt:shared": False,
         "enable_documentation": False,
         "enable_tests": False,
     }
@@ -39,10 +42,7 @@ class SociTestConan(ConanFile):
         cmake.build()
 
     def imports(self):
-        self.copy("*.dll", dst="bin", src="bin")
-        self.copy("*.dylib*", dst="bin", src="lib")
-        self.copy("*.so*", dst="bin", src="lib")
-        self.copy("*.a", dst="bin", src="lib")
+        self.copy("*.a", dst="lib", src="lib")
 
     def test(self):
         if not tools.cross_building(self.settings):
