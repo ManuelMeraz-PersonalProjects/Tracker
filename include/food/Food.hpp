@@ -9,8 +9,8 @@
 #pragma once
 
 #include "database/Storable.hpp"
+#include "database/utils.hpp"
 #include "food/Macronutrients.hpp"
-#include <database/utils.hpp>
 
 #include <soci.h>
 

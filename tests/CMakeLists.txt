@@ -20,10 +20,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}/tests)
 # macro to easily add tests
 macro(package_add_test TESTNAME)
   add_executable(${TESTNAME} ${ARGN})
-  target_link_libraries(${TESTNAME} ${CONAN_LIBS})
+  target_link_libraries(${TESTNAME} PRIVATE ${CONAN_LIBS})
   add_test(NAME ${TESTNAME} COMMAND ${TESTNAME})
   set_target_properties(${TESTNAME} PROPERTIES FOLDER tests)
   cotire(${TESTNAME})
 endmacro()
 
-package_add_test(test-food test-food.cpp)
+add_subdirectory(database)

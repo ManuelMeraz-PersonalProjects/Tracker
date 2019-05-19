@@ -61,7 +61,8 @@ auto food::Food::get_data() const -> database::Data const
   data.table_name = "Food";
 
   // Food ID|name|fat|carbohydrate|fiber|protein
-  data.schema.reserve(6);
+  size_t num_columns = 6;
+  data.schema.reserve(num_columns);
 
   // The properties of a single column;
   database::ColumnProperties column_properties;
@@ -73,7 +74,7 @@ auto food::Food::get_data() const -> database::Data const
   data.schema.emplace_back(column_properties);
 
   std::vector<database::Row::row_data_t> new_row;
-  new_row.reserve(6);
+  new_row.reserve(num_columns);
 
   // std::variant to hold multiple data types. Defined in Data.hpp.
   database::Row::row_data_t row_data = this->id();

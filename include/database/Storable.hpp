@@ -27,12 +27,12 @@ public:
   virtual auto id() const -> int = 0;
 
   /**
-   * @return The name of the food
+   * @return The name of the storable
    */
   virtual auto name() const -> std::string const = 0;
 
   /**
-   * @param A new name for the food
+   * @param A new name for the storable
    */
   virtual void set_name(std::string_view name) = 0;
 
@@ -52,7 +52,7 @@ public:
   virtual auto get_data() const -> Data const = 0;
 
   /**
-   * @brief When creating new food objects from data retrieved from the
+   * @brief When creating new storable objects from data retrieved from the
    *        database, this function will be used to set the data for the
    *        Storable object.
    *

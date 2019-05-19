@@ -14,7 +14,7 @@ before_install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt update -qq
   # Doxygen is used for documentation
-  - sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz 
+  - sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz
   - source ./tools/set_env
   - source ./tools/activate_venv
   - pip3 install --upgrade -r requirements.txt
