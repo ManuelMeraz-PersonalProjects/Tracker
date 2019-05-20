@@ -12,21 +12,22 @@ class SociTestConan(ConanFile):
         "nameof/0.8.2@nameof/stable",
         "range-v3/0.5.0@ericniebler/stable",
         "gtest/1.8.1@bincrafters/stable",
-        # "Qt/5.11.2@bincrafters/stable",
+        "Qt/5.11.2@bincrafters/stable",
     )
 
     generators = "cmake", "txt"
 
     options = {
         "enable_documentation": [True, False],
-        "enable_tests": [True, False]
+        "enable_tests": [True, False],
+        "fPIC": [True, False],
     }
 
     default_options = {
         "soci:sqlite3": True,
-        # "qt:shared": False,
         "enable_documentation": False,
         "enable_tests": False,
+        "fPIC": True,
     }
 
     def build(self):
@@ -42,7 +43,9 @@ class SociTestConan(ConanFile):
         cmake.build()
 
     def imports(self):
-        self.copy("*.a", dst="lib", src="lib")
+        self.copy("*soci*.a", dst="lib", src="lib")
+        self.copy("*gmock*.a", dst="lib", src="lib")
+        self.copy("*gtest*.a", dst="lib", src="lib")
 
     def test(self):
         if not tools.cross_building(self.settings):

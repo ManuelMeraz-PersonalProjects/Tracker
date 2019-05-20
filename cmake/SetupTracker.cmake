@@ -21,8 +21,16 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # replacing -std=c++11
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# Tell CMake to run moc when necessary:
+set(CMAKE_AUTOMOC ON)
+# As moc files are generated in the binary dir, tell CMake to always look for
+# includes there:
+set(CMAKE_INCLUDE_CURRENT_DIR ON)
+
 # All static libs will be placed here
 link_directories(${PROJECT_BINARY_DIR}/lib)
 
 # Reduce compile time with cotire
 include(${CMAKE_MODULE_PATH}/thirdparty/cotire.cmake)
+
+find_package(Qt5 REQUIRED COMPONENTS Core Widgets)

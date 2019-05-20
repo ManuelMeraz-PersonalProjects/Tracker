@@ -2,10 +2,9 @@ add_subdirectory(food)
 add_subdirectory(database)
 
 add_executable(main main.cpp)
+target_link_libraries(main PRIVATE tracker::food tracker::database)
 
-target_link_libraries(main PRIVATE tracker::food)
-target_link_libraries(main PRIVATE tracker::database)
-set_target_properties(main
-                      PROPERTIES RUNTIME_OUTPUT_DIRECTORY
-                                 ${PROJECT_BINARY_DIR}/bin)
-cotire(main)
+add_executable(gui gui.cpp)
+target_link_libraries(gui PRIVATE Qt5::Core Qt5::Widgets)
+
+cotire(main gui)
