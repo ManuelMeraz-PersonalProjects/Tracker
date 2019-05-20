@@ -20,7 +20,7 @@ def cmake_filter(cmake_file):
     @return true if file is a cmake file
     """
 
-    return "CMakeLists.txt" in cmake_file or cmake_file.endswith(".cmake")
+    return "CMakeLists.txt" == cmake_file or cmake_file.endswith(".cmake")
 
 
 def cpp_filter(cpp_file):
