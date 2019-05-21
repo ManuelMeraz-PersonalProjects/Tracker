@@ -1,6 +1,7 @@
 #include "gui/plusminus.hpp"
 
 #include <QGridLayout>
+#include <QPushButton>
 #include <QTextStream>
 
 PlusMinus::PlusMinus(QWidget *parent) : QWidget(parent)

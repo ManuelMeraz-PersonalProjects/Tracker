@@ -1,8 +1,6 @@
 #pragma once
 
-#include <QApplication>
 #include <QLabel>
-#include <QPushButton>
 #include <QWidget>
 
 class PlusMinus : public QWidget {
