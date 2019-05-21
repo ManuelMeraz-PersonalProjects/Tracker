@@ -1,4 +1,4 @@
-#include "plusminus.hpp"
+#include "gui/plusminus.hpp"
 
 #include <QGridLayout>
 #include <QTextStream>
