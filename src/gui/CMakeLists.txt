@@ -1,4 +1,4 @@
-add_library(gui STATIC plusminus.cpp)
+add_library(gui STATIC MainMenu.cpp)
 add_library(tracker::gui ALIAS gui)
 
 target_include_directories(gui

@@ -1,4 +1,4 @@
-#include "gui/plusminus.hpp"
+#include "gui/MainMenu.hpp"
 
 #include <QApplication>
 
@@ -7,10 +7,10 @@ int main(int argc, char *argv[])
 
   QApplication app(argc, argv);
 
-  PlusMinus window;
+  MainMenu window;
 
   window.resize(300, 190);
-  window.setWindowTitle("Plus minus");
+  window.setWindowTitle("Application");
   window.show();
 
   return app.exec();
