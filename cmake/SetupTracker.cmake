@@ -33,4 +33,4 @@ link_directories(${PROJECT_BINARY_DIR}/lib)
 # Reduce compile time with cotire
 include(${CMAKE_MODULE_PATH}/thirdparty/cotire.cmake)
 
-find_package(Qt5 REQUIRED COMPONENTS Core Widgets)
+find_package(Qt5 REQUIRED COMPONENTS Core Quick Widgets)

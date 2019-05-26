@@ -25,6 +25,8 @@ class SociTestConan(ConanFile):
 
     default_options = {
         "soci:sqlite3": True,
+        "Qt:qtquickcontrols": True,
+        "Qt:qtquickcontrols2": True,
         "enable_documentation": False,
         "enable_tests": False,
         "fPIC": True,
@@ -46,6 +48,7 @@ class SociTestConan(ConanFile):
         self.copy("*soci*.a", dst="lib", src="lib")
         self.copy("*gmock*.a", dst="lib", src="lib")
         self.copy("*gtest*.a", dst="lib", src="lib")
+        self.copy("*", dst="fonts", src="/usr/bin/fonts", keep_path=False)
 
     def test(self):
         if not tools.cross_building(self.settings):
