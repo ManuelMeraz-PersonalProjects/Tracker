@@ -12,7 +12,7 @@ class SociTestConan(ConanFile):
         "nameof/0.8.2@nameof/stable",
         "range-v3/0.5.0@ericniebler/stable",
         "gtest/1.8.1@bincrafters/stable",
-        "Qt/5.11.2@bincrafters/stable",
+        "qt/5.12.0@bincrafters/stable",
     )
 
     generators = "cmake", "txt"
