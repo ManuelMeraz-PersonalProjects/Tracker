@@ -1,6 +1,4 @@
-qt5_add_resources(gui_resources gui.qrc)
-
-add_library(gui STATIC sidepanel.cpp ${gui_resources})
+add_library(gui STATIC sidepanel.cpp gui.qrc)
 add_library(tracker::gui ALIAS gui)
 
 target_include_directories(gui

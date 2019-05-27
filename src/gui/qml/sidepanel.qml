@@ -104,7 +104,7 @@ ApplicationWindow {
                 Image {
                     id: logo
                     width: parent.width
-                    source: "images/qt-logo.png"
+                    source: "../images/qt-logo.png"
                     fillMode: implicitWidth > width ? Image.PreserveAspectFit : Image.Pad
                 }
 

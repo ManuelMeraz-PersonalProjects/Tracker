@@ -9,6 +9,7 @@ Checks: >-
   readability-*,
   performance-*,
   -readability-static-accessed-through-instance,
+  -readability-implicit-bool-conversion
 
 # Enable most warnings as errors.
 WarningsAsErrors: >-
