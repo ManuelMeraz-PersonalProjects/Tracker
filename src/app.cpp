@@ -1,4 +1,4 @@
-#include "gui/sidepanel.cpp"
+#include "gui/gui.cpp"
 
 int main(int argc, char *argv[])
 {

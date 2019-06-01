@@ -1,4 +1,4 @@
-add_library(gui STATIC sidepanel.cpp gui.qrc)
+add_library(gui STATIC gui.cpp gui.qrc)
 add_library(tracker::gui ALIAS gui)
 
 target_include_directories(gui

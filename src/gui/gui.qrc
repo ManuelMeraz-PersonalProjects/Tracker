@@ -1,12 +1,12 @@
 <RCC>
-  <qresource prefix="/">
-    <file>fonts/Ubuntu-R.ttf</file>
-    <file>doc/images/qtquickcontrols2-sidepanel-landscape.png</file> 
-    <file>doc/images/qtquickcontrols2-sidepanel-portrait.png</file> 
-    <file>images/qt-logo@2x.png</file> 
-    <file>images/qt-logo@3x.png</file> 
-    <file>images/qt-logo@4x.png</file> 
-    <file>images/qt-logo.png</file> 
-    <file>qml/sidepanel.qml</file>
-  </qresource>
+    <qresource prefix="/">
+        <file>fonts/Ubuntu-R.ttf</file>
+        <file>doc/images/qtquickcontrols2-sidepanel-landscape.png</file>
+        <file>doc/images/qtquickcontrols2-sidepanel-portrait.png</file>
+        <file>images/qt-logo@2x.png</file>
+        <file>images/qt-logo@3x.png</file>
+        <file>images/qt-logo@4x.png</file>
+        <file>images/qt-logo.png</file>
+        <file>qml/MainWindow.qml</file>
+    </qresource>
 </RCC>
