@@ -1,15 +1,13 @@
 <RCC>
     <qresource prefix="/">
+        <file>images/baseline-menu-24px.svg</file>
         <file>fonts/Ubuntu-R.ttf</file>
-        <file>doc/images/qtquickcontrols2-sidepanel-landscape.png</file>
-        <file>doc/images/qtquickcontrols2-sidepanel-portrait.png</file>
-        <file>images/qt-logo@2x.png</file>
-        <file>images/qt-logo@3x.png</file>
-        <file>images/qt-logo@4x.png</file>
-        <file>images/qt-logo.png</file>
-        <file>qml/MainWindow.qml</file>
-        <file>qml/FlickableScroll.qml</file>
-        <file>qml/GuiDisplay.qml</file>
-        <file>qml/GuiToolbar.qml</file>
+
+        <file>qml/main.qml</file>
+        <file>qml/ImageViewerWindow.qml</file>
+        <file>qml/qtquickcontrols2.conf</file>
+
+        <file>qml/+android/main.qml</file>
+        <file>qml/+android/qtquickcontrols2.conf</file>
     </qresource>
 </RCC>

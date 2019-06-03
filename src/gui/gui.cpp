@@ -14,7 +14,7 @@ int app(int argc, char *argv[])
   if (font_id) { app.setFont(QFont("Ubuntu", 11, QFont::Normal, false)); }
 
   QQmlApplicationEngine engine;
-  engine.load(QUrl("qrc:///qml/MainWindow.qml"));
+  engine.load(QUrl("qrc:///qml/main.qml"));
   if (engine.rootObjects().isEmpty()) { return -1; }
 
   return app.exec();
