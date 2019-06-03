@@ -1,6 +1,6 @@
-import QtQuick 2.4
-import QtQuick.Controls 2.4
-import QtQuick.Controls.Material 2.4
+import QtQuick 2.12
+import QtQuick.Controls 2.12
+import QtQuick.Controls.Material 2.12
 
 ApplicationWindow {
     id: window
@@ -13,18 +13,9 @@ ApplicationWindow {
     readonly property bool inPortrait: window.width < window.height
     //! [orientation]
 
-    ToolBar {
+    GuiToolbar {
         id: overlayHeader
-
-        z: 1
-        width: parent.width
-        parent: window.overlay
-
-        Label {
-            id: label
-            anchors.centerIn: parent
-            text: "Qt Quick Controls 2"
-        }
+        text: "Tracker"
     }
 
     Drawer {
