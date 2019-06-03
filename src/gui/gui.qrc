@@ -9,5 +9,6 @@
         <file>images/qt-logo.png</file>
         <file>qml/MainWindow.qml</file>
         <file>qml/GuiToolbar.qml</file>
+        <file>qml/GuiDisplay.qml</file>
     </qresource>
 </RCC>
