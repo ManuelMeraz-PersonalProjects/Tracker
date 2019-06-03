@@ -8,7 +8,8 @@
         <file>images/qt-logo@4x.png</file>
         <file>images/qt-logo.png</file>
         <file>qml/MainWindow.qml</file>
-        <file>qml/GuiToolbar.qml</file>
+        <file>qml/FlickableScroll.qml</file>
         <file>qml/GuiDisplay.qml</file>
+        <file>qml/GuiToolbar.qml</file>
     </qresource>
 </RCC>

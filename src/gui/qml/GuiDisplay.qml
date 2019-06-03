@@ -6,7 +6,7 @@ Drawer {
 
     y: overlayHeader.height
     width: 200
-    height: window.height - overlayHeader.height
+    height: parent.height - overlayHeader.height
 
     modal: inPortrait
     interactive: inPortrait

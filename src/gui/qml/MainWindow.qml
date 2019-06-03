@@ -3,14 +3,14 @@ import QtQuick.Controls 2.12
 import QtQuick.Controls.Material 2.12
 
 ApplicationWindow {
-    id: window
+    id: root
     width: 360
     height: 520
     visible: true
     title: qsTr("Side Panel")
 
     //! [orientation]
-    readonly property bool inPortrait: window.width < window.height
+    readonly property bool inPortrait: root.width < root.height
     //! [orientation]
 
     GuiToolbar {
@@ -23,19 +23,5 @@ ApplicationWindow {
         id: display
     }
 
-    Flickable {
-        id: flickable
-        width: 360
-
-        anchors.fill: parent
-        anchors.topMargin: overlayHeader.height
-        anchors.leftMargin: !inPortrait ? display.width : undefined
-
-        topMargin: 20
-        bottomMargin: 20
-
-        ScrollIndicator.vertical: ScrollIndicator { }
-    }
-
-
+    FlickableScroll {}
 }

@@ -8,7 +8,7 @@ ToolBar {
 
     z: 1
     width: parent.width
-    parent: window.overlay
+    parent: parent.overlay
 
     Label {
         id: label
