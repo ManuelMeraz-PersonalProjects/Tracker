@@ -77,7 +77,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "-bf",
         "--build-folder",
-        default="build",
+        default="build-",
         help="The build folder where conan installa and build will run",
     )
 
@@ -103,6 +103,7 @@ if __name__ == "__main__":
     )
 
     options = parser.parse_args()
+    options.build_folder += options.profile
 
     build_path = os.path.join(PROJECT_PATH, options.build_folder)
 
