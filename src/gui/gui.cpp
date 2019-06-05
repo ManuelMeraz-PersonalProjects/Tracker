@@ -1,14 +1,14 @@
 #include <QFontDatabase>
 #include <QStringList>
 #include <QTextStream>
-#include <QtGui/QGuiApplication>
+#include <QApplication>
 #include <QtQml/QQmlApplicationEngine>
 
 namespace gui {
 int app(int argc, char *argv[])
 {
-  QGuiApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-  QGuiApplication app(argc, argv);
+  QApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+  QApplication app(argc, argv);
 
   int font_id = QFontDatabase::addApplicationFont(":/fonts/Ubuntu-R.ttf");
   if (font_id) { app.setFont(QFont("Ubuntu", 11, QFont::Normal, false)); }
