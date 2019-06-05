@@ -7,6 +7,8 @@ class SociTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
 
     requires = (
+        # This specific version of OpenSSL required for
+        # android ndk
         "OpenSSL/1.0.2r@conan/stable",
         "doxygen_installer/1.8.15@bincrafters/stable",
         "soci/4.0@soci/stable",
