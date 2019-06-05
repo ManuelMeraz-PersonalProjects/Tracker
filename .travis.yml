@@ -31,4 +31,4 @@ install:
 
 script:
   - ./tools/build.py -pr clang60-debug
-  - cd build && make test
+  - cd build* && make test
