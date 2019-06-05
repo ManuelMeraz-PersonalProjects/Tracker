@@ -7,6 +7,7 @@ class SociTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
 
     requires = (
+        "OpenSSL/1.0.2r@conan/stable",
         "doxygen_installer/1.8.15@bincrafters/stable",
         "soci/4.0@soci/stable",
         "nameof/0.8.2@nameof/stable",
