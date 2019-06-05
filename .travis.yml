@@ -2,6 +2,10 @@ language: cpp
 compiler: clang
 dist: xenial
 
+cache:
+  directories:
+    - $HOME/.conan
+
 # Environment variables
 env:
   global:
