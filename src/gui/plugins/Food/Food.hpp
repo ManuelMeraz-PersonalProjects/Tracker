@@ -21,12 +21,12 @@ public:
 
   // Q_INVOKABLE void read();
   // Q_INVOKABLE void write();
-  auto key() -> int;
-  auto name() -> QString;
-  auto fat() -> double;
-  auto carbohydrate() -> double;
-  auto fiber() -> double;
-  auto protein() -> double;
+  auto key() -> int const;
+  auto name() -> QString const;
+  auto fat() -> double const;
+  auto carbohydrate() -> double const;
+  auto fiber() -> double const;
+  auto protein() -> double const;
 public slots:
   void setName(QString const &name);
   void setFat(double fat);

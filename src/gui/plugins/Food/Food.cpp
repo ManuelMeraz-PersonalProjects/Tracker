@@ -37,33 +37,33 @@ gui::Food::~Food()
 // stream << text_;
 //}
 //}
-auto gui::Food::key() -> int
+auto gui::Food::key() -> int const
 {
   return m_food->id();
 }
 
-auto gui::Food::name() -> QString
+auto gui::Food::name() -> QString const
 {
   QString ret(m_food->name().c_str());
   return ret;
 }
 
-auto gui::Food::fat() -> double
+auto gui::Food::fat() -> double const
 {
   return m_food->macronutrients().fat();
 }
 
-auto gui::Food::carbohydrate() -> double
+auto gui::Food::carbohydrate() -> double const
 {
   return m_food->macronutrients().carbohydrate();
 }
 
-auto gui::Food::fiber() -> double
+auto gui::Food::fiber() -> double const
 {
   return m_food->macronutrients().fiber();
 }
 
-auto gui::Food::protein() -> double
+auto gui::Food::protein() -> double const
 {
   return m_food->macronutrients().protein();
 }
