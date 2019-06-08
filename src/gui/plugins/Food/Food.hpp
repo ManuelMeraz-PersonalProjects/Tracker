@@ -9,7 +9,7 @@ class Food : public QObject {
   Q_OBJECT
   Q_DISABLE_COPY(Food)
   Q_PROPERTY(int key READ key NOTIFY keyChanged)
-  //Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+  Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
   Q_PROPERTY(double fat READ fat WRITE setFat NOTIFY fatChanged)
   Q_PROPERTY(double carbohydrate READ carbohydrate WRITE setCarbohydrate NOTIFY
                  carbohydrateChanged)

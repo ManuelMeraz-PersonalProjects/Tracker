@@ -54,12 +54,18 @@ ApplicationWindow {
 
         model: Food {
             id: taco
+            name: "taco"
+            fat: 10
+            carbohydrate: 10
+            fiber: 10
+            protein: 10
         }
 
         delegate: Rectangle {
             Row {
                 spacing: 1
                 TableCell { text: taco.key }
+                TableCell { text: taco.name }
                 TableCell { text: taco.fat }
                 TableCell { text: taco.carbohydrate }
                 TableCell { text: taco.fiber }

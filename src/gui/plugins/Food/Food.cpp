@@ -44,8 +44,7 @@ auto gui::Food::key() -> int const
 
 auto gui::Food::name() -> QString const
 {
-  QString ret(m_food->name().c_str());
-  return ret;
+  return m_food->name().c_str();
 }
 
 auto gui::Food::fat() -> double const
