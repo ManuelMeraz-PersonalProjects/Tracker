@@ -1,3 +1,3 @@
-module tracker.food.Food
+module tracker.food
 plugin FoodPlugin
 

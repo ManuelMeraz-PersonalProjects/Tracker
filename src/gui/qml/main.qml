@@ -3,7 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
 import QtQuick.Dialogs 1.2
 
-import tracker.Food 1.0
+import tracker.food 1.0
 
 ApplicationWindow {
     id: root
