@@ -16,7 +16,6 @@ Rectangle {
         anchors.margins: 10
 
         color: '#aaaaaa'
-        font.pixelSize: 15
         verticalAlignment: Text.AlignVCenter
     }
 }

@@ -1,5 +1,5 @@
-#include "food/Food.hpp"
 #include "database/utils.hpp"
+#include "food/Food.hpp"
 #include "food/Macronutrients.hpp"
 #include "gui/plugins/Food/Food.hpp"
 
@@ -37,32 +37,33 @@ gui::Food::~Food()
 // stream << text_;
 //}
 //}
-int gui::Food::key() const
+auto gui::Food::key() -> int
 {
   return m_food->id();
 }
 
-QString gui::Food::name() const
+auto gui::Food::name() -> QString
 {
-  return m_food->name().c_str();
+  QString ret(m_food->name().c_str());
+  return ret;
 }
 
-double gui::Food::fat() const
+auto gui::Food::fat() -> double
 {
   return m_food->macronutrients().fat();
 }
 
-double gui::Food::carbohydrate() const
+auto gui::Food::carbohydrate() -> double
 {
   return m_food->macronutrients().carbohydrate();
 }
 
-double gui::Food::fiber() const
+auto gui::Food::fiber() -> double
 {
   return m_food->macronutrients().fiber();
 }
 
-double gui::Food::protein() const
+auto gui::Food::protein() -> double
 {
   return m_food->macronutrients().protein();
 }
