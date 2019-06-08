@@ -6,7 +6,6 @@ TRACKER_PROJECT=$(dirname $(dirname ${SETUP_ENV_PATH}))
 export TRACKER_PROJECT=${TRACKER_PROJECT}
 [[ ":$LD_LIBRARY_PATH:" != *":/usr/local/lib/tracker/"* ]] && export LD_LIBRARY_PATH="/usr/local/lib/tracker/:${LD_LIBRARY_PATH}"
 
-if ! grep -q "source ${SETUP_ENV_PATH}" ~/.bashrc
-then 
-echo "[ -d $TRACKER_PROJECT ] && source ${SETUP_ENV_PATH}" >> ~/.bashrc
+if ! grep -q "source ${SETUP_ENV_PATH}" ~/.bashrc; then
+  echo "[ -d $TRACKER_PROJECT ] && source ${SETUP_ENV_PATH}" >>~/.bashrc
 fi
