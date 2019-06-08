@@ -27,3 +27,5 @@ if(ENABLE_TESTS)
   include(CTest)
   add_subdirectory(tests)
 endif()
+
+install(DIRECTORY ${CMAKE_BINARY_DIR}/lib/tracker DESTINATION /usr/local/lib)

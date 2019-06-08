@@ -63,6 +63,7 @@ ApplicationWindow {
         delegate: Rectangle {
             Row {
                 spacing: 1
+                TableCell { text: taco.key }
                 TableCell { text: taco.name }
                 TableCell { text: taco.fat }
             }

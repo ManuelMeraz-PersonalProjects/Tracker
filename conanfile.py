@@ -27,11 +27,13 @@ class SociTestConan(ConanFile):
     }
 
     default_options = {
+        "soci:shared": True,
         "soci:sqlite3": True,
         "qt:qtquickcontrols": True,
         "qt:qtquickcontrols2": True,
         "enable_documentation": False,
         "enable_tests": False,
+        "soci:fPIC": True,
         "fPIC": True,
     }
 
@@ -48,7 +50,8 @@ class SociTestConan(ConanFile):
         cmake.build()
 
     def imports(self):
-        self.copy("*soci*.a", dst="lib", src="lib")
+        self.copy("*soci*.a", dst="lib/tracker", src="lib")
+        self.copy("*soci*.so*", dst="lib/tracker", src="lib")
         self.copy("*gmock*.a", dst="lib", src="lib")
         self.copy("*gtest*.a", dst="lib", src="lib")
 

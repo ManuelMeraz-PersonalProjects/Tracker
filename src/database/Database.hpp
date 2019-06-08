@@ -15,7 +15,7 @@
 #include <memory>
 
 // Necessary to load a database with statically linked soci library
-extern "C" void soci::register_factory_sqlite3();
+// extern "C" void soci::register_factory_sqlite3();
 
 /**
  * @brief Organizes all databasing related classes and functions
