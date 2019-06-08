@@ -1,7 +1,7 @@
+#include <QApplication>
 #include <QFontDatabase>
 #include <QStringList>
 #include <QTextStream>
-#include <QApplication>
 #include <QtQml/QQmlApplicationEngine>
 
 namespace gui {

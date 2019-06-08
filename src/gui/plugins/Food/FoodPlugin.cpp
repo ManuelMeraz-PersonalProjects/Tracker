@@ -1,5 +1,5 @@
-#include "Food.hpp"
 #include "FoodPlugin.hpp"
+#include "Food.hpp"
 
 #include <qqml.h>
 

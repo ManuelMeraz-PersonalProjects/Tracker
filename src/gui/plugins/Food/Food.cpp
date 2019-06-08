@@ -1,6 +1,6 @@
 #include "Food.hpp"
 
-gui::Food::Food(QObject *parent) : QObject(parent) { }
+gui::Food::Food(QObject *parent) : QObject(parent) {}
 
 gui::Food::~Food() = default;
 

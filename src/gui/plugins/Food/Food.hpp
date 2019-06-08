@@ -2,7 +2,7 @@
 
 #include <QtCore>
 
-namespace gui{
+namespace gui {
 class Food : public QObject {
   Q_OBJECT
   Q_DISABLE_COPY(Food)
@@ -27,4 +27,4 @@ private:
   QString m_name;
   double m_fat;
 };
-}
+} // namespace gui
