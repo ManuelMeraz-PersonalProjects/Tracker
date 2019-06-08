@@ -1,3 +1,5 @@
+add_subdirectory(plugins)
+
 add_library(gui STATIC gui.cpp gui.qrc)
 add_library(tracker::gui ALIAS gui)
 
