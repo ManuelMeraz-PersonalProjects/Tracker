@@ -1,1 +1,1 @@
-add_subdirectory(Food)
+add_subdirectory(food)

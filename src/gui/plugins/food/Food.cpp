@@ -1,7 +1,7 @@
 #include "database/utils.hpp"
 #include "food/Food.hpp"
 #include "food/Macronutrients.hpp"
-#include "gui/plugins/Food/Food.hpp"
+#include "gui/plugins/food/Food.hpp"
 
 gui::Food::Food(QObject *parent) : QObject(parent)
 {
