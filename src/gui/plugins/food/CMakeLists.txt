@@ -12,7 +12,8 @@ target_link_libraries(FoodPlugin
                              tracker::food
                              tracker::database)
 
-install(TARGETS FoodPlugin DESTINATION ${CONAN_QT_ROOT}/qml/org/example/io/)
+set(food_plugin_dir ${CONAN_QT_ROOT}/qml/tracker/food/)
+install(TARGETS FoodPlugin DESTINATION ${food_plugin_dir}/Food/)
+install(FILES qmldir DESTINATION ${food_plugin_dir}/Food/)
 
-install(FILES qmldir DESTINATION ${CONAN_QT_ROOT}/qml/org/example/io/)
 cotire(FoodPlugin)
