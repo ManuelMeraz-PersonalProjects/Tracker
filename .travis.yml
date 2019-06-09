@@ -25,7 +25,7 @@ before_install:
       sudo apt install --download-only python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz libgl1-mesa-dev clang-6.0 g++-7;
       sudo cp -r  /var/cache/apt/archives $HOME/.apt
     else
-      sudo cp -r $HOME/.apt /var/cache/apt/archives
+      sudo cp -r $HOME/.apt /var/cache/apt/archives;
     fi
   - sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz libgl1-mesa-dev clang-6.0 g++-7;
   #- source ./tools/set_env
