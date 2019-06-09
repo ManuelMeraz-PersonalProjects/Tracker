@@ -21,8 +21,7 @@ before_install:
   #- sudo apt install -qq libgl1-mesa-dev
   # Doxygen is used for documentation
   #- sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz
-  - if [ ! -d $HOME/.apt ]; then
-      mkdir $HOME/.apt;
+  -  if [[ $(ls $HOME/.apt/ | wc -l) != 0 ]]
       cd $HOME/.apt;
       apt download python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz libgl1-mesa-dev clang-6.0 g++-7;
     fi
