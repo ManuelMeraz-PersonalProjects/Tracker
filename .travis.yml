@@ -25,9 +25,9 @@ before_install:
       mkdir $HOME/.apt;
       cd $HOME/.apt;
       apt download python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz libgl1-mesa-dev clang-6.0 g++-7;
-      ls .;
     fi
 
+  - ls $HOME/.apt
   - sudo dpkg -i $HOME/.apt/*.deb
   #- source ./tools/set_env
   #- source ./tools/activate_venv
