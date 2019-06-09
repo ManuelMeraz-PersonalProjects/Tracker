@@ -14,7 +14,7 @@ ApplicationWindow {
     visible: true
 
     DatabaseUtils {
-        id: utils
+        id: database
     }
 
     Action {
@@ -58,7 +58,7 @@ ApplicationWindow {
         columnWidthProvider: function (column) { return 300; }
         rowHeightProvider: function (column) { return 60; }
 
-        model: utils.foodData
+        model: database.getData("Food")
 
         delegate: Rectangle {
             Row {
