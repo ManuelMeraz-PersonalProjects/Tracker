@@ -117,10 +117,12 @@ if __name__ == "__main__":
             PROJECT_PATH,
             "--install-folder",
             build_path,
-            "--build=missing",
-            "--build=outdated",
+            # "--build=missing",
+            # "--build=outdated",
             "--profile",
             options.profile,
+            "--remote",
+            "tracker"
         ]
 
         if options.enable_documentation:
