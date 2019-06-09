@@ -33,7 +33,7 @@ install:
   - conan config install https://github.com/ManuelMeraz/conan-config.git
 
   # Uncomment to install qt deps before full build
-   rm -rf $HOME/.conan/data/*
+  - rm -rf $HOME/.conan/data/*
   - conan install OpenSSL/1.1.1a@conan/stable --build missing
   - conan install bzip2/1.0.6@conan/stable --build missing
   - conan install double-conversion/3.1.1@bincrafters/stable --build missing
