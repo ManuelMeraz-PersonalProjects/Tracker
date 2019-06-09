@@ -25,7 +25,6 @@ before_install:
   - pip3 install --upgrade -r requirements.txt
   - conan config install https://github.com/ManuelMeraz/conan-config.git
 
-
 install:
   # C++17
   #- sudo apt install -qq g++-7 clang-6.0
@@ -54,5 +53,6 @@ install:
 
 
 script:
+  - echo "done"
   #- ./tools/build.py -pr clang60-debug
   #- cd build* && make test
