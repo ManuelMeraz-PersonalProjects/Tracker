@@ -15,52 +15,44 @@ env:
     - GH_REPO_REF: github.com/manuelmeraz/Tracker.git
 
 before_install:
-   #C++17
+  - source ./tools/set_env
+  - source ./tools/activate_venv
+
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt update -qq
-  #- sudo apt install -qq libgl1-mesa-dev
-  # Doxygen is used for documentation
-  #- sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz
   -  if [[ $(ls $HOME/.apt/ | wc -l) == 0 ]]; then
       sudo apt install --download-only python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz libgl1-mesa-dev clang-6.0 g++-7;
       sudo cp -r  /var/cache/apt/archives $HOME/.apt;
     else
       sudo cp -r $HOME/.apt /var/cache/apt/archives;
     fi
-  - sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz libgl1-mesa-dev clang-6.0 g++-7;
-  #- source ./tools/set_env
-  #- source ./tools/activate_venv
-  #- pip3 install --upgrade -r requirements.txt
-  #- conan config install https://github.com/ManuelMeraz/conan-config.git
 
 install:
-  # C++17
-  #- sudo apt install -qq g++-7 clang-6.0
-
+  - sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz libgl1-mesa-dev clang-6.0 g++-7
+  - pip3 install --upgrade -r requirements.txt
+  - conan config install https://github.com/ManuelMeraz/conan-config.git
 
   # Comment out to install qt deps before full build
-  #- sudo apt install -qq clang-6.0
-  #- conan install OpenSSL/1.0.2r@conan/stable --build missing
-  #- conan install bzip2/1.0.6@conan/stable --build missing
-  #- conan install double-conversion/3.1.1@bincrafters/stable --build missing
-  #- conan install doxygen_installer/1.8.15@bincrafters/stable --build missing
-  #- conan install freetype/2.9.0@bincrafters/stable --build missing
-  #- conan install glib/2.56.1@bincrafters/stable --build missing
-  #- conan install gtest/1.8.1@bincrafters/stable --build missing
-  #- conan install harfbuzz/2.4.0@bincrafters/stable --build missing
-  #- conan install libjpeg/9c@bincrafters/stable --build missing
-  #- conan install libpng/1.6.34@bincrafters/stable --build missing
-  #- conan install libpq/9.6.9@bincrafters/stable --build missing
-  #- conan install mysql-connector-c/6.1.11@bincrafters/stable --build missing
-  #- conan install nameof/0.8.2@nameof/stable --build missing
-  #- conan install odbc/2.3.7@bincrafters/stable --build missing
-  #- conan install pcre2/10.32@bincrafters/stable --build missing
-  #- conan install range-v3/0.5.0@ericniebler/stable --build missing
-  #- conan install soci/4.0@soci/stable --build missing
-  #- conan install sqlite3/3.26.0@bincrafters/stable --build missing
-  #- conan install xkbcommon/0.8.3@bincrafters/stable --build missing
-  #- conan install zlib/1.2.11@conan/stable --build missing
-
+  - conan install OpenSSL/1.0.2r@conan/stable --build missing
+  - conan install bzip2/1.0.6@conan/stable --build missing
+  - conan install double-conversion/3.1.1@bincrafters/stable --build missing
+  - conan install doxygen_installer/1.8.15@bincrafters/stable --build missing
+  - conan install freetype/2.9.0@bincrafters/stable --build missing
+  - conan install glib/2.56.1@bincrafters/stable --build missing
+  - conan install gtest/1.8.1@bincrafters/stable --build missing
+  - conan install harfbuzz/2.4.0@bincrafters/stable --build missing
+  - conan install libjpeg/9c@bincrafters/stable --build missing
+  - conan install libpng/1.6.34@bincrafters/stable --build missing
+  - conan install libpq/9.6.9@bincrafters/stable --build missing
+  - conan install mysql-connector-c/6.1.11@bincrafters/stable --build missing
+  - conan install nameof/0.8.2@nameof/stable --build missing
+  - conan install odbc/2.3.7@bincrafters/stable --build missing
+  - conan install pcre2/10.32@bincrafters/stable --build missing
+  - conan install range-v3/0.5.0@ericniebler/stable --build missing
+  - conan install soci/4.0@soci/stable --build missing
+  - conan install sqlite3/3.26.0@bincrafters/stable --build missing
+  - conan install xkbcommon/0.8.3@bincrafters/stable --build missing
+  - conan install zlib/1.2.11@conan/stable --build missing
 
 script:
   - echo "done"
