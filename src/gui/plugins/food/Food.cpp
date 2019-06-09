@@ -8,34 +8,13 @@ gui::Food::Food(QObject *parent) : QObject(parent)
   m_food = &database::utils::make<food::Food>();
 }
 
-gui::Food::~Food()
+gui::Food::Food(food::Food &food, QObject *parent) : QObject(parent)
 {
+  m_food = &food;
 }
 
-// void Food::read()
-//{
-// if (source_.isEmpty()) { return; }
-// QFile file(source_.toLocalFile());
-// if (!file.exists()) {
-// qWarning() << "Does not exits: " << source_.toLocalFile();
-// return;
-//}
-// if (file.open(QIODevice::ReadOnly)) {
-// QTextStream stream(&file);
-// text_ = stream.readAll();
-// emit textChanged(text_);
-//}
-//}
+gui::Food::~Food() {}
 
-// void Food::write()
-//{
-// if (source_.isEmpty()) { return; }
-// QFile file(source_.toLocalFile());
-// if (file.open(QIODevice::WriteOnly)) {
-// QTextStream stream(&file);
-// stream << text_;
-//}
-//}
 auto gui::Food::key() -> int const
 {
   return m_food->id();

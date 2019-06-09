@@ -15,7 +15,7 @@ Rectangle {
         anchors.fill: parent
         anchors.margins: 10
 
-        color: '#aaaaaa'
+        color: 'black'
         verticalAlignment: Text.AlignVCenter
     }
 }

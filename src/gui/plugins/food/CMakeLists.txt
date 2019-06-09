@@ -13,6 +13,7 @@ target_link_libraries(FoodPlugin
                              tracker::database)
 
 set(food_plugin_dir ${CONAN_QT_ROOT}/qml/tracker/food/)
+install(TARGETS FoodPlugin DESTINATION ${CMAKE_BINARY_DIR}/lib/tracker)
 install(TARGETS FoodPlugin DESTINATION ${food_plugin_dir})
 install(FILES qmldir DESTINATION ${food_plugin_dir})
 

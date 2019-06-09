@@ -17,6 +17,7 @@ class Food : public QObject {
   Q_PROPERTY(double protein READ protein WRITE setProtein NOTIFY proteinChanged)
 public:
   Food(QObject *parent = nullptr);
+  Food(food::Food &food, QObject *parent = nullptr);
   ~Food() override;
 
   // Q_INVOKABLE void read();

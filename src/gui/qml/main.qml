@@ -13,6 +13,10 @@ ApplicationWindow {
     height: 480
     visible: true
 
+    Utils {
+        id: utils
+    }
+
     Action {
         id: save
         text: qsTr("&Save")
@@ -27,7 +31,7 @@ ApplicationWindow {
         text: qsTr("&Open")
         shortcut: StandardKey.Open
         onTriggered: {
-            console.log("clicked open")
+            utils.foodData[0].name = "not tacos"
         }
     }
 
@@ -47,30 +51,24 @@ ApplicationWindow {
         }
     }
 
+
     TableView {
         id: view
         anchors.fill: parent
         columnWidthProvider: function (column) { return 300; }
         rowHeightProvider: function (column) { return 60; }
 
-        model: Food {
-            id: taco
-            name: "taco"
-            fat: 10
-            carbohydrate: 10
-            fiber: 10
-            protein: 10
-        }
+        model: utils.foodData
 
         delegate: Rectangle {
             Row {
                 spacing: 1
-                TableCell { text: taco.key }
-                TableCell { text: taco.name }
-                TableCell { text: taco.fat }
-                TableCell { text: taco.carbohydrate }
-                TableCell { text: taco.fiber }
-                TableCell { text: taco.protein }
+                TableCell { text: modelData.key }
+                TableCell { text: modelData.name }
+                TableCell { text: modelData.fat }
+                TableCell { text: modelData.carbohydrate }
+                TableCell { text: modelData.fiber }
+                TableCell { text: modelData.protein }
             }
         }
 
