@@ -14,12 +14,13 @@ env:
     - GH_REPO_REF: github.com/manuelmeraz/Tracker.git
 
 before_install:
-  # C++17
-  #- sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
-  #- sudo apt update -qq
-  #- sudo apt install -qq libgl1-mesa-dev
+   #C++17
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+  - sudo apt update -qq
+  - sudo apt install -qq libgl1-mesa-dev
   # Doxygen is used for documentation
-  - sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz
+  #- sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz
+  - sudo apt install -qq python3-pip python3-setuptools python3-venv 
   - source ./tools/set_env
   - source ./tools/activate_venv
   - pip3 install --upgrade -r requirements.txt
