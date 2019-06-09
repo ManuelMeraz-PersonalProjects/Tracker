@@ -10,6 +10,10 @@ class SociTestConan(ConanFile):
         # This specific version of OpenSSL required for
         # android ndk
         "OpenSSL/1.0.2r@conan/stable",
+        "harfbuzz/2.4.0@bincrafters/stable",
+        # End android deps | begin qt  override reqs
+        "freetype/2.9.1@bincrafters/stable",
+        "libpng/1.6.36@bincrafters/stable",
         "doxygen_installer/1.8.15@bincrafters/stable",
         "soci/4.0@soci/stable",
         "nameof/0.8.2@nameof/stable",
