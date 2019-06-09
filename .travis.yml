@@ -19,8 +19,7 @@ before_install:
   - sudo apt update -qq
   - sudo apt install -qq libgl1-mesa-dev
   # Doxygen is used for documentation
-  #- sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz
-  - sudo apt install -qq python3-pip python3-setuptools python3-venv 
+  - sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz
   - source ./tools/set_env
   - source ./tools/activate_venv
   - pip3 install --upgrade -r requirements.txt
@@ -35,7 +34,7 @@ install:
   - conan install OpenSSL/1.0.2r@conan/stable --build missing
   - conan install bzip2/1.0.6@conan/stable --build missing
   - conan install double-conversion/3.1.1@bincrafters/stable --build missing
-  - conan install doxygen_installer/1.8.15@bincrafters/stabl--build missing
+  - conan install doxygen_installer/1.8.15@bincrafters/stable --build missing
   - conan install freetype/2.9.0@bincrafters/stable --build missing
   - conan install glib/2.56.1@bincrafters/stable --build missing
   - conan install gtest/1.8.1@bincrafters/stable --build missing
