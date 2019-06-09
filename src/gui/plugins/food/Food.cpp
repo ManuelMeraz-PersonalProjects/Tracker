@@ -10,7 +10,6 @@ gui::Food::Food(QObject *parent) : QObject(parent)
 
 gui::Food::~Food()
 {
-  database::utils::drop_table<food::Food>();
 }
 
 // void Food::read()
