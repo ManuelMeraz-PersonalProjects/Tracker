@@ -3,9 +3,6 @@ import QtQuick.Controls 2.4
 import QtQuick.Controls.Material 2.1
 
 ImageViewerWindow {
-
-    // ...
-
     id: window
 
     width: 360
@@ -13,16 +10,10 @@ ImageViewerWindow {
 
     Drawer {
         id: drawer
-
-        // ...
-
         width: Math.min(window.width, window.height) / 3 * 2
         height: window.height
 
         ListView {
-
-            // ...
-
             focus: true
             currentIndex: -1
             anchors.fill: parent
@@ -40,24 +31,18 @@ ImageViewerWindow {
             model: ListModel {
                 ListElement {
                     text: qsTr("Open...")
-                    triggered: function(){ window.openFileDialog(); }
+                    triggered: function open () { console.log("opening") }
                 }
                 ListElement {
                     text: qsTr("About...")
-                    triggered: function(){ window.openAboutDialog(); }
+                    triggered: function about() { console.log("about") }
                 }
             }
-
-            // ...
-
             ScrollIndicator.vertical: ScrollIndicator { }
         }
     }
 
     header: ToolBar {
-
-        // ...
-
         Material.background: Material.Orange
 
         ToolButton {
@@ -75,7 +60,4 @@ ImageViewerWindow {
             elide: Label.ElideRight
         }
     }
-
-    // ...
-
 }

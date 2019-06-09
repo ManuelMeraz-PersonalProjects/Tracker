@@ -5,15 +5,14 @@ Rectangle {
     property alias text: cellText.text
 
     implicitWidth: 100
-    implicitHeight: 50
-    border.color: "black"
-    border.width: 2
+    implicitHeight: 40
+
     Text {
         id: cellText
         text: modelData.city
         font.pointSize: 12
         anchors.fill: parent
-        anchors.margins: 10
+        anchors.margins: 5
 
         color: 'black'
         verticalAlignment: Text.AlignVCenter

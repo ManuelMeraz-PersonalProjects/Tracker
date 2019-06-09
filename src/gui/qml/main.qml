@@ -1,21 +1,13 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Window 2.12
-import QtQuick.Dialogs 1.2
 
-import tracker.food 1.0
-import tracker.database 1.0
+ImageViewerWindow {
 
-ApplicationWindow {
     id: root
-    title: qsTr("Hello World")
     width: 640
     height: 480
     visible: true
-
-    DatabaseUtils {
-        id: database
-    }
 
     Action {
         id: save
@@ -49,31 +41,5 @@ ApplicationWindow {
             MenuSeparator {}
             MenuItem { action: exit }
         }
-    }
-
-
-    TableView {
-        id: view
-        anchors.fill: parent
-        columnWidthProvider: function (column) { return 300; }
-        rowHeightProvider: function (column) { return 60; }
-
-        model: database.getData("Food")
-
-        delegate: Rectangle {
-            Row {
-                spacing: 1
-                TableCell { text: modelData.key }
-                TableCell { text: modelData.name }
-                TableCell { text: modelData.fat }
-                TableCell { text: modelData.carbohydrate }
-                TableCell { text: modelData.fiber }
-                TableCell { text: modelData.protein }
-            }
-        }
-
-        ScrollIndicator.vertical: ScrollIndicator {}
-        ScrollIndicator.horizontal: ScrollIndicator {}
-
     }
 }
