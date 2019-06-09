@@ -4,7 +4,7 @@ dist: xenial
 
 cache:
   directories:
-    - $HOME/.conan
+    - /home/travis/.conan
 
 # Environment variables
 env:
