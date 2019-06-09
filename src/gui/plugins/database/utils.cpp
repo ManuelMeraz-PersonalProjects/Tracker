@@ -3,8 +3,8 @@
 #include "food/Macronutrients.hpp"
 #include "gui/plugins/database/utils.hpp"
 
-#include <QtQuick/QQuickView>
 #include <QtQml/QQmlContext>
+#include <QtQuick/QQuickView>
 
 #include <vector>
 

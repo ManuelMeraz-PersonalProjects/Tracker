@@ -10,10 +10,10 @@ target_link_libraries(DatabasePlugin
                              Qt5::Core
                              Qt5::Widgets
                              tracker::database
-                             tracker::database)
+                             tracker::food)
 
 set(database_plugin_dir ${CONAN_QT_ROOT}/qml/tracker/database/)
-install(TARGETS DatabasePlugin DESTINATION ${database_plugin_dir}/Database/)
-install(FILES qmldir DESTINATION ${database_plugin_dir}/Database/)
+install(TARGETS DatabasePlugin DESTINATION ${database_plugin_dir}/)
+install(FILES qmldir DESTINATION ${database_plugin_dir}/)
 
 cotire(DatabasePlugin)

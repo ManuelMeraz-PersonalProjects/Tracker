@@ -1,4 +1,4 @@
-add_library(food STATIC Food.cpp Macronutrients.cpp)
+add_library(food SHARED Food.cpp Macronutrients.cpp)
 add_library(tracker::food ALIAS food)
 
 target_include_directories(food
@@ -9,4 +9,7 @@ target_link_libraries(food
                       CONAN_PKG::soci
                       CONAN_PKG::nameof
                       CONAN_PKG::range-v3)
+
+
+install(TARGETS food DESTINATION ${CMAKE_BINARY_DIR}/lib/tracker)
 cotire(food)
