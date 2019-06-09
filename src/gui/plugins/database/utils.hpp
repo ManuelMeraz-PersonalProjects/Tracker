@@ -18,7 +18,7 @@ public:
   //Q_INVOKABLE auto getData(QString const &table_name) -> QList<QObject *>;
   Q_INVOKABLE QList<QObject *> getData(QString const &table_name);
 private:
-  template <typename Storable,
+  template <typename Storable, typename StorablePlugin,
             typename std::enable_if_t<
                 std::is_base_of_v<database::Storable, std::decay_t<Storable>>,
                 int> = 0>
@@ -31,7 +31,7 @@ private:
 // template implementation
 
 template <
-    typename Storable,
+    typename Storable, typename StorablePlugin,
     typename std::enable_if_t<
         std::is_base_of_v<database::Storable, std::decay_t<Storable>>, int>>
 auto gui::utils::loadDatabase(QObject *parent) -> QList<QObject *>
@@ -41,7 +41,7 @@ auto gui::utils::loadDatabase(QObject *parent) -> QList<QObject *>
 
   new_data.reserve(data.size());
   for (Storable &storable : data) {
-    auto new_storable = new gui::Food(storable, parent);
+    auto new_storable = new StorablePlugin(storable, parent);
     new_data.append(new_storable);
   }
   return new_data;

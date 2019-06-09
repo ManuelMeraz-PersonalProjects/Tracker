@@ -3,7 +3,7 @@
 
 gui::utils::utils(QObject *parent) : QObject(parent)
 {
-  m_data["Food"] = loadDatabase<food::Food>(parent);
+  m_data["Food"] = loadDatabase<food::Food, gui::Food>(parent);
 }
 
 gui::utils::~utils() = default;
