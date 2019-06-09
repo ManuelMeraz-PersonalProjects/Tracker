@@ -26,12 +26,13 @@ before_install:
   - pip3 install --upgrade -r requirements.txt
   - conan remote add tracker https://api.bintray.com/conan/manuelmeraz/tracker
   - conan config install https://github.com/ManuelMeraz/conan-config.git
-  - conan install qt/5.12.0@bincrafters/stable -pr qt_profile --build double-conversion
 
 
 install:
   # C++17
   #- sudo apt install -qq g++-7 clang-6.0
+  - sudo apt install -qq clang-6.0
+  - conan install qt/5.12.0@bincrafters/stable -pr qt_profile --build double-conversion
 
 script:
   #- ./tools/build.py -pr clang60-debug
