@@ -6,5 +6,5 @@
 void DatabasePlugin::registerTypes(const char *uri)
 {
   // @uri org.example.io
-  qmlRegisterType<gui::utils>(uri, 1, 0, "Utils");
+  qmlRegisterType<gui::utils>(uri, 1, 0, "DatabaseUtils");
 }

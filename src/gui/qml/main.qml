@@ -13,7 +13,7 @@ ApplicationWindow {
     height: 480
     visible: true
 
-    Utils {
+    DatabaseUtils {
         id: utils
     }
 
