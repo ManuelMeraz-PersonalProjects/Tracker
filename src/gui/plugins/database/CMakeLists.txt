@@ -15,7 +15,6 @@ target_link_libraries(DatabasePlugin
 
 set(database_plugin_dir ${CONAN_QT_ROOT}/qml/tracker/database/)
 install(TARGETS DatabasePlugin DESTINATION ${database_plugin_dir}/)
-install(TARGETS DatabasePlugin DESTINATION ${CMAKE_BINARY_DIR}/lib/tracker)
 install(FILES qmldir DESTINATION ${database_plugin_dir}/)
 
 cotire(DatabasePlugin)

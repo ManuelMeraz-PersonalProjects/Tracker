@@ -11,5 +11,5 @@ target_link_libraries(food
                       CONAN_PKG::range-v3)
 
 
-install(TARGETS food DESTINATION ${CMAKE_BINARY_DIR}/lib/tracker)
+install(TARGETS food DESTINATION /usr/local/lib/tracker)
 cotire(food)

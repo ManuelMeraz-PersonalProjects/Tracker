@@ -32,4 +32,4 @@ build_script:
   - ${APPVEYOR_BUILD_FOLDER}/tools/build.py -pr clang60-debug
 
 test_script:
-  - cd ${APPVEYOR_BUILD_FOLDER}/build* && make test
+  - cd ${APPVEYOR_BUILD_FOLDER}/build* && make test && sudo make install

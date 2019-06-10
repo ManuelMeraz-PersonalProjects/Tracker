@@ -9,5 +9,5 @@ target_link_libraries(database
                       CONAN_PKG::nameof
                       CONAN_PKG::range-v3)
 
-install(TARGETS database DESTINATION ${CMAKE_BINARY_DIR}/lib/tracker)
+install(TARGETS database DESTINATION /usr/local/lib/tracker)
 cotire(database)
