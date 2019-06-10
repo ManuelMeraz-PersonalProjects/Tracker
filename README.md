@@ -4,9 +4,9 @@
 [![Build Status](https://travis-ci.com/ManuelMeraz/Tracker.svg?branch=basic_gui)](https://travis-ci.com/ManuelMeraz/Tracker)
 --->
 
-[![Build status](https://ci.appveyor.com/api/projects/status/i6sjmosx274gb059/branch/master?svg=true)](https://ci.appveyor.com/project/ManuelMeraz/tracker/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/i6sjmosx274gb059/branch/food_db_gui?svg=true)](https://ci.appveyor.com/project/ManuelMeraz/tracker/branch/food_db_gui)
 
-[![CodeFactor](https://www.codefactor.io/repository/github/manuelmeraz/tracker/badge/master)](https://www.codefactor.io/repository/github/manuelmeraz/tracker/overview/master)
+[![CodeFactor](https://www.codefactor.io/repository/github/manuelmeraz/tracker/badge/food_db_gui)](https://www.codefactor.io/repository/github/manuelmeraz/tracker/overview/food_db_gui)
 
 Track my macronutrients, weight, and compute appropriate TDEE
 
