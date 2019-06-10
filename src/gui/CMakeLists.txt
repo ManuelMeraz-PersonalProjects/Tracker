@@ -9,4 +9,6 @@ target_include_directories(gui
 
 target_link_libraries(gui PUBLIC Qt5::Quick Qt5::Core Qt5::Widgets)
 
+install(FILES ${CMAKE_BINARY_DIR}/qt.conf DESTINATION ${CMAKE_BINARY_DIR}/bin)
+
 cotire(gui)

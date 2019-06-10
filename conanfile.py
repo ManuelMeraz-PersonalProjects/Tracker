@@ -23,7 +23,7 @@ class SociTestConan(ConanFile):
         "qt/5.12.0@bincrafters/stable",
     )
 
-    generators = "cmake", "txt"
+    generators = "cmake", "txt", "qt"
 
     options = {
         "enable_documentation": [True, False],
