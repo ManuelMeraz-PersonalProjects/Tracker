@@ -26,6 +26,6 @@ before_build:
   - pip3 install --upgrade -r requirements.txt
   - conan config install https://github.com/ManuelMeraz/conan-config.git
 
-build:
+build_script:
   - ./tools/build.py -pr clang60-debug
   - cd build* && make test
