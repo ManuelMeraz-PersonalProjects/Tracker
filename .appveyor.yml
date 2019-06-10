@@ -7,12 +7,6 @@ image:
 cache:
   - $HOME/.apt
   - $HOME/.cache/pip/
-
-# Environment variables
-environment:
-  - GH_REPO_NAME: Tracker
-  - DOXYFILE: $TRAVIS_BUILD_DIR/docs/doxygen/Doxyfile.travis
-  - GH_REPO_REF: github.com/manuelmeraz/Tracker.git
  
 init:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test;
