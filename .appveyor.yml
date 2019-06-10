@@ -27,7 +27,7 @@ before_build:
   - conan config install https://github.com/ManuelMeraz/conan-config.git
 
 build_script:
-  - ./tools/build.py -pr clang60-debug
+  - $(APPVEYOR_BUILD_FOLDER)/tools/build.py -pr clang60-debug
 
 test_script:
-  - cd build* && make test
+  - cd $(APPVEYOR_BUILD_FOLDER)/build* && make test
