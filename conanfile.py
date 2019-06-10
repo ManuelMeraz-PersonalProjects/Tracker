@@ -14,6 +14,7 @@ class SociTestConan(ConanFile):
         # End android deps | begin qt  override reqs
         # "freetype/2.9.1@bincrafters/stable",
         # "libpng/1.6.36@bincrafters/stable",
+        "glibc_version_header/0.1@bincrafters/stable",
         "doxygen_installer/1.8.15@bincrafters/stable",
         "soci/4.0@soci/stable",
         "nameof/0.8.2@nameof/stable",
