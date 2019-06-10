@@ -1,5 +1,5 @@
-#include "database/utils.hpp"
 #include "food/Food.hpp"
+#include "database/utils.hpp"
 #include "food/Macronutrients.hpp"
 #include "gui/plugins/food/Food.hpp"
 

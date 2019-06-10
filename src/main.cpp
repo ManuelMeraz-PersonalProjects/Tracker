@@ -30,10 +30,10 @@ auto main() -> int
   std::cout << "Press enter to continue." << std::endl;
   std::cin.ignore();
 
-  //std::cout << "Deleting..." << std::endl;
-  //while (!all_food.empty()) {
-    //utils::delete_storable(all_food.back());
+  // std::cout << "Deleting..." << std::endl;
+  // while (!all_food.empty()) {
+  // utils::delete_storable(all_food.back());
   //}
-  //std::cout << "Done!" << std::endl;
+  // std::cout << "Done!" << std::endl;
   return 0;
 }

@@ -15,8 +15,9 @@ public:
   utils(QObject *parent = nullptr);
   ~utils() override;
 
-  //Q_INVOKABLE auto getData(QString const &table_name) -> QList<QObject *>;
+  // Q_INVOKABLE auto getData(QString const &table_name) -> QList<QObject *>;
   Q_INVOKABLE QList<QObject *> getData(QString const &table_name);
+
 private:
   template <typename Storable, typename StorablePlugin,
             typename std::enable_if_t<
