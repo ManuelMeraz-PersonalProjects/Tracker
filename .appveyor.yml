@@ -8,7 +8,7 @@ cache:
   - $HOME/.apt
   - $HOME/.cache/pip/
  
-init:
+install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test;
   - sudo apt update -qq;
   - if [[ $(ls $HOME/.apt/ | wc -l) == 0 ]]; then
@@ -28,4 +28,6 @@ before_build:
 
 build_script:
   - ./tools/build.py -pr clang60-debug
+
+test_script:
   - cd build* && make test
