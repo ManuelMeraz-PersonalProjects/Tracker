@@ -17,7 +17,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Use glibc 2.23 for to be compatible with Ubuntu 16.04 
+# Use glibc 2.27 for to be compatible with Ubuntu 16.04 
 # more options: https://github.com/bincrafters/conan-glibc_version_header
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${CONAN_C_FLAGS_GLIBC_VERSION_HEADER}")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CONAN_CXX_FLAGS_GLIBC_VERSION_HEADER_LIST}")

@@ -32,7 +32,7 @@ class SociTestConan(ConanFile):
     }
 
     default_options = {
-        "glibc_version_header:glibc_version": "2.23",
+        "glibc_version_header:glibc_version": "2.27",
         "soci:shared": True,
         "soci:sqlite3": True,
         "qt:qtquickcontrols": True,
