@@ -21,9 +21,7 @@ Track my macronutrients, weight, and compute appropriate TDEE
 
 `source ./tools/set_env`
 
-4. Load up a virtual environment so pip dependencies don't pollute other projects
-
-`source ./tools/activate_venv`
+4. Install pip dependencies
 
 `pip3 install --upgrade -r requirements.txt`
 
