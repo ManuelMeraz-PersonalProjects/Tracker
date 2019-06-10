@@ -1,0 +1,3 @@
+module tracker.food
+plugin FoodPlugin
+

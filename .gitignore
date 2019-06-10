@@ -51,3 +51,6 @@ perf.data*
 
 # valgrind
 callgrind.out*
+
+# qtcreator
+*.user

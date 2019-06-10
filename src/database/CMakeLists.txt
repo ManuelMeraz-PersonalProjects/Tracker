@@ -1,9 +1,13 @@
-add_library(database STATIC Database.cpp)
+add_library(database SHARED Database.cpp)
 add_library(tracker::database ALIAS database)
 
 target_include_directories(database
-                           PUBLIC ${CONAN_INCLUDE_DIRS}
-                           PUBLIC ${PROJECT_SOURCE_DIR}/include)
+                           PUBLIC ${PROJECT_SOURCE_DIR}/include
+                                  ${PROJECT_SOURCE_DIR}/src)
+target_link_libraries(database
+                      CONAN_PKG::soci
+                      CONAN_PKG::nameof
+                      CONAN_PKG::range-v3)
 
-target_link_libraries(database ${CONAN_LIBS})
+install(TARGETS database DESTINATION /usr/local/lib/tracker)
 cotire(database)

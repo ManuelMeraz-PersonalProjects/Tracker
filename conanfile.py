@@ -5,25 +5,42 @@ from conans import CMake, ConanFile, tools
 
 class SociTestConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
+
     requires = (
-        "soci/4.0@soci/stable",
+        # This specific version of OpenSSL required for
+        # android ndk
+        # "OpenSSL/1.0.2r@conan/stable",
+        # "harfbuzz/2.4.0@bincrafters/stable",
+        # End android deps | begin qt  override reqs
+        # "freetype/2.9.1@bincrafters/stable",
+        # "libpng/1.6.36@bincrafters/stable",
+        "glibc_version_header/0.1@bincrafters/stable",
         "doxygen_installer/1.8.15@bincrafters/stable",
+        "soci/4.0@soci/stable",
         "nameof/0.8.2@nameof/stable",
         "range-v3/0.5.0@ericniebler/stable",
         "gtest/1.8.1@bincrafters/stable",
+        "qt/5.12.0@bincrafters/stable",
     )
 
-    generators = "cmake"
+    generators = "cmake", "txt"
 
     options = {
         "enable_documentation": [True, False],
-        "enable_tests": [True, False]
+        "enable_tests": [True, False],
+        "fPIC": [True, False],
     }
 
     default_options = {
+        "glibc_version_header:glibc_version": "2.27",
+        "soci:shared": True,
         "soci:sqlite3": True,
+        "qt:qtquickcontrols": True,
+        "qt:qtquickcontrols2": True,
         "enable_documentation": False,
         "enable_tests": False,
+        "soci:fPIC": True,
+        "fPIC": True,
     }
 
     def build(self):
@@ -39,10 +56,10 @@ class SociTestConan(ConanFile):
         cmake.build()
 
     def imports(self):
-        self.copy("*.dll", dst="bin", src="bin")
-        self.copy("*.dylib*", dst="bin", src="lib")
-        self.copy("*.so*", dst="bin", src="lib")
-        self.copy("*.a", dst="bin", src="lib")
+        self.copy("*soci*.a", dst="lib/tracker", src="lib")
+        self.copy("*soci*.so*", dst="lib/tracker", src="lib")
+        self.copy("*gmock*.a", dst="lib", src="lib")
+        self.copy("*gtest*.a", dst="lib", src="lib")
 
     def test(self):
         if not tools.cross_building(self.settings):

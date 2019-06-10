@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/baseline-menu-24px.svg</file>
+        <file>fonts/Ubuntu-R.ttf</file>
+        <file>images/remove.png</file>
+
+        <file>qml/main.qml</file>
+        <file>qml/ImageViewerWindow.qml</file>
+        <file>qml/qtquickcontrols2.conf</file>
+        <file>qml/TableCell.qml</file>
+
+        <file>qml/+android/main.qml</file>
+        <file>qml/+android/qtquickcontrols2.conf</file>
+    </qresource>
+</RCC>
