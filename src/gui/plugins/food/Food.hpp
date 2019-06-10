@@ -15,6 +15,7 @@ class Food : public QObject {
                  carbohydrateChanged)
   Q_PROPERTY(double fiber READ fiber WRITE setFiber NOTIFY fiberChanged)
   Q_PROPERTY(double protein READ protein WRITE setProtein NOTIFY proteinChanged)
+
 public:
   Food(QObject *parent = nullptr);
   Food(food::Food &food, QObject *parent = nullptr);

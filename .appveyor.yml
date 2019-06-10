@@ -7,7 +7,7 @@ image:
 cache:
   - $HOME/.apt
   - $HOME/.cache/pip/
- 
+
 install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test;
   - sudo apt update -qq;
