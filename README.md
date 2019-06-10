@@ -19,7 +19,7 @@ Track my macronutrients, weight, and compute appropriate TDEE
 
 2. Install dependencies not installed by conan 
 
-`sudo apt install -qq -y python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz libgl1-mesa-dev clang-6.0`
+`sudo apt install -y python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz libgl1-mesa-dev clang-6.0`
 
 3. Set environment variables for this project
 
