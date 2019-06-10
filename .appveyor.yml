@@ -11,7 +11,9 @@ cache:
 install:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test;
   - sudo apt update -qq;
-  - if [[ $(ls $HOME/.apt/ | wc -l) == 0 ]]; then
+  #- if [[ $(ls $HOME/.apt/ | wc -l) == 0 ]]; then
+  - if [[ ! -d $HOME/.apt/ ]]; then
+      mkdir $HOME/.apt/
       sudo apt install --download-only -y python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz libgl1-mesa-dev clang-6.0 g++-7;
       sudo cp -r  /var/cache/apt/archives $HOME/.apt;
     else
@@ -27,7 +29,7 @@ before_build:
   - conan config install https://github.com/ManuelMeraz/conan-config.git
 
 build_script:
-  - $(APPVEYOR_BUILD_FOLDER)/tools/build.py -pr clang60-debug
+  - ${APPVEYOR_BUILD_FOLDER}/tools/build.py -pr clang60-debug
 
 test_script:
-  - cd $(APPVEYOR_BUILD_FOLDER)/build* && make test
+  - cd ${APPVEYOR_BUILD_FOLDER}/build* && make test
