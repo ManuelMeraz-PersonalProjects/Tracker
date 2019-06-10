@@ -1,20 +1,20 @@
-language: cpp
-compiler: clang
-dist: bionic
+image:
+  - Ubuntu
+  #- Visual Studio 2015
+  #- Visual Studio 2017
 
+#clone_folder: c:\projects\yarpgen
 cache:
-  directories:
-    - $HOME/.apt
-    - $HOME/.cache/pip/
+  - $HOME/.apt
+  - $HOME/.cache/pip/
 
 # Environment variables
-env:
-  global:
-    - GH_REPO_NAME: Tracker
-    - DOXYFILE: $TRAVIS_BUILD_DIR/docs/doxygen/Doxyfile.travis
-    - GH_REPO_REF: github.com/manuelmeraz/Tracker.git
-
-before_install:
+environment:
+  - GH_REPO_NAME: Tracker
+  - DOXYFILE: $TRAVIS_BUILD_DIR/docs/doxygen/Doxyfile.travis
+  - GH_REPO_REF: github.com/manuelmeraz/Tracker.git
+ 
+init:
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test;
   - sudo apt update -qq;
   - if [[ $(ls $HOME/.apt/ | wc -l) == 0 ]]; then
@@ -24,7 +24,7 @@ before_install:
       sudo cp -r $HOME/.apt /var/cache/apt/archives;
     fi
 
-install:
+before_build:
   - sudo apt install -qq python3-pip python3-setuptools python3-venv doxygen doxygen-doc doxygen-latex doxygen-gui graphviz libgl1-mesa-dev clang-6.0 g++-7
 
   - source ./tools/set_env
@@ -32,6 +32,6 @@ install:
   - pip3 install --upgrade -r requirements.txt
   - conan config install https://github.com/ManuelMeraz/conan-config.git
 
-script:
+build:
   - ./tools/build.py -pr clang60-debug
   - cd build* && make test
